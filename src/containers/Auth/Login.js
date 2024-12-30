@@ -6,6 +6,7 @@ import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
 import './Login.scss';
 import { FormattedMessage } from 'react-intl';
+import { userService } from '../../services'
 
 
 class Login extends Component {
@@ -30,9 +31,30 @@ class Login extends Component {
         })
     }
 
-    handleLogin = () =>{
+    handleLogin = async () =>{
         console.log("username: ",this.state.username, "--- Password: ", this.state.password)
-    }
+        try {
+            let data = await userService.handleLogin(this.state.username, this.state.password)
+            if(data && data.errCode !== 0)
+            {
+                alert(data.message)
+            }
+
+            if(data && data.errCode === 0)
+            {
+                // console.log(data.user)
+                // console.log("Thông Báo: Đăng Nhập Thành Công")
+                this.props.userLoginSuccess(data.user)
+            }
+
+        } catch (error) {
+            if(error.response){
+                if(error.response.data){
+                    alert(error.response.data.message)
+                }
+            }
+        }
+        }
 
     handleOnClickShowPassword = ()=>{
         this.setState({
@@ -93,8 +115,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         navigate: (path) => dispatch(push(path)),
-        adminLoginSuccess: (adminInfo) => dispatch(actions.adminLoginSuccess(adminInfo)),
-        adminLoginFail: () => dispatch(actions.adminLoginFail()),
+        // userLoginFail: () => dispatch(actions.adminLoginFail()),
+        userLoginSuccess: (UserInfor) => dispatch ( actions.userLoginSuccess(UserInfor))
     };
 };
 
