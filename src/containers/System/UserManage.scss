@@ -1,0 +1,46 @@
+#customers {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #customers tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #customers tr:hover {background-color: #ddd;}
+  
+  #customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+  }
+
+  button{
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+  .btn-edit{
+    background-color: #3498db;
+    margin-right: 10px;
+    
+    &:hover{
+        background-color: #b28221 !important; 
+    }
+  }
+  .btn-Delete{
+    background-color: rgba(249, 71, 58, 0.911);
+
+    &:hover{
+        background-color: #b28221 !important;
+    }
+
+    }

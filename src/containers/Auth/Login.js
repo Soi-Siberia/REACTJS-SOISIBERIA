@@ -23,7 +23,7 @@ class Login extends Component {
         this.setState ({
             username: event.target.value
         })
-        console.log(event.target.value)
+        // console.log(event.target.value)
     }
     handleOnchangeInputPassword = (event) => {
         this.setState ({
