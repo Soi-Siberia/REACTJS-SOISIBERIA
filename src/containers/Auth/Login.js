@@ -32,7 +32,7 @@ class Login extends Component {
     }
 
     handleLogin = async () =>{
-        console.log("username: ",this.state.username, "--- Password: ", this.state.password)
+        // console.log("username: ",this.state.username, "--- Password: ", this.state.password)
         try {
             let data = await userService.handleLogin(this.state.username, this.state.password)
             if(data && data.errCode !== 0)

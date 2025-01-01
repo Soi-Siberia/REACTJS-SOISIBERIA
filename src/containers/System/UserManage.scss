@@ -44,3 +44,83 @@
     }
 
     }
+
+    //css modalUser
+    .modal-user-contaier{
+      .modal-content{
+        .modal-header{
+          button{
+            background: transparent !important;
+            font-size: 40px;
+          }
+        }
+      }
+
+      .modal-body{
+
+        padding: 35px 20px !important;
+
+        .modal-user-body{
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+  
+          .input-container{
+            display: flex;
+            flex-direction: column;
+            width: 48%;
+            
+            label {
+              text-transform: none;
+              font-weight: 600;
+            }
+            input{
+              border: 1px solid rgb(0, 0, 0);
+              border-radius: 3px;
+              margin: 5px 0px;
+              outline: none;
+              height: 30px;
+            }
+          }
+          .input-address{
+            width: 100%;
+          }
+  
+        }
+        .input-info-user{
+          display: flex;
+          justify-content: space-between;
+  
+          .info-user{
+            display: flex;
+            flex-direction: column;
+            width: 31%;
+  
+            label {
+              text-transform: none;
+              font-weight: 600;
+            }
+            input{
+              border: 1px solid rgb(0, 0, 0);
+              border-radius: 3px;
+              margin: 5px 0px;
+              outline: none;
+              height: 30px;
+            }
+            select{
+              height: 30px;
+              margin: 5px 0px;
+            }
+          }
+        }
+      }
+
+
+
+
+    }
+
+
+
+
+    // ---------------------------------------------------------------------
