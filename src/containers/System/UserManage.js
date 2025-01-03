@@ -19,6 +19,11 @@ class UserManage extends Component {
 
 
     async componentDidMount() {
+       await this.getAllUsersFormReacjs();
+     // console.log("get ALL User: ", response)
+    }
+
+    getAllUsersFormReacjs = async()=>{
         let response = await userService.getAllUsers('ALL');
 
         if( response && response.errCode === 0)
@@ -30,8 +35,6 @@ class UserManage extends Component {
             })
         }
 
-
-        // console.log("get ALL User: ", response)
     }
 
     handkeAddNewUser = () => {
@@ -46,6 +49,33 @@ class UserManage extends Component {
         })
     }
 
+    crearteNewUser = async (data) => {
+        try {
+            let responseNewUser = await userService.CreateNewUser(data);
+            if(responseNewUser && responseNewUser.errCode !== 0)
+            {
+                alert(responseNewUser.errMessage)
+            }else{
+                alert("Create New User Success")
+                this.toggleCloseParent()
+                this.getAllUsersFormReacjs()
+            }
+        } catch (e) {
+            console.log(e)
+        }
+        
+
+        // if(responseNewUser && responseNewUser.errCode !== 0)
+        // {
+        //     alert(responseNewUser.errMessage)
+
+        // }else{
+        //     alert("Create New User Success")
+        // }
+        // console.log("Check responseNewUser: ", responseNewUser)
+        // console.log("Check data from child: ", data)
+    }
+
     render() {
         let arrUsers = this.state.arrUsers;
         return (
@@ -54,6 +84,7 @@ class UserManage extends Component {
                     isOpen = {this.state.isOpenModal}
                     test ="123123"
                     toggleCloseParenttoChild = {this.toggleCloseParent}
+                    crearteNewUser = {this.crearteNewUser}
                 />
                 <div className="title text-center">Manage user</div>
                 <div className='mx-1'>
@@ -63,6 +94,7 @@ class UserManage extends Component {
                 </div>
                 <div className='table-users mt-3 mx-3'>
                     <table id="customers">
+                    <tbody>
                         <tr>
                             <th>Email</th>
                             <th>Fast Name</th>
@@ -80,15 +112,15 @@ class UserManage extends Component {
                                     <td>{item.address}</td>
                                     <td>{item.phoneNumber}</td>
                                     <td> 
-                                        <button className='btn-edit'><i class="far fa-edit"></i></button>
-                                        <button className='btn-Delete'> <i class="fas fa-trash-alt"></i> </button>
+                                        <button className='btn-edit'><i className="far fa-edit"></i></button>
+                                        <button className='btn-Delete'> <i className="fas fa-trash-alt"></i> </button>
                                     </td>
                                 </tr>
                             )
                         })
                         }
                         
-
+                    </tbody>    
                     </table>
                 </div>
             </div>
