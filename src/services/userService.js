@@ -14,6 +14,16 @@ const userService = {
     CreateNewUser: (data) => {
         console.log("Check data from child: ", data)
         return axios.post('/api-create-user', data)
+    },
+
+    DeleteUser: (idUser) => {
+        return axios.delete('/api-delete-user', {
+            data: {id: idUser}
+        })
+    },
+
+    EditUser: (data) => {
+        return axios.put('/api-edit-user',data)
     }
 
 }

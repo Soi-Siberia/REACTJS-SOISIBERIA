@@ -2,15 +2,16 @@ import React, { Component,  } from 'react';
 // import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { emitter } from '../../utils/emitter';
+// import { emitter } from '../../utils/emitter';
+import lodash from 'lodash';
 
-class ModalUser extends Component {
+class ModalEditUser extends Component {
 
     constructor(props){
         super(props);
         this.state ={
+            id: '',
           email: '',
-          password: '',
           fastName: '',
           lastName: '',
           address: '',
@@ -19,30 +20,27 @@ class ModalUser extends Component {
           Role: ''
 
         }
-        this.listenToEmiiter();
     }
 
     componentDidMount() {
-    }
-
-    listenToEmiiter = () => {
-        emitter.on('EVENT_CLEAR_MODAL_DATA', () => {
-          console.log("Check event emitter")
-          this.setState({
-            email: '',
-            password: '',
-            fastName: '',
-            lastName: '',
-            address: '',
-            phonenumber:'',
-          })
-        })
+        let user = this.props.userEdit;
+        console.log("Check Modal child componentDidMount", user)
+        if(user && !lodash.isEmpty(user)){
+            
+            this.setState({
+                id: user.id,
+                email: user.email,
+                fastName: user.firstName,
+                lastName: user.lastName,
+                address: user.address,
+                phonenumber: user.phonenumber,
+            })
+        }
+        // console.log("Check Modal child componentDidMount", this.props.userEdit)
     }
 
     toggle = () => {
-        this.props.toggleCloseParenttoChild();
-
-        // alert("toggle click me")
+        this.props.toggleCloseParentEdit();
     }
     // ko nên modifi trược tiếp state -> dễ sinh lỗi => nên dùng 1 biến trung gian
     handleOnchangInput= (event,id)=> {
@@ -57,46 +55,22 @@ class ModalUser extends Component {
       // console.log(event.target.value)
     }
 
-    handleCheckValideInput = () => {
-      let isvalid = true;
-      let arrInputCheck = ['email', 'password', 'fastName', 'lastName' ]
-
-      for(let i = 0; i < arrInputCheck.length; i++)
-      {
-        if(!this.state[arrInputCheck[i]])
-        {
-          isvalid = false;
-          alert("Mising parameter: " + arrInputCheck[i]);
-          break;
-        }
-      }
-      return isvalid
-
+    handleEditUser = () => {
+        this.props.editUser(this.state)
     }
-
-    handleAddNewUser= () =>{
-      let check = this.handleCheckValideInput();
-      if(check)
-      {
-        this.props.crearteNewUser(this.state)
-      }
-      // console.log("data modal chill click save",this.state)
-    }
-
-
 
 
     render() {
         return (
-            // console.log("giá trị Preran to Props Child ", this.props),
-            // console.log("Giá trị biến isOpen truyền từ Cha -> Child: ", this.props.isOpen),
+            // console.log("Check Modal Edit User", this.props.isOpenEdit),
+            // console.log("Check Modal Edit User props Chill", this.props.userEdit),
             <Modal
               size='lg'
-              isOpen={this.props.isOpen}
+              isOpen={this.props.isOpenEdit}
               toggle={()=> this.toggle()} 
               className="modal-user-contaier">
             <ModalHeader toggle={()=> this.toggle()}>
-              ADD NEW USER
+              EDit USER MANGAGE
             </ModalHeader>
             <ModalBody>
 
@@ -108,13 +82,11 @@ class ModalUser extends Component {
                       onChange={(event) => {
                       this.handleOnchangInput(event,"email")
                     }}
-                    value ={this.state.email}></input>
+                    value ={this.state.email} disabled></input>
                 </div>
                 <div className='input-container'>
                     <label>Password</label>
-                    <input type='text' placeholder='Enter your password' onChange={(event) => {
-                      this.handleOnchangInput(event,"password")}} 
-                      value ={this.state.password}></input>
+                    <input type='password' disabled></input>
                 </div>
                 <div className='input-container'>
                     <label>Fast Name</label>
@@ -158,7 +130,7 @@ class ModalUser extends Component {
                     <label>Role</label>
                     <select onChange={(event) => {
                       this.handleOnchangInput(event,"Role")
-                    }} value ={this.state.Role}>
+                    }} value ={this.state.Role} disabled>
                       <option value="1">Admin</option>
                         <option value="2">Doctor</option>
                         <option value="3">Patient</option>
@@ -171,8 +143,8 @@ class ModalUser extends Component {
 
             </ModalBody>
             <ModalFooter>
-              <Button className='px-3' color="primary" onClick={()=> this.handleAddNewUser()}>
-                Save
+              <Button className='px-3' color="primary" onClick={()=> this.handleEditUser()}>
+                Update
               </Button>{' '}
               <Button className='px-3' color="secondary" onClick={()=> this.toggle()}>
                 Cancel
@@ -194,7 +166,7 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalUser);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalEditUser);
 
 
 

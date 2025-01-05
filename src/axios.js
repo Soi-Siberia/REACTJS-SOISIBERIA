@@ -1,6 +1,6 @@
 import axios from 'axios';
-import _ from 'lodash';
-import config from './config';
+// import _ from 'lodash'; //sửa 001
+// import config from './config'; //sửa 001
 
 const instance = axios.create({
     baseURL: process.env.REACT_APP_BACKEND_URL,
@@ -26,7 +26,7 @@ const instance = axios.create({
 instance.interceptors.response.use(
     (response) => {
         // Thrown error for request with OK status code
-        const { data } = response;
+        // const { data } = response; //sửa 001
         // if (data.hasOwnProperty('s') && !isSuccessStatusCode(data['s']) && data.hasOwnProperty('errmsg')) {
         //     return Promise.reject(createError(response.status, data['s'], data['errmsg'], null, data['errcode'] ? data['errcode'] : ""));
         // }
