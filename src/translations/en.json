@@ -1,4 +1,12 @@
 {
+    "home-header": {
+        "all": "All",
+        "my-home": "My home",
+        "hospital": "Hospital",
+        "live-healthy": "Live healthy",
+        "cooperate": "Cooperate",
+        "appointment": "Appointment"
+    },
     "common": {
         "add": "Add",
         "edit": "Edit",

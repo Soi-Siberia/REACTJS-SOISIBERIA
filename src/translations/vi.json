@@ -1,4 +1,12 @@
 {
+    "home-header": {
+        "all": "Trang chủ",
+        "my-home": "Tại nhà",
+        "hospital": "Tại Viện",
+        "live-healthy": "Sống khỏe",
+        "cooperate": "Hợp tác",
+        "appointment": "Lịch hẹn"
+    },
     "common": {
         "add": "Thêm",
         "edit": "Sửa",
