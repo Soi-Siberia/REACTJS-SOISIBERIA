@@ -75,19 +75,7 @@ class ModalEditUser extends Component {
             <ModalBody>
 
               <div className='modal-user-body'>
-                <div className='input-container'>
-                    <label>Email</label>
-                    <input 
-                      type='text' placeholder='Enter your email' 
-                      onChange={(event) => {
-                      this.handleOnchangInput(event,"email")
-                    }}
-                    value ={this.state.email} disabled></input>
-                </div>
-                <div className='input-container'>
-                    <label>Password</label>
-                    <input type='password' disabled></input>
-                </div>
+
                 <div className='input-container'>
                     <label>Fast Name</label>
                     <input type='text' placeholder='Enter your Fast Name'onChange={(event) => {
@@ -100,23 +88,30 @@ class ModalEditUser extends Component {
                       this.handleOnchangInput(event,"lastName")}} 
                       value ={this.state.lastName}></input>
                 </div>
-                <div className='input-container input-address'>
+                <div className='input-container'>
+                    <label>Email</label>
+                    <input 
+                      type='text' placeholder='Enter your email' 
+                      onChange={(event) => {
+                      this.handleOnchangInput(event,"email")
+                    }}
+                    value ={this.state.email} disabled></input>
+                </div>
+                <div className='input-container'>
                     <label>Address</label>
                     <input type='text' placeholder='Enter your Last name'onChange={(event) => {
                       this.handleOnchangInput(event,"address")
                     }} value ={this.state.address} ></input>
                 </div>
-              </div>
 
-              <div className='input-info-user'>
-                  <div className='info-user'>
+                <div className='input-container'>
                     <label>Phone Number</label>
                     <input type='text' placeholder='Enter your phone number'onChange={(event) => {
                       this.handleOnchangInput(event,"phonenumber")
                     }} value ={this.state.phonenumber} ></input>
                   </div>
 
-                  <div className='info-user'>
+                  <div className='input-container'>
                     <label>Sex</label>
                     <select onChange={(event) => {
                       this.handleOnchangInput(event,"Sex")
@@ -124,22 +119,9 @@ class ModalEditUser extends Component {
                       <option value="0">Female</option>
                       <option value="1">Male</option>
                     </select>
-                  </div>
-
-                  <div className='info-user'>
-                    <label>Role</label>
-                    <select onChange={(event) => {
-                      this.handleOnchangInput(event,"Role")
-                    }} value ={this.state.Role} disabled>
-                      <option value="1">Admin</option>
-                        <option value="2">Doctor</option>
-                        <option value="3">Patient</option>
-                    </select>
-                  </div>
-                    
-                   
-
                 </div>
+                
+              </div>
 
             </ModalBody>
             <ModalFooter>

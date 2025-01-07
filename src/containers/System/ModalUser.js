@@ -13,10 +13,10 @@ class ModalUser extends Component {
           password: '',
           fastName: '',
           lastName: '',
-          address: '',
-          phonenumber: '',
-          Sex: '',
-          Role: ''
+          inputAddress: '',
+          inputPhoneNumber: '',
+          inputSex: '',
+          inputRole: ''
 
         }
         this.listenToEmiiter();
@@ -33,8 +33,10 @@ class ModalUser extends Component {
             password: '',
             fastName: '',
             lastName: '',
-            address: '',
-            phonenumber:'',
+            inputAddress: '',
+            inputPhoneNumber:'',
+            inputSex: '',
+            inputRole: ''
           })
         })
     }
@@ -131,8 +133,8 @@ class ModalUser extends Component {
                 <div className='input-container input-address'>
                     <label>Address</label>
                     <input type='text' placeholder='Enter your Last name'onChange={(event) => {
-                      this.handleOnchangInput(event,"address")
-                    }} value ={this.state.address} ></input>
+                      this.handleOnchangInput(event,"inputAddress")
+                    }} value ={this.state.inputAddress} ></input>
                 </div>
               </div>
 
@@ -140,15 +142,15 @@ class ModalUser extends Component {
                   <div className='info-user'>
                     <label>Phone Number</label>
                     <input type='text' placeholder='Enter your phone number'onChange={(event) => {
-                      this.handleOnchangInput(event,"phonenumber")
-                    }} value ={this.state.phonenumber} ></input>
+                      this.handleOnchangInput(event,"inputPhoneNumber")
+                    }} value ={this.state.inputPhoneNumber} ></input>
                   </div>
 
                   <div className='info-user'>
                     <label>Sex</label>
                     <select onChange={(event) => {
-                      this.handleOnchangInput(event,"Sex")
-                    }} value ={this.state.Sex}>
+                      this.handleOnchangInput(event,"inputSex")
+                    }} value ={this.state.inputSex}>
                       <option value="0">Female</option>
                       <option value="1">Male</option>
                     </select>
@@ -157,8 +159,8 @@ class ModalUser extends Component {
                   <div className='info-user'>
                     <label>Role</label>
                     <select onChange={(event) => {
-                      this.handleOnchangInput(event,"Role")
-                    }} value ={this.state.Role}>
+                      this.handleOnchangInput(event,"inputRole")
+                    }} value ={this.state.inputRole}>
                       <option value="1">Admin</option>
                         <option value="2">Doctor</option>
                         <option value="3">Patient</option>
