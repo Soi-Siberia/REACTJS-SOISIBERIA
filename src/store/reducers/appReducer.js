@@ -1,5 +1,6 @@
 import actionTypes from '../actions/actionTypes';
 
+
 const initContentOfConfirmModal = {
     isOpen: false,
     messageId: "",
@@ -31,6 +32,12 @@ const appReducer = (state = initialState, action) => {
                     ...action.contentOfConfirmModal
                 }
             }
+            case actionTypes.CHANGE_LANGUAGE:
+                // console.log("action.language redux: ", action.language);
+                return{
+                    ...state,
+                    language: action.language
+                }
         default:
             return state;
     }

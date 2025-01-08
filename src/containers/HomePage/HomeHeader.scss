@@ -148,6 +148,14 @@
                 align-items: center;
                 font-size: 20px;
                 width: 60px;
+                cursor: pointer;
+                color: rgb(130, 133, 133);
+            }
+
+            .active {
+                span {
+                    color: rgb(255, 8, 0);
+                }
             }
 
         }

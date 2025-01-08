@@ -1,26 +1,12 @@
 import React, { Component } from "react";
 // import { Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
-import "./HomeHeader.scss";
+import "./Specialty.scss";
 import { FormattedMessage } from "react-intl";
-import {languages} from "../../utils/constant";
-import { changlanguages } from "../../store/actions/appActions";
 
-
-class HomeHeader extends Component {
-
-
-
-
-  changlanguages = (language) => {
-    //fire redux event : action
-    this.props.changlanguagesApp(language); // gọi action để thay đổi ngôn ngữ từ redux
-  }
-
-
+class Specialty extends Component {
   render() {
     return (
-      console.log("this props: ", this.props.language),
       <React.Fragment>
         <div className="Home-Header-Container">
           <div className="Home-Header-Content">
@@ -57,10 +43,10 @@ class HomeHeader extends Component {
                 <span><FormattedMessage id="home-header.appointment" /></span>
               </div>
               <div className="language">
-                <div className={this.props.language === languages.VI ? "language-Vi active": "language-Vi"}> <span onClick={() => this.changlanguages(languages.VI)}>VN</span></div>
-                <div className={this.props.language === languages.EN ? "language-En active": "language-En"}><span onClick={() => this.changlanguages(languages.EN)}>EN</span></div> 
+                <div className="language-Vi">VN</div>
+                <div className="language-En">EN</div> 
               </div>
-            </div> 
+            </div>
           </div>
         </div>
         {/* // Banner */}
@@ -118,13 +104,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-
-
-    //ánh xạ (map) accsion redux  thành props để gọi sử dụng
-    changlanguagesApp: (language) => dispatch(changlanguages(language))
-
-  };
+  return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
