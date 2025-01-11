@@ -1,0 +1,85 @@
+.Section-Specialty {
+    height: 445px;
+    // border: 1px solid red;
+    padding: 0px 148px;
+
+    .Specialty-Title {
+        // border: 1px solid rgb(115, 255, 0);
+        width: 100%;
+        height: 90px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px 10px;
+
+        .XemThem {
+            font-size: 25px;
+            color: #34929E;
+            background: #DAF3F6;
+            border-radius: 20px;
+            padding: 4px 14px;
+        }
+    }
+
+    .Specialty-Slider {
+        height: 355px;
+
+        .Spl-Slider-item {
+            // border: 1px solid red;
+
+            .spl-Slier-conten {
+                border: 1px solid #92D7EE;
+                margin: 15px;
+                border-radius: 10px;
+                height: 314px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+
+                img {
+                    border-radius: 43px;
+                    height: 74%;
+                    padding: 20px 10px 0px;
+                    width: 100%;
+                }
+
+                h3 {
+                    padding-top: 20px;
+                }
+            }
+
+        }
+
+        .btn-slider-specialty {
+            z-index: 10;
+            background: #92D7EE;
+            width: 50px;
+            height: 50px;
+            border: 1px solid #92D7EE;
+
+        }
+
+        .btn-next-specialty {
+            right: -5px;
+        }
+
+        .btn-next-specialty::before {
+            font-size: 30px;
+        }
+
+        .btn-prev-specialty {
+            left: -5px;
+        }
+
+        .btn-prev-specialty::before {
+            font-size: 30px;
+        }
+    }
+
+
+}
+
+.Specialty-Content {
+    height: 300px;
+}
