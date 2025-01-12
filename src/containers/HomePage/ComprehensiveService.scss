@@ -1,0 +1,69 @@
+.List-service {
+    padding: 0px 148px;
+    height: 774px;
+    // border: 1px solid red;
+    padding-top: 10px;
+
+    .Service-Conten {
+
+        .Service-title {
+            // border: 1px solid yellow;
+
+            h3 {
+                font-size: 30px;
+                height: 36px;
+                margin-bottom: 32px;
+                line-height: 36px;
+                font-weight: 700;
+            }
+        }
+
+
+        .Service-info {
+            height: 680px;
+            // border: 1px solid rgb(4, 4, 4);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+
+            .Service-item {
+                background: url(../../assets/silder/background_grid_item.png) center center repeat;
+                background-repeat: round;
+                width: 48%;
+                box-sizing: border-box;
+                // border: 1px solid hotpink;
+                height: 98.8px;
+                margin: 0px 10px;
+                padding: 0px 30px;
+                border-radius: 15px;
+                display: flex;
+                align-items: center;
+
+                .icon-Service {
+                    height: 80px;
+                    width: 80px;
+                    background: radial-gradient(circle, rgb(255, 211, 84), rgb(255, 239, 195), rgb(254, 253, 251), rgb(255, 255, 255));
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    img {
+                        padding: 5px;
+                        height: 80%;
+                        width: 80%;
+                    }
+                }
+
+                .Name-Khoa {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding-left: 60px;
+                    font-size: 24px;
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+}

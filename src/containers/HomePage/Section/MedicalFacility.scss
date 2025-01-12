@@ -1,9 +1,9 @@
-.Section-Specialty {
+.Section-MedicalFacility {
     height: 445px;
     // border: 1px solid red;
     padding: 0px 148px;
 
-    .Specialty-Title {
+    .MedicalFacility-Title {
         // border: 1px solid rgb(115, 255, 0);
         width: 100%;
         height: 90px;
@@ -21,7 +21,7 @@
         }
     }
 
-    .Specialty-Slider {
+    .MedicalFacility-Slider {
         height: 355px;
 
         .Spl-Slider-item {
@@ -36,12 +36,19 @@
                 flex-direction: column;
                 align-items: center;
 
-
-                img {
-                    border-radius: 43px;
-                    height: 74%;
-                    padding: 20px 10px 0px;
+                .icon-facility {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-around;
                     width: 100%;
+                    height: 72%;
+
+                    img {
+                        border-radius: 43px;
+                        height: 80%;
+                        width: 100%;
+                    }
+
                 }
 
                 h3 {
@@ -51,7 +58,7 @@
 
         }
 
-        .btn-slider-specialty {
+        .btn-slider-facility {
             z-index: 10;
             background: #92D7EE;
             width: 50px;
@@ -60,19 +67,19 @@
 
         }
 
-        .btn-next-specialty {
+        .btn-next-facility {
             right: -5px;
         }
 
-        .btn-next-specialty::before {
+        .btn-next-facility::before {
             font-size: 30px;
         }
 
-        .btn-prev-specialty {
+        .btn-prev-facility {
             left: -5px;
         }
 
-        .btn-prev-specialty::before {
+        .btn-prev-facility::before {
             font-size: 30px;
         }
     }

@@ -1,0 +1,63 @@
+.Media-section {
+    height: 468px;
+    padding: 0px 148px;
+    // border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: url("../../../assets/silder/background3.png");
+
+    .Media-title {
+        padding: 10px 0px;
+
+        h2 {
+            font-weight: 700;
+            font-size: 24px;
+        }
+    }
+
+    .Media-conten {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-around;
+        // border: 1px solid green;
+
+        .Media-logo {
+            width: 100%;
+            height: 90%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            align-content: space-around;
+
+            .media-logo-item {
+                background: yellowgreen;
+                border-radius: 7px;
+                // border: 1px solid yellow;
+                width: 274px;
+                height: 56px;
+                line-height: 56px;
+                text-align: center;
+            }
+        }
+
+        .Media-conten-videos {
+            display: flex;
+            height: 100%;
+            width: 100%;
+            // border: 1px solid blue;
+            align-items: center;
+            justify-content: space-around;
+
+            .media-videos {
+                border-radius: 7px;
+                height: 90%;
+                width: 90%;
+            }
+        }
+    }
+}
