@@ -32,9 +32,10 @@ class Login extends Component {
     }
 
     handleLogin = async () =>{
-        // console.log("username: ",this.state.username, "--- Password: ", this.state.password)
+        console.log("username: ",this.state.username, "--- Password: ", this.state.password)
         try {
             let data = await userService.handleLogin(this.state.username, this.state.password)
+            console.log(data)
             if(data && data.errCode !== 0)
             {
                 alert(data.message)
@@ -42,7 +43,8 @@ class Login extends Component {
 
             if(data && data.errCode === 0)
             {
-                // console.log(data.user)
+                
+                console.log("data user login sussce",data.user)
                 // console.log("Thông Báo: Đăng Nhập Thành Công")
                 this.props.userLoginSuccess(data.user)
             }
@@ -90,7 +92,7 @@ class Login extends Component {
                             </div>
                         </div>
                         <div className='col-12 btn-login'>
-                            <button className='login-buttom' onClick={ ()=> this.handleLogin()}>Log in</button>
+                            <button className='login-buttom' onClick={ ()=> this.handleLogin()}>Đăng Nhập</button>
                         </div>
                         <div className='col-12 forget-pass'>Forget your password?</div>
                         <div className='col-12 login-with'>Or login with:</div>
@@ -115,8 +117,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         navigate: (path) => dispatch(push(path)),
+        userLoginSuccess: (UserInfor) => dispatch ( actions.userLoginSuccess(UserInfor)),
         // userLoginFail: () => dispatch(actions.adminLoginFail()),
-        userLoginSuccess: (UserInfor) => dispatch ( actions.userLoginSuccess(UserInfor))
     };
 };
 
