@@ -8,16 +8,60 @@
     color: $common-text-color;
     height: 40px;
     position: relative;
-    .btn-logout {
-        color: $common-text-color;
-        line-height: 40px;
-        height: 40px;
-        padding: 0 10px;
-        &:hover {
-            background-color: darken($colormain, 5);
+
+    .language-logout {
+        display: flex;
+        align-items: center;
+        width: 20%;
+        justify-content: space-evenly;
+        font-size: 500;
+        font-size: 18px;
+
+        .change-language {
+            display: flex;
+            width: 20%;
+            align-items: center;
+            justify-content: space-evenly;
+
+            .language-Vi {
+                cursor: pointer;
+
+                &.active {
+                    color: red;
+                }
+
+                &:hover {
+                    color: green;
+                }
+            }
+
+            .language-En {
+                cursor: pointer;
+
+                &.active {
+                    color: yellow;
+                }
+
+                &:hover {
+                    color: green;
+                }
+            }
         }
-        i {
-            font-size: $base-size + 1px;
+
+        .btn-logout {
+            color: $common-text-color;
+            line-height: 40px;
+            height: 40px;
+            padding: 0 10px;
+
+            &:hover {
+                background-color: darken($colormain, 5);
+            }
+
+            i {
+                font-size: $base-size + 1px;
+            }
         }
     }
+
 }

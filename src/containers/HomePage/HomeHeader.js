@@ -3,8 +3,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./HomeHeader.scss";
 import { FormattedMessage } from "react-intl";
-import {languages} from "../../utils/constant";
-import { changlanguages } from "../../store/actions/appActions";
+
+// Cấu hình ngôn ngữ
+import {languages} from "../../utils/constant";// định nghĩa ngôn ngữ 
+import { changlanguages } from "../../store/actions/appActions";// hàm thay đổi ngôn ngữ
 
 
 class HomeHeader extends Component {
@@ -20,7 +22,7 @@ class HomeHeader extends Component {
 
   render() {
     return (
-      console.log("this props: ", this.props.language),
+      // console.log("this props: ", this.props.language),
       <React.Fragment>
         <div className="Home-Header-Container">
           <div className="Home-Header-Content">
@@ -119,8 +121,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
-
     //ánh xạ (map) accsion redux  thành props để gọi sử dụng
     changlanguagesApp: (language) => dispatch(changlanguages(language))
 
