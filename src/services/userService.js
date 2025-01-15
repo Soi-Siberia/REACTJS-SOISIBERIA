@@ -24,6 +24,10 @@ const userService = {
 
     EditUser: (data) => {
         return axios.put('/api-edit-user',data)
+    },
+
+    getAllCode: (typeInput) =>{
+        return axios.get(`/api/allcode?type=${typeInput}`)
     }
 
 }

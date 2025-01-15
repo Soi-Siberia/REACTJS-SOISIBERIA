@@ -20,7 +20,7 @@ class ComprehensiveService extends Component {
 
               <div className="Service-item">
                 <div className="icon-Service">
-                  <img src={Icon}></img>
+                  <img src={Icon} alt=""></img>
                 </div>
                 <div className="Name-Khoa">
                   Khám chuyên Khoa 1
@@ -28,7 +28,7 @@ class ComprehensiveService extends Component {
               </div>
               <div className="Service-item">
                 <div className="icon-Service">
-                  <img src={Icon}></img>
+                  <img src={Icon} alt=""></img>
                 </div>
                 <div className="Name-Khoa">
                   Khám chuyên Khoa 2
@@ -36,7 +36,7 @@ class ComprehensiveService extends Component {
               </div>
               <div className="Service-item">
                 <div className="icon-Service">
-                  <img src={Icon}></img>
+                  <img src={Icon} alt=""></img>
                 </div>
                 <div className="Name-Khoa">
                   Khám chuyên Khoa 3
@@ -44,7 +44,7 @@ class ComprehensiveService extends Component {
               </div>
               <div className="Service-item">
                <div className="icon-Service">
-                  <img src={Icon}></img>
+                  <img src={Icon} alt=""></img>
                 </div>
 
                 <div className="Name-Khoa">
@@ -53,7 +53,7 @@ class ComprehensiveService extends Component {
               </div>
               <div className="Service-item">
               <div className="icon-Service">
-                  <img src={Icon}></img>
+                  <img src={Icon} alt=""></img>
                 </div>
 
                 <div className="Name-Khoa">
@@ -62,7 +62,7 @@ class ComprehensiveService extends Component {
               </div>
               <div className="Service-item">
               <div className="icon-Service">
-                  <img src={Icon}></img>
+                  <img src={Icon} alt=""></img>
                 </div>
 
                 <div className="Name-Khoa">
@@ -71,7 +71,7 @@ class ComprehensiveService extends Component {
               </div>
               <div className="Service-item">
               <div className="icon-Service">
-                  <img src={Icon}></img>
+                  <img src={Icon} alt=""></img>
                 </div>
 
                 <div className="Name-Khoa">
@@ -80,7 +80,7 @@ class ComprehensiveService extends Component {
               </div>
               <div className="Service-item">
               <div className="icon-Service">
-                  <img src={Icon}></img>
+                  <img src={Icon} alt=""></img>
                 </div>
 
                 <div className="Name-Khoa">
@@ -89,7 +89,7 @@ class ComprehensiveService extends Component {
               </div>
               <div className="Service-item">
               <div className="icon-Service">
-                  <img src={Icon}></img>
+                  <img src={Icon} alt=""></img>
                 </div>
 
                 <div className="Name-Khoa">
@@ -98,7 +98,7 @@ class ComprehensiveService extends Component {
               </div>
               <div className="Service-item">
               <div className="icon-Service">
-                  <img src={Icon}></img>
+                  <img src={Icon} alt=""></img>
                 </div>
 
                 <div className="Name-Khoa">

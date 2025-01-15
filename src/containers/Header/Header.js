@@ -17,8 +17,8 @@ class Header extends Component {
   }
 
   render() {
-    const { processLogout , userInfo} = this.props;
-    console.log("check info login header:", userInfo)
+    const { processLogout , userInfo, language} = this.props;
+    // console.log("check info login header:", userInfo)
     return (
       
       <div className="header-container">
@@ -30,11 +30,11 @@ class Header extends Component {
 
         {/* nút logout */}
         <div className="language-logout">
-
+        
           <span className="welcome"><FormattedMessage id="home-header.welcome" />, {userInfo && userInfo.firstName ? userInfo.firstName : ""} !</span>
           <div className="change-language">
-            <div className={this.props.language === languages.VI ? "language-Vi active" : "language-Vi"}><span onClick={()=>this.ChangeLanguage(languages.VI)}>VI</span></div>
-            <div className={this.props.language === languages.EN ? "language-En active" : "language-En"}><span onClick={()=>this.ChangeLanguage(languages.EN)}>EN</span></div>
+            <div className={language === languages.VI ? "language-Vi active" : "language-Vi"}><span onClick={()=>this.ChangeLanguage(languages.VI)}>VI</span></div>
+            <div className={language === languages.EN ? "language-En active" : "language-En"}><span onClick={()=>this.ChangeLanguage(languages.EN)}>EN</span></div>
           </div>
 
           <div className="btn btn-logout" onClick={processLogout}>

@@ -18,11 +18,21 @@
                 "manage-admin": "Manage Admin"
             },
             "clinics": "Clinics",
-            "manage-clinics": "Manage Clinics",
+            "manage-clinics": "Manage Clinic",
             "specialty": "Specialty",
             "manage-specialty": "Manage Specialty",
             "handbook": "Handbook",
-            "manage-handbook": "Manage Handbook"
+            "manage-handbook": "Manage Handbook",
+            "add": "Add A New User",
+            "password": "password",
+            "first-name": "First Name",
+            "last-name": "Last Name",
+            "phone-number": "Phone Number",
+            "address": "Address",
+            "gender": "Gender",
+            "postion": "Postion",
+            "roleid": "Role ID",
+            "avartar": "Avartar"
         }
     }
 }

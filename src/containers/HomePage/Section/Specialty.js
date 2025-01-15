@@ -33,37 +33,37 @@ class Specialty extends Component {
           <Slider {...settings}>
             <div className="Spl-Slider-item">
                 <div className="spl-Slier-conten">
-                  <img src={specialtyImg}></img>
+                  <img src={specialtyImg} alt=""></img>
                   <h3>Tim mạch 1</h3>
                 </div>
             </div>
             <div className="Spl-Slider-item">
                 <div className="spl-Slier-conten">
-                  <img src={specialtyImg}></img>
+                  <img src={specialtyImg} alt=""></img>
                   <h3>Tim mạch 2</h3>
                 </div>
             </div>
             <div className="Spl-Slider-item">
                 <div className="spl-Slier-conten">
-                  <img src={specialtyImg}></img>
+                  <img src={specialtyImg} alt=""></img>
                   <h3>Tim mạch 3</h3>
                 </div>
             </div>
             <div className="Spl-Slider-item">
                 <div className="spl-Slier-conten">
-                  <img src={specialtyImg}></img>
+                  <img src={specialtyImg} alt=""></img>
                   <h3>Tim mạch 4</h3>
                 </div>
             </div>
             <div className="Spl-Slider-item">
                 <div className="spl-Slier-conten">
-                  <img src={specialtyImg}></img>
+                  <img src={specialtyImg} alt=""></img>
                   <h3>Tim mạch 5</h3>
                 </div>
             </div>
             <div className="Spl-Slider-item">
                 <div className="spl-Slier-conten">
-                  <img src={specialtyImg}></img>
+                  <img src={specialtyImg} alt=""></img>
                   <h3>Tim mạch 6</h3>
                 </div>
             </div>

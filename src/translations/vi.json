@@ -22,7 +22,17 @@
             "specialty": "Chuyên khoa",
             "manage-specialty": "Quản ký chuyên khoa",
             "handbook": "Cẩm nang",
-            "manage-handbook": "Quản lý cẩm nang"
+            "manage-handbook": "Quản lý cẩm nang",
+            "add": "Thêm mới người dùng",
+            "password": "Mật khẩu",
+            "first-name": "Tên",
+            "last-name": "Họ",
+            "phone-number": "Số điện thoại",
+            "address": "Địa chỉ",
+            "gender": "Giới tính",
+            "postion": "Chức danh",
+            "roleid": "Role ID",
+            "avartar": "Ảnh đại diện"
         }
     }
 }

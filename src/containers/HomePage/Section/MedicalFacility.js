@@ -34,7 +34,7 @@ class MedicalFacility extends Component {
             <div className="Spl-Slider-item">
                 <div className="spl-Slier-conten">
                     <div className="icon-facility">
-                        <img src={specialtyImg}></img>
+                        <img src={specialtyImg} alt=""></img>
                     </div>
                   <h3>Biện viện 1</h3>
                 </div>
@@ -42,7 +42,7 @@ class MedicalFacility extends Component {
             <div className="Spl-Slider-item">
                 <div className="spl-Slier-conten">
                 <div className="icon-facility">
-                    <img src={specialtyImg}></img>
+                    <img src={specialtyImg} alt=""></img>
                 </div>
                   <h3>Biện viện 2</h3>
                 </div>
@@ -50,7 +50,7 @@ class MedicalFacility extends Component {
             <div className="Spl-Slider-item">
                 <div className="spl-Slier-conten">
                 <div className="icon-facility">
-                    <img src={specialtyImg}></img>
+                    <img src={specialtyImg} alt=""></img>
                 </div>
                   <h3>Biện viện 3</h3>
                 </div>
@@ -58,7 +58,7 @@ class MedicalFacility extends Component {
             <div className="Spl-Slider-item">
                 <div className="spl-Slier-conten">
                 <div className="icon-facility">
-                    <img src={specialtyImg}></img>
+                    <img src={specialtyImg} alt=""></img>
                 </div>
                   <h3>Biện viện 4</h3>
                 </div>
@@ -66,7 +66,7 @@ class MedicalFacility extends Component {
             <div className="Spl-Slider-item">
                 <div className="spl-Slier-conten">
                 <div className="icon-facility">
-                    <img src={specialtyImg}></img>
+                    <img src={specialtyImg} alt=""></img>
                 </div>
                   <h3>Biện viện 5</h3>
                 </div>
@@ -74,7 +74,7 @@ class MedicalFacility extends Component {
             <div className="Spl-Slider-item">
                 <div className="spl-Slier-conten">
                 <div className="icon-facility">
-                    <img src={specialtyImg}></img>
+                    <img src={specialtyImg} alt=""></img>
                 </div>
                   <h3>Biện viện 6</h3>
                 </div>
