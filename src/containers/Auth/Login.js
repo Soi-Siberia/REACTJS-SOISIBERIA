@@ -44,7 +44,7 @@ class Login extends Component {
             if(data && data.errCode === 0)
             {
                 
-                console.log("data user login sussce",data.user)
+                // console.log("data user login sussce",data.user)
                 // console.log("Thông Báo: Đăng Nhập Thành Công")
                 this.props.userLoginSuccess(data.user)
             }

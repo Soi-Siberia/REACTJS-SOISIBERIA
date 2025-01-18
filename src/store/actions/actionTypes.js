@@ -1,3 +1,4 @@
+//Bước 2 khai báo acction type sau khi tạo các action (adminType) và export ở index.js
 const actionTypes = Object.freeze({
     //app
     APP_START_UP_COMPLETE: 'APP_START_UP_COMPLETE',
@@ -11,6 +12,10 @@ const actionTypes = Object.freeze({
     PROCESS_LOGOUT: 'PROCESS_LOGOUT',
 
 
+    //admin 
+    FETCH_GENDER_START: 'FETCH_GENDER_START',
+    FETCH_GENDER_SUCCESS: 'FETCH_GENDER_SUCCESS',
+    FETCH_GENDER_FAIDED: 'FETCH_GENDER_FAIDED',
 
 })
 

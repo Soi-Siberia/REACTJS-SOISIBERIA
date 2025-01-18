@@ -3,10 +3,11 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 
 //call api dùng react
-import { userService } from '../../../services';
-
+// import { userService } from '../../../services';
 import {languages} from '../../../utils/constant'
 
+//import action redux vào 
+import * as actions from "../../../store/actions"
 
 class UserRedux extends Component {
 
@@ -19,15 +20,36 @@ class UserRedux extends Component {
    }
 
   async componentDidMount() {
+    this.props.getGenderRedux()
 
-     let resApiAllcall =  await userService.getAllCode('gender');
-     
+    //call api adn resdata api allcode - render
+    //  try {
+    //     let resApicall =  await userService.getAllCode('gender');
 
+    //     if(resApicall && resApicall.errCode === 0 )
+    //     {
+    //         this.setState({
+    //             renderArr: resApicall.dataResult
+    //         })
+    //     }
+        
+    //  } catch (e) {
+    //     console.log("call get allcode", e)
+    //  }
+     //****************** */
+
+   }
+
+   componentDidUpdate(prevProps, prevState, snapshot) // hàm dùng để update componect khi props có thay đổi.
+   {
+    if(prevProps.genderRedux !== this.props.genderRedux)
+        //render => dídupdate
+        // hiện tại là this quá khứ là prevPops
+    {
         this.setState({
-            renderArr: resApiAllcall.dataResult,
-            
-     })
-    //  console.log("Check res ALLCode", this.state.renderArr)
+        renderArr: this.props.genderRedux
+        })
+    }
    }
 
     render() {
@@ -35,6 +57,7 @@ class UserRedux extends Component {
         // console.log("Language to utiles: ", languages.VI)
         let languageRedux = this.props.language
         let genders = this.state.renderArr
+        console.log("check renders fomr data to redux: ", this.props.genderRedux)
         return (
             <div className="user-redux-container" >
                 <div className='title'>Manage products Learn use REDUX SoiSiberia</div>
@@ -116,13 +139,14 @@ class UserRedux extends Component {
 
 const mapStateToProps = state => {
     return {
-        language: state.app.language
+        language: state.app.language,
+        genderRedux: state.admin.genders
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        
+        getGenderRedux: () => dispatch(actions.fetchGenderStart())  
     };
 };
 

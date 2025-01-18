@@ -1,3 +1,6 @@
+
+//B1 tạo các action ở đây
+
 import actionTypes from './actionTypes';
 
 export const addUserSuccess = () => ({
