@@ -6,7 +6,9 @@ const initialState = {
     isLoadinggender: false,
     genders:[],
     role: [],
-    postion:[]
+    postion:[],
+    dataCreateUser:[],
+    dataAllUser: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -53,7 +55,7 @@ const adminReducer = (state = initialState, action) => {
 
         //ROLE
         case actionTypes.FETCH_ROLE_START:
-            console.log(" ROLE SUCCESS")
+            // console.log(" ROLE SUCCESS")
             return{
                 ...state
             }
@@ -67,7 +69,44 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
+        // CREATE NEW USER
+        case actionTypes.CREATE_NEW_USER_SUCCESS:
+            state.dataCreateUser = action.data
+            // console.log("admin reducer data", state.dataCreateUser)
+            return{
+                ...state
+            }
+        case actionTypes.CREATE_NEW_USER_FAILED:
+            return{
+                ...state
+            }
         
+        case actionTypes.GET_ALL_USER_SUCCESS:
+            state.dataAllUser = action.data
+            return{
+                ...state
+            }
+        case actionTypes.GET_ALL_USER_FAILD:
+            return{
+                ...state
+            }
+        case actionTypes.DELETE_USER_BY_ID_SUCCESS:
+            return{
+                ...state
+            }
+        case actionTypes.DELETE_USER_BY_ID_FAILD:
+            return{
+                ...state
+            }
+        case actionTypes.UPDATE_USER_SUCCESS:
+            return{
+                ...state
+            }
+        case actionTypes.UPDATE_USER_FAILD:
+            return{
+                ...state
+            }
+                
 
         default:
             return state;

@@ -11,12 +11,12 @@ class ModalUser extends Component {
         this.state ={
           email: '',
           password: '',
-          fastName: '',
+          firstName: '',
           lastName: '',
-          inputAddress: '',
-          inputPhoneNumber: '',
-          inputSex: '',
-          inputRole: ''
+          address: '',
+          phoneNumber: '',
+          gender: '',
+          role: ''
 
         }
         this.listenToEmiiter();
@@ -31,12 +31,12 @@ class ModalUser extends Component {
           this.setState({
             email: '',
             password: '',
-            fastName: '',
+            firstName: '',
             lastName: '',
-            inputAddress: '',
-            inputPhoneNumber:'',
-            inputSex: '',
-            inputRole: ''
+            address: '',
+            phoneNumber:'',
+            gender: '',
+            role: ''
           })
         })
     }
@@ -61,7 +61,7 @@ class ModalUser extends Component {
 
     handleCheckValideInput = () => {
       let isvalid = true;
-      let arrInputCheck = ['email', 'password', 'fastName', 'lastName' ]
+      let arrInputCheck = ['email', 'password', 'firstName', 'lastName' ]
 
       for(let i = 0; i < arrInputCheck.length; i++)
       {
@@ -121,8 +121,8 @@ class ModalUser extends Component {
                 <div className='input-container'>
                     <label>Fast Name</label>
                     <input type='text' placeholder='Enter your Fast Name'onChange={(event) => {
-                      this.handleOnchangInput(event,"fastName")}} 
-                      value ={this.state.fastName}></input>
+                      this.handleOnchangInput(event,"firstName")}} 
+                      value ={this.state.firstName}></input>
                 </div>
                 <div className='input-container'>
                     <label>Last Name</label>
@@ -133,8 +133,8 @@ class ModalUser extends Component {
                 <div className='input-container input-address'>
                     <label>Address</label>
                     <input type='text' placeholder='Enter your Last name'onChange={(event) => {
-                      this.handleOnchangInput(event,"inputAddress")
-                    }} value ={this.state.inputAddress} ></input>
+                      this.handleOnchangInput(event,"address")
+                    }} value ={this.state.address} ></input>
                 </div>
               </div>
 
@@ -142,15 +142,15 @@ class ModalUser extends Component {
                   <div className='info-user'>
                     <label>Phone Number</label>
                     <input type='text' placeholder='Enter your phone number'onChange={(event) => {
-                      this.handleOnchangInput(event,"inputPhoneNumber")
-                    }} value ={this.state.inputPhoneNumber} ></input>
+                      this.handleOnchangInput(event,"phoneNumber")
+                    }} value ={this.state.phoneNumber} ></input>
                   </div>
 
                   <div className='info-user'>
                     <label>Sex</label>
                     <select onChange={(event) => {
-                      this.handleOnchangInput(event,"inputSex")
-                    }} value ={this.state.inputSex}>
+                      this.handleOnchangInput(event,"gender")
+                    }} value ={this.state.gender}>
                       <option value="0">Female</option>
                       <option value="1">Male</option>
                     </select>
@@ -159,8 +159,8 @@ class ModalUser extends Component {
                   <div className='info-user'>
                     <label>Role</label>
                     <select onChange={(event) => {
-                      this.handleOnchangInput(event,"inputRole")
-                    }} value ={this.state.inputRole}>
+                      this.handleOnchangInput(event,"role")
+                    }} value ={this.state.role}>
                       <option value="1">Admin</option>
                         <option value="2">Doctor</option>
                         <option value="3">Patient</option>

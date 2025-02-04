@@ -7,6 +7,7 @@ import { userService } from "../../services";
 import ModalUser from "./ModalUser";
 import ModalEditUser from "./ModalEditUser";
 import { emitter } from "../../utils/emitter";
+// import { ceil, last } from "lodash";
 
 class UserManage extends Component {
   constructor(props) {
@@ -16,6 +17,10 @@ class UserManage extends Component {
       isOpenModal: false,
       isOpenEdit: false,
       userEdit: {},
+
+      currentPage: 1,
+      itemprePage: 5
+
     };
   }
 
@@ -30,7 +35,7 @@ class UserManage extends Component {
     if (response && response.errCode === 0) {
       this.setState(
         {
-          arrUsers: response.user,
+          arrUsers: response.user.reverse(),
         },
         () => {
           //    console.log("Check Users: ", this.state.arrUsers)
@@ -92,6 +97,7 @@ class UserManage extends Component {
       userEdit: user,
     });
   };
+  
   toggleCloseParentEdit = () => {
     this.setState({
       isOpenEdit: !this.state.isOpenEdit,
@@ -113,11 +119,26 @@ class UserManage extends Component {
     }
   };
 
+  handleBtnTable = (currentPage)=>{
+    this.setState({
+      currentPage: currentPage
+    })
+  }
+
+
+
   render() {
     let arrUsers = this.state.arrUsers;
     // console.log("Check arrUsers: ", arrUsers)
+    //phân trang table
+    let {currentPage, itemprePage} = this.state
+    let itemLastPageView = currentPage * itemprePage
+    let itemFirstPageView = itemLastPageView - itemprePage
+    let currentViewPage = arrUsers.slice(itemFirstPageView, itemLastPageView)
+    let totalPage = Math.ceil(arrUsers.length/itemprePage)
+    //************************************** */
     return (
-      <div className="contaier">
+      <React.Fragment>
         {/*Modal */}
         <ModalUser
           isOpen={this.state.isOpenModal}
@@ -132,6 +153,7 @@ class UserManage extends Component {
             editUser={this.editUser}
           />
         )}
+        
         {/* END Modal */}
         <div className="title text-center">Manage user</div>
         <div className="mx-1">
@@ -147,7 +169,7 @@ class UserManage extends Component {
             <tbody>
               <tr>
                 <th>Email</th>
-                <th>Fast Name</th>
+                <th>first Name</th>
                 <th>Last Name</th>
                 <th>Address</th>
                 <th>Phone Number</th>
@@ -155,8 +177,8 @@ class UserManage extends Component {
                 <th>Role</th>
                 <th>Action</th>
               </tr>
-              {arrUsers &&
-                arrUsers.map((item, index) => {
+              {currentViewPage &&
+                currentViewPage.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td>{item.email}</td>
@@ -186,8 +208,19 @@ class UserManage extends Component {
                 })}
             </tbody>
           </table>
+          <div className="btn-table-user mt-2">
+            {
+              [...Array(totalPage)].map((_, index)=>(
+                
+                <button key={index} className={`btn-table ${currentPage === index+1 ? "active":""}`}
+                onClick={()=>this.handleBtnTable(index+1)}
+                >{index+1}</button>
+
+              ))
+            }
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

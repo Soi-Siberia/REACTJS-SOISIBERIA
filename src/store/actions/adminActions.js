@@ -1,5 +1,6 @@
 import actionTypes from './actionTypes';
 import { userService } from '../../services';
+import  {toast}  from 'react-toastify';
 
 //action Creator gender
 export const fetchGenderStart =() => {
@@ -75,7 +76,7 @@ export const fetchRoleStart = () => {
     return async (dispatch, getState) => {
         try {
             let res = await userService.getAllCode("ROLE")
-            console.log("data role api: ", res)
+            // console.log("data role api: ", res)
             if(res && res.errCode === 0){
                 dispatch(fetchRoleSucces(res.dataResult))
             }else{
@@ -95,4 +96,127 @@ export const fetchRoleSucces = (RoleData) => ({
 
 export const fetchRoleFaided = () => ({
     type: actionTypes.FETCH_ROLE_FAIDED,
+})
+
+//active create new user
+
+export const createNewUserStart = (data)=>{
+
+    return async(dispatch, getState)=>{
+        try {
+
+            let res = await userService.CreateNewUser(data)
+            console.log("data res api", res)
+            if(res && res.errCode === 0){
+                toast.success("Create user success!!")
+                dispatch(createNewUserSuccess(res))
+                dispatch(getAllUserStart())
+            }else{
+                dispatch(createNewUserFaild())
+            }
+
+            
+        } catch (e) {
+            dispatch(createNewUserFaild())
+            console.log('createNewUserFaild',e)
+        }
+    }
+}
+
+export const createNewUserSuccess = (dataRes)=> ({
+    type: actionTypes.CREATE_NEW_USER_SUCCESS,
+    data: dataRes
+})
+
+export const createNewUserFaild = ()=> ({
+    type: actionTypes.CREATE_NEW_USER_FAILED
+})
+
+export const getAllUserStart = ()=>{
+    return async (dispatch, getState) => {
+        try {
+            let result = await userService.getAllUsers('ALL') 
+            if(result && result.errCode === 0)
+            {
+                dispatch(getAllUserSuccess(result.user.reverse()))
+            }else{
+                dispatch(getAllUserFaild())
+                console.log("getAllUserStart ERRO", result.user)
+            }
+            
+        } catch (e) {
+            dispatch(getAllUserFaild())
+            
+        }
+    }
+}
+
+export const getAllUserSuccess = (dataResult)=>({
+    type: actionTypes.GET_ALL_USER_SUCCESS,
+    data: dataResult
+})
+export const getAllUserFaild = ()=>({
+    type: actionTypes.GET_ALL_USER_FAILD,
+})
+
+export const deleteUserIdStart = (idUser) =>{
+    return async(dispatch, getState) =>{
+        try {
+            let resDel = await userService.DeleteUser(idUser)
+            if(resDel && resDel.errCode === 0)
+            {
+                toast.success(resDel.errMessage)
+                dispatch(deleteUserIdSuccess())
+            }else(
+                toast.error(resDel.errMessage)
+            )
+        } catch (e) {
+            console.log("deleteUserIdStart ERROR", e)
+            toast.error("ERROR DELETE USER")
+            dispatch(deleteUserIdFaild())
+        }
+    }
+}
+
+
+
+export const deleteUserIdSuccess = ()=>({
+    type: actionTypes.DELETE_USER_BY_ID_SUCCESS
+})
+
+export const deleteUserIdFaild = ()=>({
+    type: actionTypes.DELETE_USER_BY_ID_SUCCESS
+})
+
+//UPDATE USER
+
+export const updateUserStart = (dataUpdate) =>{
+    return async (dispatch, getState) => {
+        try {
+            let resutlUpdate = await userService.EditUser(dataUpdate)
+            console.log("Đây là data updateUserStart:", dataUpdate)
+            if(resutlUpdate && resutlUpdate.errCode === 0)
+            {
+                toast.success(resutlUpdate.message)
+                dispatch(updateUserSuccess())
+            }else{
+                toast.error("resutlUpdate.message")
+                dispatch(updateUserFaild())
+            }
+
+        } catch (e) {
+            console.log("updateUserStart ERROR", e)
+            dispatch(updateUserFaild())
+            toast.error("UPDATE USER FAILD")
+        }
+    }
+}
+
+
+export const updateUserSuccess = () =>({
+    type: actionTypes.UPDATE_USER_SUCCESS
+})
+
+export const updateUserFaild = () => ({
+    type: actionTypes.UPDATE_USER_FAILD
 })

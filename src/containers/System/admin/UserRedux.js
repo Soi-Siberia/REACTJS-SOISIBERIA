@@ -4,233 +4,227 @@ import { connect } from 'react-redux';
 import './UserRedux.scss';
 //call api dùng react
 // import { userService } from '../../../services';
-import {languages} from '../../../utils/constant'
+// import {languages} from '../../../utils/constant'
 
 //import action redux vào 
 import * as actions from "../../../store/actions"
 
 //
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
+// import Lightbox from 'react-image-lightbox';
+// import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
+
+//import modal
+import ModalUserAdmin from'./ModalUserAdmin.js'
+import ModalEditUserAdmin from './ModalEditUserAdmin.js';
+
 
 class UserRedux extends Component {
 
    constructor (props) {
     super(props)
     this.state = {
-        renderArr: [],
-        positionArr: [],
-        rolteArr: [],
-        priviewImgUrl: '',
-        isOpenImg : false
+        alluser: [],
+        resCreateUser: [],
+        isOpenCreate: false,
+        isOpenEditModal: false,
+        userEdit: {},
 
+
+        currentPage: 1, // Current page for pagination
+        itemsPerPage: 5, // Number of items per page
     }
    }
 
-  async componentDidMount() {
-
-    //gọi active bên redux
-    this.props.getGenderRedux()
-    this.props.getpostionRedux()
-    this.props.getRoleRedux()
-
-    //call api adn resdata api allcode - render
-    //  try {
-    //     let resApicall =  await userService.getAllCode('gender');
-
-    //     if(resApicall && resApicall.errCode === 0 )
-    //     {
-    //         this.setState({
-    //             renderArr: resApicall.dataResult
-    //         })
-    //     }
-        
-    //  } catch (e) {
-    //     console.log("call get allcode", e)
-    //  }
-     //****************** */
-
+  componentDidMount() {
+    this.props.getAllUserStartRedux()
    }
 
-   componentDidUpdate(prevProps, prevState, snapshot) // hàm dùng để update componect khi props có thay đổi.
-   {
-    if(prevProps.genderRedux !== this.props.genderRedux)
-        //render => dídupdate
-        // hiện tại là this quá khứ là prevPops
+   componentDidUpdate(prevPops, prevState,snapshot) {
+
+    if(prevPops.listUserRedux !== this.props.listUserRedux )
     {
         this.setState({
-        renderArr: this.props.genderRedux
-        })
-    }
-
-    if(prevProps.postionRedux !== this.props.postionRedux)
-    {
-        this.setState({
-            positionArr: this.props.postionRedux
-        })
-    }
-    if(prevProps.roleRedux !== this.props.roleRedux)
-    {
-        this.setState({
-            rolteArr: this.props.roleRedux
+            alluser: this.props.listUserRedux
         })
     }
 
    }
 
-   handleOnChangeImage = (event)=>{
-    let fileAvarta = event.target.files
-    let file = fileAvarta[0]
 
-    if(file)
-    {
-        let objectUrl = URL.createObjectURL(file)
-        // console.log("objectUrl", objectUrl)
-        this.setState ({
-            priviewImgUrl: objectUrl
-        })
-        // console.log("priviewImgUrl", this.state.priviewImgUrl)
-
-
-    }
-   }
-
-   handleViewImg = ()=>{
-    console.log("check priviewImgUrl: ", this.state.priviewImgUrl)
-    if(this.state.priviewImgUrl != "")
-    {
-        this.setState({
-            isOpenImg: true
-        })
-    }
-
-   }
-   handleCloseViewImg =()=>{
+   ///Modal-----------
+   handleOnclickAddUser = () =>{
+    // console.log("add new user")
     this.setState({
-        isOpenImg: false
+        isOpenCreate: true,
     })
    }
 
+   toggleCloseParent = () =>{
+    this.setState({
+        isOpenCreate: false,
+        isOpenEditModal: false
+    })
+   }
+   /// END Modal-------
+
+   handleCreateNewUser =  (data)=>{
+
+    if(data)
+    {
+        this.props.getCreateNewUserRedux(data)
+    }
+    this.toggleCloseParent()
+   }
+
+
+   //Delete User
+   handleDeleteUser = async(User) => {
+    console.log("ID USER DELETE", User.id)
+    await this.props.deleteUserIdStartRedux(User.id)
+    this.props.getAllUserStartRedux()
+
+   }
+
+   handleEditUser = (user)=>{ 
+    this.setState({
+        isOpenEditModal: true,
+        userEdit: user
+    })
+
+    // console.log("isOpenEditModal: ", this.state.isOpenEditModal)
+    // console.log("Data User Edit: ", user)
+   }
+
+   //table phân trang
+   handlePageChange = (pageNumber) => {
+    this.setState({ currentPage: pageNumber });
+    }
+
+    //data chill sent to parent
+    handlChillDataUpdate = async (dataUpdate) =>{
+        console.log("Data chill sent to parent: ", dataUpdate)
+        await this.props.updateUserStart(dataUpdate)
+        await this.props.getAllUserStartRedux()
+
+        this.setState({
+            isOpenCreate: false
+        })
+    }
+
+
     render() {
-        // console.log("language to redux: ", this.props.language)
-        // console.log("Language to utiles: ", languages.VI)
-        let languageRedux = this.props.language
-        let genders = this.state.renderArr
-        let isLoadinggender = this.props.isLoadinggender
-        let positons = this.state.positionArr
-        let roles = this.state.rolteArr
-        // console.log("Loading gender: ", isLoadinggender)
-        console.log("check Postion fomr data to redux: ",positons)
+        let listALLUser = this.state.alluser;
+        let {currentPage,itemsPerPage, userEdit} = this.state
+
+               // Pagination logic ( phan trang table)
+       let indexOfLastUser = currentPage * itemsPerPage;
+       let indexOfFirstUser = indexOfLastUser - itemsPerPage;
+       let currentUsers = listALLUser.slice(indexOfFirstUser, indexOfLastUser);
+       let totalPages = Math.ceil(listALLUser.length / itemsPerPage);
+                //
+
         return (
             <div className="user-redux-container" >
                 <div className='title'>Manage products Learn use REDUX SoiSiberia</div>
                 <div className='user-redux-body'>
                     <div className='user-redux-body-create'>
-                        <div className='container'>
-                            <div className='row'>
-                                <div className='col-12'>{isLoadinggender ? "Loadding Gender" : " "}</div>
-                                
-                                <div className='col-12'> <FormattedMessage id="menu.system.add" /></div>
-                                <div className='col-3'>
-                                    <label>Email</label>
-                                    <input className='form-control' type='email'></input>
-                                </div>
-                                <div className='col-3'>
-                                    <label><FormattedMessage id="menu.system.password" /></label>
-                                    <input className='form-control' type='pasword'></input>
-                                </div>
-                                <div className='col-3'>
-                                    <label><FormattedMessage id="menu.system.first-name" /></label>
-                                    <input className='form-control' type='text'></input>
-                                </div>
-                                <div className='col-3'>
-                                    <label><FormattedMessage id="menu.system.last-name" /></label>
-                                    <input className='form-control' type='text'></input>
-                                </div>
-                                <div className='col-3'>
-                                    <label><FormattedMessage id="menu.system.phone-number" /></label>
-                                    <input className='form-control' type='text'></input>
-                                </div>
-                                <div className='col-9'>
-                                    <label><FormattedMessage id="menu.system.address" /></label>
-                                    <input className='form-control' type='text'></input>
-                                </div>
-                                <div className='col-3'>
-                                    <label><FormattedMessage id="menu.system.gender" /></label>
-                                    <select className="form-select">
-                                        {
-                                            genders && genders.length > 0 && genders.map((item, index) => {
-                                                return (
-                                                    <option key={index}>{ languageRedux === languages.VI ?  item.valueVi:item.valueEn}</option>
-                                                )
-                                            })
-                                        }
-                                    </select>
-                                </div>
-                                <div className='col-3'>
-                                    <label><FormattedMessage id="menu.system.postion" /></label>
-                                    <select className="form-select">
-                                        {
-                                            positons && positons.length > 0 && positons.map((item, index)=> {
-                                                return(
-                                                    <option key={index}>{languageRedux === languages.VI ? item.valueVi: item.valueEn}</option>
-                                                )
-                                            })
-                                        }
-                                    </select>
-                                </div>
-                                <div className='col-3'>
-                                    <label><FormattedMessage id="menu.system.roleid" /></label>
-                                    <select className="form-select">
-                                        {
-                                            roles && roles.length > 0 && roles.map ((item, index) => {
-                                                return (
-                                                    <option key={index}>{languageRedux === languages.VI ? item.valueVi: item.valueEn}</option>
-                                                )
-                                            })
-                                        }
-                                    </select>
-                                </div>
-                                <div className='col-3'>
-                                    <div>
-                                        <label><FormattedMessage id="menu.system.avartar"/></label>
-                                        <div className='priview-Img-Contaier'>
-                                            <input id='previewImg' className='form-control ' type='file' hidden
-                                            onChange={(event) => {this.handleOnChangeImage(event)}}
-                                            
-                                            ></input>
-                                            <label htmlFor='previewImg' className='previewImg'>Tải Ảnh <i className="fas fa-upload"></i></label>
-                                            <div className='priview-Img'
-                                             style={{
-                                                backgroundImage: `url(${this.state.priviewImgUrl})`
-                                              }} onClick={()=>this.handleViewImg()}></div>
-                                        </div>
-                                    
-                                        {
-                                            this.state.isOpenImg &&
-                                            <Lightbox
-                                            mainSrc={this.state.priviewImgUrl}
-                                            onCloseRequest={() => this.handleCloseViewImg()}
+                        <div className='container '>
+                            <div className='row '>
+                                <div className='col-12 ' >
+                                <button className='btn btn-primary mb-3'
+                                onClick={()=>{this.handleOnclickAddUser()}}                              
+                                ><FormattedMessage id="menu.system.add" /></button></div>
 
-                                        />
-                                        }
-                                       
+                                <div className='col-12 info-table'>
+                                    <table className="table table-striped table-bordered">
+                                        <thead className="table-dark">
+                                        <tr>
+                                            <th className='col text-center' >Email</th>
+                                            <th className='col text-center' >First Name</th>
+                                            <th className='col text-center' >Last Name</th>
+                                            <th className='col text-center' >Phone Number</th>
+                                            <th className='col text-center' >Address</th>
+                                            <th className='col text-center' >Gender</th>
+                                            <th className='col text-center' >Position</th>
+                                            <th className='col text-center' >Role</th>
+                                            <th className='col text-center' >Active</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                currentUsers && currentUsers.map((item, index) => {
+                                                    return(
+                                                        <tr key={index}>
+                                                            <td>{item.email}</td>
+                                                            <td>{item.firstName}</td>
+                                                            <td>{item.lastName}</td>
+                                                            <td>{item.phoneNumber}</td>
+                                                            <td>{item.address}</td>
+                                                            <td>{item.gender}</td>
+                                                            <td>{item.positionId}</td>
+                                                            <td>{item.roleId}</td>
+                                                            <td>
+                                                                <div className='btn-active'>
+                                                                <button className="btn btn-success btn-sm rounded-0" 
+                                                                type="button" 
+                                                                data-toggle="tooltip" 
+                                                                data-placement="top" 
+                                                                title="Edit"
+                                                                onClick={() => {this.handleEditUser(item)}}
+                                                                ><i className="fa fa-edit"></i></button>
+                                                                <button className="btn btn-danger btn-sm rounded-0" 
+                                                                type="button" 
+                                                                data-toggle="tooltip" 
+                                                                data-placement="top" 
+                                                                title="Delete"
+                                                                onClick={() => {this.handleDeleteUser(item)}}
+                                                                
+                                                                ><i className="fa fa-trash"></i></button>
 
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })
 
+                                            }
+                                        </tbody>
+                                    </table>
 
+                                    <div className="pagination btn-page-table">
+                                        {[...Array(totalPages)].map((_, index) => (
+                                        <button
+                                            key={index}
+                                            className={currentPage === index + 1 ? "active" : ""}
+                                            onClick={() => this.handlePageChange(index + 1)}
+                                        >
+                                            {index + 1}
+                                        </button>
+                                        ))}
                                     </div>
-                                    
-                                </div>
 
-                                <div className='col-1'>
-                                    <button className='btn btn-primary'>Save User</button>
                                 </div>
 
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <ModalUserAdmin
+                    isOpen={this.state.isOpenCreate}
+                    toggleCloseParenttoChild={this.toggleCloseParent}
+                    crearteNewUser={this.handleCreateNewUser}
+                />
+
+                <ModalEditUserAdmin 
+                    isOpenEdit = {this.state.isOpenEditModal}
+                    toggleCloseParentEdit={this.toggleCloseParent}
+                    crearteNewUser={this.handleCreateNewUser}
+                    userEdit = {userEdit}
+                    sentDataToParent = {this.handlChillDataUpdate}
+                />
             </div>
+            
         )
     }
 
@@ -238,19 +232,18 @@ class UserRedux extends Component {
 
 const mapStateToProps = state => {
     return {
-        language: state.app.language,
-        genderRedux: state.admin.genders,
-        isLoadinggender: state.admin.isLoadinggender,
-        postionRedux: state.admin.postion,
-        roleRedux: state.admin.role
+        listUserRedux: state.admin.dataAllUser,
+        // dataCreateUserRedux: state.admin.dataCreateUser,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        getGenderRedux: () => dispatch(actions.fetchGenderStart()),
-        getpostionRedux: () => dispatch(actions.fetchPositionStart()),
-        getRoleRedux: ()=> dispatch(actions.fetchRoleStart())
+        getAllUserStartRedux: ()=> dispatch(actions.getAllUserStart()),
+        getCreateNewUserRedux: (data)=> dispatch(actions.createNewUserStart(data)),
+        deleteUserIdStartRedux: (idUser) => dispatch(actions.deleteUserIdStart(idUser)),
+        updateUserStart: (dataUserUpdate) => dispatch(actions.updateUserStart(dataUserUpdate))
+        
     };
 };
 

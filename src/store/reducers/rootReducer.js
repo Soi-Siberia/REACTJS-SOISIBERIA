@@ -34,10 +34,20 @@ const appPersisConfog = {
 //     whitelist: ['']
 // }
 
-export default (history) => combineReducers({
+// export default (history) => combineReducers({
+//     router: connectRouter(history),
+//     user: persistReducer(userPersistConfig, userReducer),
+//     app: persistReducer(appPersisConfog,appReducer),
+//     admin: adminReducer
+    
+// })
+
+
+const rootReducer = (history) => combineReducers({
     router: connectRouter(history),
     user: persistReducer(userPersistConfig, userReducer),
     app: persistReducer(appPersisConfog,appReducer),
     admin: adminReducer
-    
-})
+  });
+  
+  export default rootReducer;

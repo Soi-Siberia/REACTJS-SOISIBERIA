@@ -1,0 +1,29 @@
+.priview-Img-Contaier {
+    display: flex;
+    justify-content: space-between;
+
+    .previewImg {
+        height: 35px;
+        width: 80px;
+        background: rgb(148, 146, 146);
+        text-align: center;
+        line-height: 35px;
+        border-radius: 3px;
+        cursor: pointer;
+        color: black;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    .priview-Img {
+        height: 60px;
+        width: 70%;
+        border: 1px solid;
+        background: center center no-repeat;
+        background-size: contain;
+        border-radius: 5px;
+    }
+
+}

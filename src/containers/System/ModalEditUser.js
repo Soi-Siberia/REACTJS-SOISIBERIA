@@ -12,7 +12,7 @@ class ModalEditUser extends Component {
         this.state ={
             id: '',
           email: '',
-          fastName: '',
+          firstName: '',
           lastName: '',
           address: '',
           phonenumber: '',
@@ -30,7 +30,7 @@ class ModalEditUser extends Component {
             this.setState({
                 id: user.id,
                 email: user.email,
-                fastName: user.firstName,
+                firstName: user.firstName,
                 lastName: user.lastName,
                 address: user.address,
                 phonenumber: user.phonenumber,
@@ -79,8 +79,8 @@ class ModalEditUser extends Component {
                 <div className='input-container'>
                     <label>Fast Name</label>
                     <input type='text' placeholder='Enter your Fast Name'onChange={(event) => {
-                      this.handleOnchangInput(event,"fastName")}} 
-                      value ={this.state.fastName}></input>
+                      this.handleOnchangInput(event,"firstName")}} 
+                      value ={this.state.firstName}></input>
                 </div>
                 <div className='input-container'>
                     <label>Last Name</label>
