@@ -1,0 +1,24 @@
+.Section {
+
+    .Section-Slider {
+
+        .Section-Slider-item {
+
+            .icon-TopDoctor-Slider {
+
+                img {
+                    margin-top: 20px;
+                    border: 1px solid black;
+                    border-radius: 100% !important;
+                    width: 50% !important;
+                    height: 100% !important;
+                }
+            }
+        }
+    }
+}
+
+.Section-Top-Doctor {
+
+    background-image: url("../../../assets/silder/background-top-doctor.png");
+}

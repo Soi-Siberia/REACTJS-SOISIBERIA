@@ -6,6 +6,7 @@ import Specialty from "./Section/Specialty";
 import ComprehensiveService from "./ComprehensiveService";
 import MedicalFacility from "./Section/MedicalFacility";
 import MediaSection from "./Section/MediaSection";
+import TopDoctor from "./Section/TopDoctor";
 
 class HomePage extends Component {
   render() {
@@ -14,6 +15,7 @@ class HomePage extends Component {
         <HomeHeader />
         <ComprehensiveService />
         <Specialty />
+        <TopDoctor />
         <MedicalFacility />
         <MediaSection />
 

@@ -7,7 +7,7 @@ import './ModalUserAdmin.scss'
 // import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
 
 import * as actions from "../../../store/actions"
-import {languages} from '../../../utils/constant'
+import {languages, CommonUtils} from '../../../utils'
 
 class ModalUserAdmin extends Component {
 
@@ -26,7 +26,7 @@ class ModalUserAdmin extends Component {
             lastName: '',
             phoneNumber: '',
             address: '',
-            avartar:'',
+            avatar:'',
             role:'',
             position:'',
             gender:''
@@ -53,7 +53,7 @@ class ModalUserAdmin extends Component {
         let genderArrRedux = this.props.genderRedux
         this.setState({
             renderArr: genderArrRedux,
-            gender: genderArrRedux && genderArrRedux.length > 0 ? genderArrRedux[0].key : '',
+            gender: genderArrRedux && genderArrRedux.length > 0 ? genderArrRedux[0].keyMap : '',
         })
     }
 
@@ -62,7 +62,7 @@ class ModalUserAdmin extends Component {
         let positionArrRedux = this.props.postionRedux
         this.setState({
             positionArr: positionArrRedux,
-            position: positionArrRedux && positionArrRedux.length > 0 ? positionArrRedux[0].key : ''
+            position: positionArrRedux && positionArrRedux.length > 0 ? positionArrRedux[0].keyMap : ''
         })
     }
     if(prevProps.roleRedux !== this.props.roleRedux)
@@ -70,7 +70,7 @@ class ModalUserAdmin extends Component {
         let roleArrRedux = this.props.roleRedux
         this.setState({
             rolteArr: roleArrRedux,
-            role: roleArrRedux && roleArrRedux.length > 0 ? roleArrRedux[0].key : ''
+            role: roleArrRedux && roleArrRedux.length > 0 ? roleArrRedux[0].keyMap : ''
         })
     }
 
@@ -83,7 +83,9 @@ class ModalUserAdmin extends Component {
             lastName: '',
             phoneNumber: '',
             address: '',
-            avartar:''
+            avatar:'',
+            priviewImgUrl: '',
+
         })
     }
 
@@ -122,8 +124,8 @@ class ModalUserAdmin extends Component {
     }
 
     handleAddNewUser= () =>{
-      let {  email, password, firstName, lastName, phoneNumber, address, gender, position, role, avartar} = this.state
-      let sentParen = { email, password, firstName, lastName, phoneNumber, address, gender, position, role, avartar }
+      let {  email, password, firstName, lastName, phoneNumber, address, gender, position, role, avatar} = this.state
+      let sentParen = { email, password, firstName, lastName, phoneNumber, address, gender, position, role, avatar }
       let check = this.handleCheckValideInput();
       if(check)
       {
@@ -133,17 +135,21 @@ class ModalUserAdmin extends Component {
     }
 
     //sử lý IMAGE
-    handleOnChangeImage = (event)=>{
+    handleOnChangeImage = async (event)=>{
         let fileAvarta = event.target.files
         let file = fileAvarta[0]
     
         if(file)
         {
             let objectUrl = URL.createObjectURL(file)
-            // console.log("objectUrl", objectUrl)
+            let converBase64 = await CommonUtils.getBase64(file)
+            console.log("converBase64 file: ", converBase64)
             this.setState ({
-                priviewImgUrl: objectUrl
-            })
+                priviewImgUrl: objectUrl,
+                avatar: converBase64
+            }, ()=>{
+                console.log("Onchang IMG: ", this.state)
+            }) 
             // console.log("priviewImgUrl", this.state.priviewImgUrl)
     
     
@@ -245,7 +251,7 @@ class ModalUserAdmin extends Component {
                                         {
                                             genders && genders.length > 0 && genders.map((item, index) => {
                                                 return (
-                                                    <option key={index} value={item.key}>{ languageRedux === languages.VI ?  item.valueVi:item.valueEn}</option>
+                                                    <option key={index} value={item.keyMap}>{ languageRedux === languages.VI ?  item.valueVi:item.valueEn}</option>
                                                 )
                                             })
                                         }
@@ -257,7 +263,7 @@ class ModalUserAdmin extends Component {
                                         {
                                             positons && positons.length > 0 && positons.map((item, index)=> {
                                                 return(
-                                                    <option key={index} value={item.key}>{languageRedux === languages.VI ? item.valueVi: item.valueEn}</option>
+                                                    <option key={index} value={item.keyMap}>{languageRedux === languages.VI ? item.valueVi: item.valueEn}</option>
                                                 )
                                             })
                                         }
@@ -269,7 +275,7 @@ class ModalUserAdmin extends Component {
                                         {
                                             roles && roles.length > 0 && roles.map ((item, index) => {
                                                 return (
-                                                    <option key={index} value={item.key}>{languageRedux === languages.VI ? item.valueVi: item.valueEn}</option>
+                                                    <option key={index} value={item.keyMap}>{languageRedux === languages.VI ? item.valueVi: item.valueEn}</option>
                                                 )
                                             })
                                         }

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import "./Specialty.scss";
 import Slider from "react-slick";
 import specialtyImg from "../../../assets/silder/tim-mach.png"
+import "./Section.scss";
 
 // Import css files
 import "slick-carousel/slick/slick.css";

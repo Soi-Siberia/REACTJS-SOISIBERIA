@@ -1,97 +1,72 @@
 import React, { Component } from 'react';
-import { Scrollbars } from 'react-custom-scrollbars';
-
+import { Scrollbars } from 'react-custom-scrollbars'; // Dùng bản cũ
 import './CustomScrollbars.scss';
 
 class CustomScrollbars extends Component {
-
     ref = React.createRef();
 
-    getScrollLeft =()=>{
-        const scrollbars = this.ref.current;
-        return scrollbars.getScrollLeft();
-    }
-    getScrollTop =()=>{
-        const scrollbars = this.ref.current;
-        return scrollbars.getScrollTop();
+    componentDidMount() {
+        if (this.ref.current) {
+            this.ref.current.container.addEventListener("wheel", this.handleWheel, { passive: true });
+            this.ref.current.container.addEventListener("touchstart", this.handleTouchStart, { passive: true });
+        }
     }
 
-    scrollToBottom = () => {
-        if (!this.ref || !this.ref.current) {
-            return;
+    componentWillUnmount() {
+        if (this.ref.current) {
+            this.ref.current.container.removeEventListener("wheel", this.handleWheel);
+            this.ref.current.container.removeEventListener("touchstart", this.handleTouchStart);
         }
-        const scrollbars = this.ref.current;
-        const targetScrollTop = scrollbars.getScrollHeight();
+    }
+
+    handleWheel = (e) => {
+        e.stopPropagation();
+    };
+
+    handleTouchStart = (e) => {
+        // Không chặn hành vi mặc định của touchstart
+    };
+
+    getScrollLeft = () => this.ref.current?.getScrollLeft();
+    getScrollTop = () => this.ref.current?.getScrollTop();
+
+    scrollToBottom = () => {
+        if (!this.ref.current) return;
+        const targetScrollTop = this.ref.current.getScrollHeight();
         this.scrollTo(targetScrollTop);
     };
 
     scrollTo = (targetTop) => {
-        const { quickScroll } = this.props;
-        if (!this.ref || !this.ref.current) {
-            return;
-        }
+        if (!this.ref.current) return;
         const scrollbars = this.ref.current;
         const originalTop = scrollbars.getScrollTop();
         let iteration = 0;
 
         const scroll = () => {
+            if (iteration > 30) return;
             iteration++;
-            if (iteration > 30) {
-                return;
-            }
-            scrollbars.scrollTop(originalTop + (targetTop - originalTop) / 30 * iteration);
-
-            if (quickScroll && quickScroll === true) {
-                scroll();
-            } else {
-                setTimeout(() => {
-                    scroll();
-                }, 20);
-            }
+            scrollbars.scrollTop(originalTop + ((targetTop - originalTop) / 30) * iteration);
+            requestAnimationFrame(scroll);
         };
 
         scroll();
     };
 
-    renderTrackHorizontal = (props) => {
-        return (
-            <div {...props} className="track-horizontal" />
-        );
-    };
-
-    renderTrackVertical = (props) => {
-        return (
-            <div {...props} className="track-vertical" />
-        );
-    };
-
-    renderThumbHorizontal = (props) => {
-        return (
-            <div {...props} className="thumb-horizontal" />
-        );
-    };
-
-    renderThumbVertical = (props) => {
-        return (
-            <div {...props} className="thumb-vertical" />
-        );
-    };
-
-    renderNone = (props) => {
-        return (
-            <div />
-        );
-    };
+    renderTrackHorizontal = (props) => <div {...props} className="track-horizontal" />;
+    renderTrackVertical = (props) => <div {...props} className="track-vertical" />;
+    renderThumbHorizontal = (props) => <div {...props} className="thumb-horizontal" />;
+    renderThumbVertical = (props) => <div {...props} className="thumb-vertical" />;
+    renderNone = () => <div />;
 
     render() {
-        const { className, disableVerticalScroll, disableHorizontalScroll, children,...otherProps } = this.props;
+        const { className, disableVerticalScroll, disableHorizontalScroll, children, ...otherProps } = this.props;
         return (
             <Scrollbars
                 ref={this.ref}
-                autoHide={true}
+                autoHide
                 autoHideTimeout={200}
-                hideTracksWhenNotNeeded={true}
-                className={className ? className + ' custom-scrollbar' : 'custom-scrollbar'}
+                hideTracksWhenNotNeeded
+                className={`${className ? className + ' ' : ''}custom-scrollbar`}
                 {...otherProps}
                 renderTrackHorizontal={disableHorizontalScroll ? this.renderNone : this.renderTrackHorizontal}
                 renderTrackVertical={disableVerticalScroll ? this.renderNone : this.renderTrackVertical}

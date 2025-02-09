@@ -85,7 +85,16 @@ class UserRedux extends Component {
 
    }
 
-   handleEditUser = (user)=>{ 
+   handleEditUser = (user)=>{
+    
+    //conver img base64 -> binarry để view
+    // let imagebase64 = ''
+    // if(user.avatar)
+    // {
+    //     imagebase64 = new Buffer(user.avatar, 'base64'). toString('binary');
+    // }
+
+
     this.setState({
         isOpenEditModal: true,
         userEdit: user

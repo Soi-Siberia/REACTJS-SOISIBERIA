@@ -104,21 +104,23 @@ export const createNewUserStart = (data)=>{
 
     return async(dispatch, getState)=>{
         try {
+            // console.log("data res api", data)
 
             let res = await userService.CreateNewUser(data)
-            console.log("data res api", res)
             if(res && res.errCode === 0){
-                toast.success("Create user success!!")
+                toast.success(res.errMessage)
                 dispatch(createNewUserSuccess(res))
                 dispatch(getAllUserStart())
             }else{
                 dispatch(createNewUserFaild())
+                toast.error(res.errMessage)
             }
 
             
         } catch (e) {
             dispatch(createNewUserFaild())
-            console.log('createNewUserFaild',e)
+            toast.error("CREATE ERROR, PLEASE CONTACT THE ADMIN")
+            console.log('CREATE NEW USER ERROR',e)
         }
     }
 }

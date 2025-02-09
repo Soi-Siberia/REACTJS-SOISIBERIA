@@ -21,6 +21,7 @@ class ModalEditUserAdmin extends Component {
           positionId:'',
           gender: '',
           roleId: '',
+          avatar: '',
           genderArr: [],
           postionArr: [],
           roleArr: []
@@ -44,9 +45,9 @@ class ModalEditUserAdmin extends Component {
           lastName: user.lastName,
           address: user.address,
           phoneNumber: user.phoneNumber,
-          positionId: user.positionId,
-          gender: user.gender,
-          roleId: user.roleId
+          positionId: user.positionId || "",
+          gender: user.gender || "",
+          roleId: user.roleId || ""
         })
       }
 
@@ -85,7 +86,7 @@ class ModalEditUserAdmin extends Component {
       this.setState({
         ...coppyState
       }, () => { 
-        console.log("coppy state: ", coppyState)
+        // console.log("coppy state: ", coppyState)
       }) 
       // console.log(event.target.value)
     }
@@ -172,7 +173,7 @@ class ModalEditUserAdmin extends Component {
                       {
                           genders && genders.length>0 && genders.map((item, index) => {
                           return (
-                            <option key={index} value={item.key}>
+                            <option key={index} value={item.keyMap}>
                               {languageRedux === languages.VI ? item.valueVi : item.valueEn}
                             </option>
                           );
@@ -192,7 +193,7 @@ class ModalEditUserAdmin extends Component {
                       {
                         postions && postions.length > 0 && postions.map((item, index)=>{
                           return(
-                            <option key={index} value={item.key}>
+                            <option key={index} value={item.keyMap}>
                               {languageRedux === languages.VI? item.valueVi:item.valueEn}                              
                             </option>
                           )
@@ -212,7 +213,7 @@ class ModalEditUserAdmin extends Component {
                         roles && roles.length > 0 && roles.map((item, index)=>{
                           
                           return(
-                            <option key={index} value={item.key}>
+                            <option key={index} value={item.keyMap}>
                               {languageRedux === languages.VI? item.valueVi:item.valueEn}                              
                             </option>
                           )

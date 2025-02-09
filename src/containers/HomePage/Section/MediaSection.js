@@ -16,16 +16,15 @@ class MediaSection extends Component {
                 </div>
                 <div className="Media-conten">
                     <div className="Media-conten-videos">
-                        <iframe
-                            className="media-videos"
-                            src="https://www.youtube.com/embed/KYgZ8glWozk"
-                            title="YouTube video player"
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                        >
-                            
-                        </iframe>
+                    <iframe
+                      className="media-videos"
+                      src="https://www.youtube.com/embed/KYgZ8glWozk?enablejsapi=1"
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      loading="lazy"
+                  ></iframe>
                     </div>
                     <div className="Media-logo">
                         <div className="media-logo-item">logo 1</div>

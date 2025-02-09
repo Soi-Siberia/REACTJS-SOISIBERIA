@@ -13,6 +13,7 @@ const actionTypes = Object.freeze({
 
 
     //admin
+
     //action type gender  ( định nghĩa action type )
     FETCH_GENDER_START: 'FETCH_GENDER_START',
     FETCH_GENDER_SUCCESS: 'FETCH_GENDER_SUCCESS',
@@ -43,7 +44,16 @@ const actionTypes = Object.freeze({
 
     //UPDATE USER
     UPDATE_USER_SUCCESS: 'UPDATE_USER_SUCCESS',
-    UPDATE_USER_FAILD: 'UPDATE_USER_FAILD'
+    UPDATE_USER_FAILD: 'UPDATE_USER_FAILD',
+
+
+    /**
+     * Home Page Active
+     */
+
+    GET_TOP_DOCTOR_SUCCESS: 'GET_TOP_DOCTOR_SUCCESS',
+    GET_TOP_DOCTOR_FALLD: 'GET_TOP_DOCTOR_FALLD'
+
 
 })
 export default actionTypes;
