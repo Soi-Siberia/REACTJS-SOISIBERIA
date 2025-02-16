@@ -40,3 +40,12 @@ export const adminMenu = [
     },
 
 ];
+
+export const doctorMenu = [
+    { //QUản Lý người dùng
+        name: 'menu.system.user', menus: [
+
+            { name: 'menu.system.doctormenu.manage-specialty', link: '/system/manage-admin' }
+        ]
+    },
+];

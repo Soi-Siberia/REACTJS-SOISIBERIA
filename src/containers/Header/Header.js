@@ -3,28 +3,59 @@ import { connect } from "react-redux";
 
 import * as actions from "../../store/actions";
 import Navigator from "../../components/Navigator";
-import { adminMenu } from "./menuApp";
+import { adminMenu, doctorMenu } from "./menuApp";
 import "./Header.scss";
-import { languages } from "../../utils/constant";
+import { languages, UserRole } from "../../utils/constant";
 import { FormattedMessage } from "react-intl";
+import _ from 'lodash'
 
 
 class Header extends Component {
 
+  constructor (props){
+    super(props);
+    this.state = {
+      userInfo: {},
+      menu:[]
+
+    }
+  }
+
+  componentDidMount(){
+    let {userInfo} = this.props
+    let menu = []
+    if(userInfo && !_.isEmpty(userInfo))
+    {
+       let idRole = this.props.userInfo.roleId
+      if(idRole === UserRole.ADMIN)
+      {
+        menu = adminMenu
+      }
+      if(idRole === UserRole.DOCTOR)
+        {
+          menu = doctorMenu
+        }
+    }
+
+    this.setState({
+      menu: menu
+    })
+  }
+
+
   ChangeLanguage = (language) => {
-    // console.log("Call change language", language);
+    console.log("Call change language", language);
     this.props.changlanguagesApp(language)
   }
 
   render() {
     const { processLogout , userInfo, language} = this.props;
-    // console.log("check info login header:", userInfo)
-    return (
-      
+    let {menu} = this.state
+   return (
       <div className="header-container">
         {/* thanh navigator */}
         <div className="header-tabs-container">
-          <Navigator menus={adminMenu} />
+          < Navigator menus={menu} />
         </div>
         {/* change Language  */}
 

@@ -34,10 +34,12 @@
 
   &:hover {
 
-    > .track-horizontal, > .track-vertical {
+    >.track-horizontal,
+    >.track-vertical {
       opacity: 1 !important;
 
-      > .thumb-horizontal, > .thumb-vertical {
+      >.thumb-horizontal,
+      >.thumb-vertical {
         opacity: 1;
       }
     }
@@ -48,7 +50,9 @@
     bottom: 0;
     left: 0;
     height: 5px !important;
-    &:hover, &:active {
+
+    &:hover,
+    &:active {
       height: 10px !important;
     }
   }
@@ -58,7 +62,9 @@
     bottom: 0;
     top: 0;
     width: 5px !important;
-    &:hover, &:active {
+
+    &:hover,
+    &:active {
       width: 10px !important;
     }
   }

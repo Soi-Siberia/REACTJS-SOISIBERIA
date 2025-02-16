@@ -32,7 +32,10 @@
             "gender": "Giới tính",
             "postion": "Chức danh",
             "roleid": "Role ID",
-            "avartar": "Ảnh đại diện"
+            "avartar": "Ảnh đại diện",
+            "doctormenu": {
+                "manage-specialty": "Quản lý kế hoạch khám bệnh"
+            }
         }
     }
 }

@@ -32,7 +32,10 @@
             "gender": "Gender",
             "postion": "Postion",
             "roleid": "Role ID",
-            "avartar": "Avartar"
+            "avartar": "Avartar",
+            "doctormenu": {
+                "manage-specialty": "Quản lý kế hoạch khám bệnh"
+            }
         }
     }
 }
