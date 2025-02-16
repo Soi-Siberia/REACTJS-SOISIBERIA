@@ -1,0 +1,27 @@
+.Manager-Doctor-Container {
+    padding-top: 20px;
+
+    .Manager-Doctor-Title {
+        text-align: center;
+
+        h1 {
+            font-weight: 600;
+            text-align: center;
+            color: #0071BA;
+        }
+    }
+
+    .Manager-Doctor-info {
+        display: flex;
+        gap: 15px;
+
+        .Doctor-info-left {
+            width: 40%;
+        }
+
+
+        .Doctor-info-right {
+            width: 60%;
+        }
+    }
+}

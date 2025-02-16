@@ -10,9 +10,14 @@
                     margin-top: 20px;
                     border: 1px solid black;
                     border-radius: 100% !important;
-                    width: 50% !important;
-                    height: 100% !important;
+                    width: 180px !important;
+                    height: 180px !important;
+                    object-fit: cover;
                 }
+            }
+
+            .info-Section-Slider {
+                cursor: pointer;
             }
         }
     }
@@ -21,4 +26,8 @@
 .Section-Top-Doctor {
 
     background-image: url("../../../assets/silder/background-top-doctor.png");
+}
+
+.slick-disabled {
+    display: none !important;
 }

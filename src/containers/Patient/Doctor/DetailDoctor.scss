@@ -1,0 +1,146 @@
+.detai-doctor-container {
+    // border: 1px solid green;
+    height: 412px;
+    padding-top: 30px;
+
+    .detai-info {
+        display: flex;
+        gap: 2%;
+
+        .avatar-doctor {
+            // border: 1px solid red;
+            border-radius: 100%;
+
+            img {
+                width: 150px;
+                height: 150px;
+                border-radius: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .content-infor {
+            .description {
+                width: 80%;
+            }
+
+            .social-doctor {
+                display: flex;
+                gap: 1%;
+
+                .social {
+                    background-color: #1877F2;
+                    padding: 5px;
+                    border-radius: 8px;
+                    color: white;
+                }
+            }
+        }
+    }
+
+    .detail-contnet {
+        padding: 30px 50px 0px 50px;
+        display: flex;
+
+        .appointment {
+            font-size: 25px;
+            width: 50%;
+
+            .medical-examination-day {
+                color: #1877F2;
+            }
+
+            .appointment-doctor {
+
+
+                .time-appointment {
+                    display: flex;
+                    gap: 10px;
+                    font-size: 16px;
+                    text-align: center;
+                    padding-bottom: 15px;
+
+                    .time {
+                        padding: 10px;
+                        background-color: #EEEEEE;
+                        color: black;
+                    }
+                }
+            }
+
+        }
+
+        .local-clinic {
+
+            width: 40%;
+            border-left: 1px solid rgba(238, 238, 238, 1.00);
+            padding-left: 10px;
+
+            .address-doctor {
+
+                h2 {
+                    color: #6C6C6Ced;
+                    font-style: italic;
+                    font-weight: 700;
+                }
+
+                .title-address {
+                    color: black;
+                    font-size: 19px;
+                }
+            }
+
+            .clinic-price {
+                display: flex;
+                gap: 10px;
+                align-items: baseline;
+                font-size: 20px;
+                border-top: 1px solid rgba(238, 238, 238, 1.00);
+                margin-top: 10px;
+                padding-top: 10px;
+
+                .title-price {
+                    // font-size: 20px;
+                    color: #6C6C6Ced;
+                    font-style: oblique;
+                    font-weight: 700;
+                }
+
+                .detail-clinic {
+                    color: #50C7D5;
+                }
+            }
+
+            .underwrite {
+                display: flex;
+                gap: 10px;
+                font-size: 20px;
+                border-top: 1px solid rgba(238, 238, 238, 1.00);
+                margin-top: 10px;
+                padding-top: 10px;
+
+                .title-underwrite {
+                    color: #6C6C6Ced;
+                    font-style: oblique;
+                    font-weight: 700;
+                }
+
+                .detail-underwrite {
+                    color: #50C7D5;
+                }
+            }
+        }
+    }
+
+}
+
+.description-doctor {
+    background: #F9F9F9;
+    padding-top: 35px;
+    margin-top: 5px;
+    border-top: 1px solid black;
+
+    .description-content {
+        font-size: 18px;
+    }
+}

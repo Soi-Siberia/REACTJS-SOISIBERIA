@@ -95,7 +95,26 @@ class ModalEditUserAdmin extends Component {
 
       let isConfirmUpdate = window.confirm("Bạn có chắc chắn cập nhật thông tin!")
       if(isConfirmUpdate){
-        this.props.sentDataToParent(this.state)
+
+        let {id,
+          email,
+          firstName,
+          lastName,
+          address,
+          phoneNumber,
+          positionId,
+          gender,
+          roleId} = this.state
+
+        this.props.sentDataToParent({id,
+          email,
+          firstName,
+          lastName,
+          address,
+          phoneNumber,
+          positionId,
+          gender,
+          roleId})
       }else{
         
       }

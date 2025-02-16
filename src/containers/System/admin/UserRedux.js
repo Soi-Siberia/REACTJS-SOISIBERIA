@@ -50,6 +50,8 @@ class UserRedux extends Component {
 
    }
 
+   
+
 
    ///Modal-----------
    handleOnclickAddUser = () =>{
@@ -121,6 +123,8 @@ class UserRedux extends Component {
     }
 
 
+
+
     render() {
         let listALLUser = this.state.alluser;
         let {currentPage,itemsPerPage, userEdit} = this.state
@@ -133,107 +137,109 @@ class UserRedux extends Component {
                 //
 
         return (
-            <div className="user-redux-container" >
-                <div className='title'>Manage products Learn use REDUX SoiSiberia</div>
-                <div className='user-redux-body'>
-                    <div className='user-redux-body-create'>
-                        <div className='container '>
-                            <div className='row '>
-                                <div className='col-12 ' >
-                                <button className='btn btn-primary mb-3'
-                                onClick={()=>{this.handleOnclickAddUser()}}                              
-                                ><FormattedMessage id="menu.system.add" /></button></div>
+            <React.Fragment>
+                <div className="user-redux-container" >
+                    <div className='title'>Manage products Learn use REDUX SoiSiberia</div>
+                    <div className='user-redux-body'>
+                        <div className='user-redux-body-create'>
+                            <div className='container '>
+                                <div className='row '>
+                                    <div className='col-12 ' >
+                                    <button className='btn btn-primary mb-3'
+                                    onClick={()=>{this.handleOnclickAddUser()}}                              
+                                    ><FormattedMessage id="menu.system.add" /></button></div>
 
-                                <div className='col-12 info-table'>
-                                    <table className="table table-striped table-bordered">
-                                        <thead className="table-dark">
-                                        <tr>
-                                            <th className='col text-center' >Email</th>
-                                            <th className='col text-center' >First Name</th>
-                                            <th className='col text-center' >Last Name</th>
-                                            <th className='col text-center' >Phone Number</th>
-                                            <th className='col text-center' >Address</th>
-                                            <th className='col text-center' >Gender</th>
-                                            <th className='col text-center' >Position</th>
-                                            <th className='col text-center' >Role</th>
-                                            <th className='col text-center' >Active</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                currentUsers && currentUsers.map((item, index) => {
-                                                    return(
-                                                        <tr key={index}>
-                                                            <td>{item.email}</td>
-                                                            <td>{item.firstName}</td>
-                                                            <td>{item.lastName}</td>
-                                                            <td>{item.phoneNumber}</td>
-                                                            <td>{item.address}</td>
-                                                            <td>{item.gender}</td>
-                                                            <td>{item.positionId}</td>
-                                                            <td>{item.roleId}</td>
-                                                            <td>
-                                                                <div className='btn-active'>
-                                                                <button className="btn btn-success btn-sm rounded-0" 
-                                                                type="button" 
-                                                                data-toggle="tooltip" 
-                                                                data-placement="top" 
-                                                                title="Edit"
-                                                                onClick={() => {this.handleEditUser(item)}}
-                                                                ><i className="fa fa-edit"></i></button>
-                                                                <button className="btn btn-danger btn-sm rounded-0" 
-                                                                type="button" 
-                                                                data-toggle="tooltip" 
-                                                                data-placement="top" 
-                                                                title="Delete"
-                                                                onClick={() => {this.handleDeleteUser(item)}}
-                                                                
-                                                                ><i className="fa fa-trash"></i></button>
+                                    <div className='col-12 info-table'>
+                                        <table className="table table-striped table-bordered">
+                                            <thead className="table-dark">
+                                            <tr>
+                                                <th className='col text-center' >Email</th>
+                                                <th className='col text-center' >First Name</th>
+                                                <th className='col text-center' >Last Name</th>
+                                                <th className='col text-center' >Phone Number</th>
+                                                <th className='col text-center' >Address</th>
+                                                <th className='col text-center' >Gender</th>
+                                                <th className='col text-center' >Position</th>
+                                                <th className='col text-center' >Role</th>
+                                                <th className='col text-center' >Active</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                {
+                                                    currentUsers && currentUsers.map((item, index) => {
+                                                        return(
+                                                            <tr key={index}>
+                                                                <td>{item.email}</td>
+                                                                <td>{item.firstName}</td>
+                                                                <td>{item.lastName}</td>
+                                                                <td>{item.phoneNumber}</td>
+                                                                <td>{item.address}</td>
+                                                                <td>{item.gender}</td>
+                                                                <td>{item.positionId}</td>
+                                                                <td>{item.roleId}</td>
+                                                                <td>
+                                                                    <div className='btn-active'>
+                                                                    <button className="btn btn-success btn-sm rounded-0" 
+                                                                    type="button" 
+                                                                    data-toggle="tooltip" 
+                                                                    data-placement="top" 
+                                                                    title="Edit"
+                                                                    onClick={() => {this.handleEditUser(item)}}
+                                                                    ><i className="fa fa-edit"></i></button>
+                                                                    <button className="btn btn-danger btn-sm rounded-0" 
+                                                                    type="button" 
+                                                                    data-toggle="tooltip" 
+                                                                    data-placement="top" 
+                                                                    title="Delete"
+                                                                    onClick={() => {this.handleDeleteUser(item)}}
+                                                                    
+                                                                    ><i className="fa fa-trash"></i></button>
 
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    )
-                                                })
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    })
 
-                                            }
-                                        </tbody>
-                                    </table>
+                                                }
+                                            </tbody>
+                                        </table>
 
-                                    <div className="pagination btn-page-table">
-                                        {[...Array(totalPages)].map((_, index) => (
-                                        <button
-                                            key={index}
-                                            className={currentPage === index + 1 ? "active" : ""}
-                                            onClick={() => this.handlePageChange(index + 1)}
-                                        >
-                                            {index + 1}
-                                        </button>
-                                        ))}
+                                        <div className="pagination btn-page-table">
+                                            {[...Array(totalPages)].map((_, index) => (
+                                            <button
+                                                key={index}
+                                                className={currentPage === index + 1 ? "active" : ""}
+                                                onClick={() => this.handlePageChange(index + 1)}
+                                            >
+                                                {index + 1}
+                                            </button>
+                                            ))}
+                                        </div>
+
                                     </div>
 
                                 </div>
-
                             </div>
                         </div>
                     </div>
+
+                    <ModalUserAdmin
+                        isOpen={this.state.isOpenCreate}
+                        toggleCloseParenttoChild={this.toggleCloseParent}
+                        crearteNewUser={this.handleCreateNewUser}
+                    />
+
+                    <ModalEditUserAdmin 
+                        isOpenEdit = {this.state.isOpenEditModal}
+                        toggleCloseParentEdit={this.toggleCloseParent}
+                        crearteNewUser={this.handleCreateNewUser}
+                        userEdit = {userEdit}
+                        sentDataToParent = {this.handlChillDataUpdate}
+                    />
                 </div>
 
-                <ModalUserAdmin
-                    isOpen={this.state.isOpenCreate}
-                    toggleCloseParenttoChild={this.toggleCloseParent}
-                    crearteNewUser={this.handleCreateNewUser}
-                />
-
-                <ModalEditUserAdmin 
-                    isOpenEdit = {this.state.isOpenEditModal}
-                    toggleCloseParentEdit={this.toggleCloseParent}
-                    crearteNewUser={this.handleCreateNewUser}
-                    userEdit = {userEdit}
-                    sentDataToParent = {this.handlChillDataUpdate}
-                />
-            </div>
-            
+            </React.Fragment>
         )
     }
 

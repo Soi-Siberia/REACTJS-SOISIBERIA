@@ -8,7 +8,8 @@ const initialState = {
     role: [],
     postion:[],
     dataCreateUser:[],
-    dataAllUser: []
+    dataAllUser: [],
+    dataAllDoctor: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -106,10 +107,28 @@ const adminReducer = (state = initialState, action) => {
             return{
                 ...state
             }
-                
+        case actionTypes.GET_ALL_DOCTOR_SUCCESS:
+            state.dataAllDoctor = action.data
+            return{
+                ...state
+            }
+        case actionTypes.GET_ALL_DOCTOR_FAILD:
+            return{
+                ...state
+            }                       
+        case actionTypes.CREATE_MARKDOWN_SUCCESS:
+            return{
+                ...state
+            } 
 
-        default:
-            return state;
+        case actionTypes.CREATE_MARKDOWN_FAILD:
+            return{
+                ...state
+            }
+
+
+            default:
+        return state;
     }
 }
 

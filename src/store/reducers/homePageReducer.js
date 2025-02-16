@@ -2,6 +2,7 @@ import actionTypes from '../actions/actionTypes';
 
 const initialState = {
     doctorTop: [],
+    detailDoctor: []
 }
 
 const homePageReducer = (state = initialState, action) => {
@@ -11,11 +12,23 @@ const homePageReducer = (state = initialState, action) => {
                 ...state,
                 doctorTop: action.data
             }
-        case actionTypes.USER_LOGIN_FAIL:
+        case actionTypes.GET_ALL_DOCTOR_FAILD:
+            return {
+                ...state
+            }
+        
+        case actionTypes.GET_DETAIL_DOCTOR_BY_ID_SUCCESS:
+            state.detailDoctor = action.data
             return {
                 ...state
             }
 
+        case actionTypes.GET_DETAIL_DOCTOR_BY_ID_FAILD:
+            return{
+                ...state
+            }
+
+            
         default:
             return state;
     }

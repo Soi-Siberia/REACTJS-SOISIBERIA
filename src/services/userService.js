@@ -12,7 +12,7 @@ const userService = {
     },
 
     CreateNewUser: (data) => {
-        console.log("Check data from child: ", data)
+        // console.log("Check data from child: ", data)
         return axios.post('/api-create-user', data)
     },
 
@@ -28,6 +28,14 @@ const userService = {
 
     getAllCode: (typeInput) =>{
         return axios.get(`/api/allcode?type=${typeInput}`)
+    },
+
+    getAllDoctor: () => {
+        return axios.get('/api/get-All-Doctor')
+    },
+    
+    createMarkDown: (data) => {
+        return axios.post('/api/create-markdown',data)
     }
 
 }

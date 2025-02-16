@@ -20,6 +20,9 @@ import System from '../routes/System';
 
 import homepage from './HomePage/HomePage.js';
 import CustomScrollbars from '../components/CustomScrollbars';
+import detailDoctor from'../containers/Patient/Doctor/DetailDoctor.js'
+
+
 class App extends Component {
 
     handlePersistorState = () => {
@@ -54,6 +57,10 @@ class App extends Component {
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                     <Route path={path.HOMEPAGE} component={(homepage)} />
+                                    <Route path={path.Detail_Doctor} component={(detailDoctor)} />
+
+                                    
+
 
                                 </Switch>
                             </CustomScrollbars>

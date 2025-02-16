@@ -194,9 +194,9 @@ export const deleteUserIdFaild = ()=>({
 
 export const updateUserStart = (dataUpdate) =>{
     return async (dispatch, getState) => {
+        console.log("Đây là data updateUserStart:", dataUpdate)
         try {
             let resutlUpdate = await userService.EditUser(dataUpdate)
-            console.log("Đây là data updateUserStart:", dataUpdate)
             if(resutlUpdate && resutlUpdate.errCode === 0)
             {
                 toast.success(resutlUpdate.message)
@@ -221,4 +221,76 @@ export const updateUserSuccess = () =>({
 
 export const updateUserFaild = () => ({
     type: actionTypes.UPDATE_USER_FAILD
+})
+
+export const getAllDoctorStart = (data) => {
+    return (async (dispatch, getState)=> {
+        try {
+        let result = await userService.getAllDoctor()
+        if(result)
+        {
+            // console.log("Gell ALL Doctor:",result.doctors.data)
+
+            dispatch(getAllDoctorSuccess(result.data))
+        }else
+        {
+            dispatch(getAllDoctorFaild())
+        }
+            
+        } catch (e) {
+            dispatch(getAllDoctorFaild())
+            console.log("getAllDoctorStart error", e)
+        }
+    })
+}
+export const getAllDoctorSuccess = (data) => ({
+    type: actionTypes.GET_ALL_DOCTOR_SUCCESS,
+    data: data
+})
+export const getAllDoctorFaild = () => ({
+    type: actionTypes.GET_ALL_DOCTOR_FAILD,
+})
+
+export const createMarkDownStart = (data) => {
+    return ( async (dispatch, getState) => {
+        try {
+            console.log("data create markdown action: ", data)
+            if(!data.doctorId || !data.contentHTML || !data.contentMarkdown)
+            {
+                toast.error ("Có lỗi làm mới lại trang và thử lại !!!")
+                dispatch(createMarkDownFaild())
+
+            }else{
+                let result = await userService.createMarkDown(data)
+                console.log("Kết quả create markdown: ",result)
+
+                if(result && result.errCode === 0)
+                {
+                    toast.success(result.message)
+                    dispatch(createMarkDownSuccess())
+                }else{
+
+                    toast.error(result.message)
+                    dispatch(createMarkDownFaild())
+
+                }
+
+            }
+
+            
+        } catch (e) {
+            console.log("createMarkDownStart error", e)
+            toast.error("Đã có lỗi vui lòng liên hệ ADMIN")
+            dispatch(createMarkDownFaild())
+        }
+    })
+}
+
+
+export const createMarkDownSuccess = () => ({
+    type: actionTypes.CREATE_MARKDOWN_SUCCESS,
+})
+
+export const createMarkDownFaild = () => ({
+    type: actionTypes.CREATE_MARKDOWN_FAILD,
 })

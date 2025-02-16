@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { Redirect, Route, Switch } from 'react-router-dom';
 import UserManage from '../containers/System/UserManage';
 import UserRedux from '../containers/System/admin/UserRedux';
+import DoctorManager from '../containers/System/admin/DoctorManager';
+
 // import RegisterPackageGroupOrAcc from '../containers/System/RegisterPackageGroupOrAcc';
 import Header from'../containers/Header/Header';
 
@@ -17,6 +19,8 @@ class System extends Component {
                     <Switch>
                         <Route path="/system/user-manage" component={UserManage} />
                         <Route path="/system/User-Redux" component={UserRedux} />
+                        <Route path="/system/manage-doctor" component={DoctorManager} />
+
                         {/* <Route path="/system/register-package-group-or-account" component={RegisterPackageGroupOrAcc} /> */}
                         <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                     </Switch>

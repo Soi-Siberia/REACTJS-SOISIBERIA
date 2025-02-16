@@ -66,7 +66,7 @@ class HomeHeader extends Component {
           </div>
         </div>
         {/* // Banner */}
-        <div className="Home-header-banner">
+        {/* <div className="Home-header-banner">
           <div className="banner-title">
             <h1>Nơi khởi nguồn sức khỏe</h1>
           </div>
@@ -106,7 +106,7 @@ class HomeHeader extends Component {
                 <div className="icon-question"> + </div>
               </div>
             </div>
-        </div>
+        </div> */}
       </React.Fragment>
     );
   }
