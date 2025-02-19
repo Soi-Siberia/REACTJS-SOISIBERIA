@@ -64,6 +64,12 @@ class Login extends Component {
         })
     }
 
+    handleLoginKeyDown = (event) =>{
+        if (event.key === "Enter") {
+            this.handleLogin()
+          }
+    }
+
     render() {
         return (
             <div className='login-backgroud'>
@@ -72,7 +78,7 @@ class Login extends Component {
                         <div className='col-12 text-center text-login'>Log in</div>
                         <div className='col-12 form-group login-input'>
                             <label>Username:</label>
-                            <input type='text' className='form-control' 
+                            <input  type='text' className='form-control' 
                             placeholder='Enter your username' 
                             value={this.state.username}
                             onChange={(event)=> this.handleOnchangeInputUserName(event)}
@@ -81,9 +87,13 @@ class Login extends Component {
                         <div className='col-12 form-group login-input'>
                             <label>Password:</label>
                             <div className='showPassword'>
-                                <input type={this.state.isShowPassword ? 'text':'password'} className='form-control' placeholder='Enter your password'
+                                <input type={this.state.isShowPassword ? 'text':'password' } 
+                                className='form-control' 
+                                placeholder='Enter your password'
                                 value={this.state.password}
-                                onChange={(event) => this.handleOnchangeInputPassword(event)}></input>
+                                onChange={(event) => this.handleOnchangeInputPassword(event)}
+                                onKeyDown={(event)=> this.handleLoginKeyDown(event)}
+                            ></input>
                                 <span
                                     onClick={()=> this.handleOnClickShowPassword()}
                                 >
@@ -93,6 +103,7 @@ class Login extends Component {
                         </div>
                         <div className='col-12 btn-login'>
                             <button className='login-buttom' onClick={ ()=> this.handleLogin()}>Đăng Nhập</button>
+
                         </div>
                         <div className='col-12 forget-pass'>Forget your password?</div>
                         <div className='col-12 login-with'>Or login with:</div>

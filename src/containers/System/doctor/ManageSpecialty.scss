@@ -1,0 +1,47 @@
+.manage-specialty {
+
+    .manage-specialty-container {
+
+        .schedule-management-content {
+            font-weight: 600;
+            font-size: 16px;
+            color: black;
+        }
+
+        .schedule-management-time-Slots {
+            justify-content: center;
+            color: black;
+
+            .item-time-slot {
+                margin: 0px 10px;
+                background-color: rgb(255, 255, 255);
+                border: 1px solid rgba(250, 201, 68, 0.875);
+                border-radius: 2px;
+                padding: 10px;
+                cursor: pointer;
+                color: black;
+                font-size: 16px;
+                font-weight: 600;
+
+                &:hover {
+                    background-color: rgba(250, 201, 68, 0.875);
+                    border-radius: 8px;
+                }
+            }
+        }
+
+        .schedule-management-btn-Save {
+            width: 10%;
+
+            .btn-Save {
+                background-color: rgb(46, 199, 255);
+
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+
+
+        }
+    }
+}
