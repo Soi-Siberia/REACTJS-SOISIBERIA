@@ -20,7 +20,6 @@ export const adminMenu = [
 
     { //QUản Lý Phòng Khám
         name: 'menu.system.clinics', menus: [
-
             { name: 'menu.system.manage-clinics', link: '/system/manage-clinic' }
         ]
     },
@@ -43,9 +42,9 @@ export const adminMenu = [
 
 export const doctorMenu = [
     { //QUản Lý người dùng
-        name: 'menu.system.user', menus: [
-
-            { name: 'menu.system.doctormenu.manage-specialty', link: '/system/manage-admin' }
+        name: 'menu.system.user',
+        menus: [
+            { name: 'menu.system.doctormenu.manage-specialty', link: '/doctor/manage-specialty' }
         ]
     },
 ];

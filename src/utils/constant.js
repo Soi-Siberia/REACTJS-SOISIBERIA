@@ -4,7 +4,10 @@ export const path = {
     LOGIN: '/login',
     LOG_OUT: '/logout',
     SYSTEM: '/system',
-    Detail_Doctor: '/detail-doctor/:id'
+    Detail_Doctor: '/detail-doctor/:id',
+    
+    //path router Doctor
+    DOCTOR: '/doctor/' 
 };
 
 export const languages = {

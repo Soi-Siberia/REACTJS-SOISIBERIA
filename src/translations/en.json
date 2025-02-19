@@ -34,7 +34,7 @@
             "roleid": "Role ID",
             "avartar": "Avartar",
             "doctormenu": {
-                "manage-specialty": "Quản lý kế hoạch khám bệnh"
+                "manage-specialty": "Manage Specialty"
             }
         }
     }
