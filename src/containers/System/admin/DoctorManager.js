@@ -150,6 +150,7 @@ class DoctorManager extends Component {
 const mapStateToProps = state => {
     return {
         allDoctorRedux: state.admin.dataAllDoctor,
+        roleTimeDoctor: state.admin.roleTimeDoctor
     };
 };
 

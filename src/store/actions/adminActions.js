@@ -223,7 +223,7 @@ export const updateUserFaild = () => ({
     type: actionTypes.UPDATE_USER_FAILD
 })
 
-export const getAllDoctorStart = (data) => {
+export const getAllDoctorStart = () => {
     return (async (dispatch, getState)=> {
         try {
         let result = await userService.getAllDoctor()
@@ -294,3 +294,32 @@ export const createMarkDownSuccess = () => ({
 export const createMarkDownFaild = () => ({
     type: actionTypes.CREATE_MARKDOWN_FAILD,
 })
+
+export const fatchRoleDoctorStart = () =>{
+    return ( async (dispatch, getState) => {
+        try {
+            let res = await userService.getAllCode("TIME")
+            if(res && res.errCode === 0)
+            {
+                // console.log("data succes position action creator: ", res.dataResult)
+                dispatch(fatchRoleDoctorSuccess(res.dataResult))
+            }else{
+                dispatch(fatchRoleDoctorFaild())
+        
+            }
+        } catch (e) {
+            dispatch(fatchRoleDoctorFaild())
+            console.log("fatchRoleDoctorStart error ",e)
+        }
+    })
+}
+
+export const fatchRoleDoctorSuccess = (data) => ({
+    type: actionTypes.FETCH_ROLE_DOCTOR_SUCCESS,
+    data: data
+})
+
+export const fatchRoleDoctorFaild = () => ({
+    type: actionTypes.FETCH_ROLE_DOCTOR_FAIDED,
+})
+

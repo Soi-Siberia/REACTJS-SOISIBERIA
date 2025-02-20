@@ -2,10 +2,78 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import './ManageSpecialty.scss'
 
+import * as actions from '../../../store/actions'
+import Select from 'react-select';
+
+
 class ManageSpecialty extends Component {
 
+    constructor (props){
+        super (props);
+        this.state = {
+            alldoctor: [],
+            roleTimeDoctor: [],
+            dateSelect:"",
+            currentDate: new Date().toISOString().split("T")[0],
+        }
+    }
+
+    componentDidMount(){
+        this.props.getallDoctor()
+        this.props.fatchRoleDoctorStart()
+    }
+    componentDidUpdate(prevPops){
+        if(prevPops.dataAllDoctor !== this.props.dataAllDoctor)
+        {
+            let options = this.optionSelectDoctor(this.props.dataAllDoctor)
+            this.setState({
+                alldoctor: options
+            })
+        }
+
+        if(prevPops.roleTimeDoctor !== this.props.roleTimeDoctor)
+        {
+            this.setState({
+                roleTimeDoctor: this.props.roleTimeDoctor
+            })
+        }
+
+    }
+
+    optionSelectDoctor = (data) =>{
+        return data?.map((item,index) => ({
+            value: item.id,
+            label: `${item.lastName} ${item.firstName}`
+        })) || [];
+      }
+
+    handleChangeSelect = (selectedOption)=>{
+        this.setState({
+            selectedOption
+        })
+    }
+
+    formatDate = (isoDate) => {
+        console.log("Giá trì isoDate", isoDate)
+        if (!isoDate) return ""; // Kiểm tra nếu rỗng
+        const [year, month, day] = isoDate.split("-"); // Tách chuỗi YYYY-MM-DD
+        return `${day}/${month}/${year}`; // Format lại thành dd/MM/YYYY
+      };
+    handleOnchangDate = (event) =>{
+        let date = this.formatDate(event.target.value)
+        console.log("Onchang date: ", date, "và : ",event.target.value)
+
+        this.setState({
+            currentDate: event.target.value,
+            dateSelect: date
+        })
+
+    }
 
     render() {
+
+        let {alldoctor,selectedOption, roleTimeDoctor,currentDate} = this.state
+        // console.log("roleTimeDoctor: ", roleTimeDoctor)
         return (
             <React.Fragment>
                 <div className='manage-specialty'>
@@ -16,12 +84,11 @@ class ManageSpecialty extends Component {
                         <div className='schedule-management-content row'>
                             <div className='schedule-management_controls my-4 col-12 col-md-6'>
                                 <label className='schedule-management_lable my-2'>Chọn bác sĩ</label>
-                                <select class=" schedule-management_controls form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                                <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
+                                    <Select
+                                    value={selectedOption}
+                                    onChange={this.handleChangeSelect}
+                                    options={alldoctor}
+                                />
                             </div>
                             
 
@@ -33,17 +100,21 @@ class ManageSpecialty extends Component {
                                 type='date' 
                                 min={new Date().toISOString().split('T')[0]}
                                 onKeyDown={(e)=>e.preventDefault()}
-                                onFocus={(e)=> e.target.showPicker()}></input>
+                                onClick={(e)=> e.target.showPicker()}
+                                onChange={(event)=>{this.handleOnchangDate(event)}}
+                                value={currentDate}
+                                ></input>
                             </div>
                         </div>
                         <div className='schedule-management-time-Slots row text-center'>
-                            <div className='item-time-slot col-md-1'>8:00-9:00</div>
-                            <div className='item-time-slot col-md-1'>9:00-10:00</div>
-                            <div className='item-time-slot col-md-1'>10:00-11:00</div>
-                            <div className='item-time-slot col-md-1'>11:00-12:00</div>
-                            <div className='item-time-slot col-md-1'>14:00-15:00</div>
-                            <div className='item-time-slot col-md-1'>16:00-17:00</div>
-                            <div className='item-time-slot col-md-1 active-slot'>17:00-18:00</div>
+                            {
+                                roleTimeDoctor && roleTimeDoctor.length > 0 && roleTimeDoctor.map((item, index) => {
+                                    return(
+                                        <button key={index} className='item-time-slot col-md-1'>{item.valueVi}</button>
+                                    )
+
+                                })
+                            }
                         </div>
 
                         <div className='schedule-management-btn-Save mt-4 btn-group' >
@@ -60,12 +131,16 @@ class ManageSpecialty extends Component {
 
 const mapStateToProps = state => {
     return {
-        isLoggedIn: state.user.isLoggedIn
+        isLoggedIn: state.user.isLoggedIn,
+        dataAllDoctor: state.admin.dataAllDoctor,
+        roleTimeDoctor: state.admin.roleTimeDoctor
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        getallDoctor: () => dispatch(actions.getAllDoctorStart()),
+        fatchRoleDoctorStart: ()=> dispatch(actions.fatchRoleDoctorStart())
     };
 };
 

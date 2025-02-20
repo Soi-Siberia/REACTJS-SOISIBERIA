@@ -9,7 +9,8 @@ const initialState = {
     postion:[],
     dataCreateUser:[],
     dataAllUser: [],
-    dataAllDoctor: []
+    dataAllDoctor: [],
+    roleTimeDoctor: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -125,7 +126,16 @@ const adminReducer = (state = initialState, action) => {
             return{
                 ...state
             }
-
+        case actionTypes.FETCH_ROLE_DOCTOR_SUCCESS:
+            state.roleTimeDoctor = action.data
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ROLE_DOCTOR_FAIDED:
+            
+            return{
+                ...state
+            }
 
             default:
         return state;
