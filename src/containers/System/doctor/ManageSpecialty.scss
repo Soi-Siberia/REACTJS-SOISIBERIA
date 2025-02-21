@@ -26,6 +26,11 @@
                     background-color: rgba(250, 201, 68, 0.875);
                     border-radius: 8px;
                 }
+
+                &.active {
+                    border-radius: 8px;
+                    background-color: rgba(250, 201, 68, 0.875);
+                }
             }
         }
 

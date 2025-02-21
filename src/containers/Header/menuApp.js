@@ -5,15 +5,17 @@ export const adminMenu = [
             { name: 'menu.system.manage-user.crud-user', link: '/system/crud-user' },
             { name: 'menu.system.manage-user.crud-user-redux', link: '/system/User-Redux' },
             { name: 'menu.system.manage-user.manage-docter', link: '/system/manage-doctor' },
-            { name: 'menu.system.manage-user.manage-admin', link: '/system/manage-admin' }
+            { name: 'menu.system.manage-user.manage-admin', link: '/system/manage-admin' },
+            { name: 'menu.system.doctormenu.manage-specialty', link: '/doctor/manage-specialty' }
+
             // {
             //     name: 'menu.system.system-administrator.header',
                 
-            //     // subMenus: [
-            //     //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
-            //     //     { name: 'menu.system.system-administrator.user-Redux', link: '/system/User-Redux' },
-            //     //     // { name: 'menu.system.system-administrator.register-package-group-or-account', link: '/system/register-package-group-or-account' },
-            //     // ]
+            //     subMenus: [
+            //         { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
+            //         { name: 'menu.system.system-administrator.user-Redux', link: '/system/User-Redux' },
+            //         { name: 'menu.system.system-administrator.register-package-group-or-account', link: '/system/register-package-group-or-account' },
+            //     ]
             // },
         ]
     },

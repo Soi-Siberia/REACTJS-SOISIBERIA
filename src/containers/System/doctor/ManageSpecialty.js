@@ -33,9 +33,25 @@ class ManageSpecialty extends Component {
 
         if(prevPops.roleTimeDoctor !== this.props.roleTimeDoctor)
         {
+            // let data = this.props.roleTimeDoctor
+            // data && data.length > 0 && data.map((item) => {
+            //     item.isSelect = false
+            //     return item
+            // })
+            // // console.log("Data add select: ", data)
+            // this.setState({
+            //     roleTimeDoctor: data
+            // })
+                let data = this.props.roleTimeDoctor
+                ? this.props.roleTimeDoctor.map((item) => ({
+                    ...item, // Sao chép toàn bộ thuộc tính của item
+                    isSelect: false, // Gán lại giá trị
+                }))
+                : [];
+        
             this.setState({
-                roleTimeDoctor: this.props.roleTimeDoctor
-            })
+                roleTimeDoctor: data,
+            });
         }
 
     }
@@ -68,12 +84,51 @@ class ManageSpecialty extends Component {
             dateSelect: date
         })
 
+        
+    }
+
+    toggleButton = (time)=>{
+        // let {roleTimeDoctor} = this.state
+        // let newroleTimeDoctor = roleTimeDoctor && roleTimeDoctor.length > 0 &&
+        //     roleTimeDoctor.map((item)=>{
+        //         if(item.id === time.id)
+        //         {
+        //             item.isSelect = !item.isSelect
+        //         }
+        //     });
+        // console.log("roleTimeDoctor new", newroleTimeDoctor)
+
+        // this.setState({
+        //     roleTimeDoctor: newroleTimeDoctor
+        // })
+        if (!time || !time.id) {
+            console.error("LỖI: time hoặc time.id bị undefined", time);
+            return;
+          }
+        
+          this.setState((prevState) => {
+            if (!Array.isArray(prevState.roleTimeDoctor) || prevState.roleTimeDoctor.length === 0) {
+              console.warn("roleTimeDoctor đang rỗng, không có gì để cập nhật");
+              return null; // Không cập nhật state nếu không có dữ liệu
+            }
+        
+            let newRoleTimeDoctor = prevState.roleTimeDoctor.map((item) => {
+              if (!item) {
+                console.error("LỖI: item bị undefined trong map()");
+                return item; // Tránh lỗi spread (...item)
+              }
+              return item.id === time.id ? { ...item, isSelect: !item.isSelect } : item;
+            });
+        
+            return { roleTimeDoctor: newRoleTimeDoctor };
+          });
     }
 
     render() {
 
         let {alldoctor,selectedOption, roleTimeDoctor,currentDate} = this.state
         // console.log("roleTimeDoctor: ", roleTimeDoctor)
+        console.log("Giá trị button click: ", roleTimeDoctor)
         return (
             <React.Fragment>
                 <div className='manage-specialty'>
@@ -110,7 +165,11 @@ class ManageSpecialty extends Component {
                             {
                                 roleTimeDoctor && roleTimeDoctor.length > 0 && roleTimeDoctor.map((item, index) => {
                                     return(
-                                        <button key={index} className='item-time-slot col-md-1'>{item.valueVi}</button>
+                                        <button 
+                                            key={index} 
+                                            // className='item-time-slot col-md-1'
+                                            className={item.isSelect === true ? "item-time-slot col-md-1 active" : "item-time-slot col-md-1"}
+                                            onClick={()=> this.toggleButton(item)}>{item.valueVi}</button>
                                     )
 
                                 })
