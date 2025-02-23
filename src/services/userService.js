@@ -36,6 +36,10 @@ const userService = {
     
     createMarkDown: (data) => {
         return axios.post('/api/create-markdown',data)
+    },
+
+    bulkCreateShedule: (data) => {
+        return axios.post('/api/bulk-create-schedule', data)
     }
 
 }

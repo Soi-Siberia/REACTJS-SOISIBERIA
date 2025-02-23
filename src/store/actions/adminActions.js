@@ -323,3 +323,38 @@ export const fatchRoleDoctorFaild = () => ({
     type: actionTypes.FETCH_ROLE_DOCTOR_FAIDED,
 })
 
+export const bulkCreateSheduleStart = (data) => {
+    return ( async (dispatch, getState)=>{
+        console.log("data bulk start: ", data)
+        console.log("data type bulk start: ",typeof data)
+
+
+        try {
+            // if(data && data.length > 0)
+            // {
+            //     toast.warn("Dữ liệu trống! Vui lòng kiểm tra lại")
+            //     dispatch(bulkCreateSheduleFaild)
+            // }
+            let result = await userService.bulkCreateShedule(data)
+            if(result && result.errCode === 0)
+            {
+                toast.success(result.message)
+            }else
+            {
+                toast.error(result.message)
+            }
+        } catch (e) {
+            console.log("bulkCreateSheduleStart ERROR")
+            dispatch(bulkCreateSheduleFaild())
+        }
+    })
+}
+
+export const bulkCreateSheduleSucess = () =>({
+    type: actionTypes.BULK_CREATE_SCHEDULE_SUCCESS
+})
+
+export const bulkCreateSheduleFaild = () => ({
+    type: actionTypes.BULK_CREATE_SCHEDULE_FAILD
+})
+

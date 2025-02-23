@@ -136,6 +136,14 @@ const adminReducer = (state = initialState, action) => {
             return{
                 ...state
             }
+        case actionTypes.BULK_CREATE_SCHEDULE_SUCCESS:
+            return{
+                ...state
+            }
+        case actionTypes.BULK_CREATE_SCHEDULE_FAILD:
+            return {
+                ...state
+            }
 
             default:
         return state;

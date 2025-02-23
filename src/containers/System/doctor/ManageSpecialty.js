@@ -5,6 +5,8 @@ import './ManageSpecialty.scss'
 import * as actions from '../../../store/actions'
 import Select from 'react-select';
 
+import  {toast}  from 'react-toastify';
+
 
 class ManageSpecialty extends Component {
 
@@ -12,9 +14,10 @@ class ManageSpecialty extends Component {
         super (props);
         this.state = {
             alldoctor: [],
+            selectedOption: "",
             roleTimeDoctor: [],
-            dateSelect:"",
             currentDate: new Date().toISOString().split("T")[0],
+            dateSelect: ""
         }
     }
 
@@ -26,6 +29,7 @@ class ManageSpecialty extends Component {
         if(prevPops.dataAllDoctor !== this.props.dataAllDoctor)
         {
             let options = this.optionSelectDoctor(this.props.dataAllDoctor)
+
             this.setState({
                 alldoctor: options
             })
@@ -70,37 +74,27 @@ class ManageSpecialty extends Component {
     }
 
     formatDate = (isoDate) => {
-        console.log("Giá trì isoDate", isoDate)
+        // console.log("Giá trì isoDate", isoDate)
         if (!isoDate) return ""; // Kiểm tra nếu rỗng
         const [year, month, day] = isoDate.split("-"); // Tách chuỗi YYYY-MM-DD
         return `${day}/${month}/${year}`; // Format lại thành dd/MM/YYYY
       };
+
+    
     handleOnchangDate = (event) =>{
-        let date = this.formatDate(event.target.value)
-        console.log("Onchang date: ", date, "và : ",event.target.value)
+        // let date = this.formatDate(event.target.value)
+        console.log("Onchang date: ",event.target.value)
 
         this.setState({
-            currentDate: event.target.value,
-            dateSelect: date
+            // currentDate: event.target.value,
+            dateSelect: event.target.value,
         })
 
         
     }
 
     toggleButton = (time)=>{
-        // let {roleTimeDoctor} = this.state
-        // let newroleTimeDoctor = roleTimeDoctor && roleTimeDoctor.length > 0 &&
-        //     roleTimeDoctor.map((item)=>{
-        //         if(item.id === time.id)
-        //         {
-        //             item.isSelect = !item.isSelect
-        //         }
-        //     });
-        // console.log("roleTimeDoctor new", newroleTimeDoctor)
 
-        // this.setState({
-        //     roleTimeDoctor: newroleTimeDoctor
-        // })
         if (!time || !time.id) {
             console.error("LỖI: time hoặc time.id bị undefined", time);
             return;
@@ -124,11 +118,35 @@ class ManageSpecialty extends Component {
           });
     }
 
+    handleSaveSpecialty = ()=>{
+        let { selectedOption, roleTimeDoctor, dateSelect} = this.state ?? {}
+        let timeSelect = roleTimeDoctor?.filter(item => item.isSelect)
+
+        if (!selectedOption || !dateSelect || !timeSelect.length) {
+            return toast.success(
+                !selectedOption ? "Chưa chọn bác sĩ !!!" :
+                !dateSelect ? "Chưa chọn ngày bác sĩ khám !!!" :
+                "Chưa chọn thời gian lịch khám bác sĩ !!!"
+            );
+        }
+
+        let formateData = new Date(dateSelect).getTime();
+        // console.log("formateData = ",formateData)
+
+        let data = timeSelect && timeSelect.length > 0 && timeSelect.map((item) => ({
+            doctorId: selectedOption.value,
+            date: formateData,
+            timeType: item.keyMap
+        })) 
+        // console.log("Save data", dateSelect)
+
+        this.props.bulkCreateSheduleStart(data)
+    }
+
+
     render() {
 
-        let {alldoctor,selectedOption, roleTimeDoctor,currentDate} = this.state
-        // console.log("roleTimeDoctor: ", roleTimeDoctor)
-        console.log("Giá trị button click: ", roleTimeDoctor)
+        let {alldoctor,selectedOption, roleTimeDoctor } = this.state
         return (
             <React.Fragment>
                 <div className='manage-specialty'>
@@ -157,7 +175,6 @@ class ManageSpecialty extends Component {
                                 onKeyDown={(e)=>e.preventDefault()}
                                 onClick={(e)=> e.target.showPicker()}
                                 onChange={(event)=>{this.handleOnchangDate(event)}}
-                                value={currentDate}
                                 ></input>
                             </div>
                         </div>
@@ -177,7 +194,10 @@ class ManageSpecialty extends Component {
                         </div>
 
                         <div className='schedule-management-btn-Save mt-4 btn-group' >
-                            <button className='btn btn-Save' >Lưu Thông Tin</button>
+                            <button 
+                                className='btn btn-Save'
+                                onClick={()=>this.handleSaveSpecialty()}
+                            >Lưu Thông Tin</button>
                         </div>
                     </div>
 
@@ -199,7 +219,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getallDoctor: () => dispatch(actions.getAllDoctorStart()),
-        fatchRoleDoctorStart: ()=> dispatch(actions.fatchRoleDoctorStart())
+        fatchRoleDoctorStart: ()=> dispatch(actions.fatchRoleDoctorStart()),
+        bulkCreateSheduleStart: (data) => dispatch(actions.bulkCreateSheduleStart(data))
     };
 };
 
