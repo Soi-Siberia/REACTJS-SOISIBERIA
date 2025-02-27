@@ -1,0 +1,115 @@
+.Doctor-Schedule-content {
+    padding: 30px 50px 0px 50px;
+    display: flex;
+    justify-content: space-around;
+
+    .Doctor-Schedule-Left {
+        font-size: 25px;
+        width: 50%;
+
+        .Doctor-Schedule {
+            color: #1877F2;
+
+            .Doctor-Schedule-select {
+                width: 30% !important;
+                color: #1877F2;
+                border: none;
+                border-bottom: 1px solid;
+                border-radius: 0px;
+                font-size: 16px;
+                font-weight: 600;
+                text-transform: capitalize;
+            }
+        }
+
+        .appointment-doctor {
+
+
+            .time-appointment {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 15px;
+                font-size: 16px;
+                text-align: center;
+                padding-bottom: 15px;
+
+                .time {
+                    padding: 10px 5px;
+                    background-color: #EEEEEE;
+                    color: black;
+                    border: none;
+                    border: 2px solid #EEEEEE;
+
+
+                    &:hover {
+                        border: 2px solid #50C7D5;
+                    }
+                }
+            }
+        }
+
+    }
+
+    .local-clinic {
+
+        width: 40%;
+        border-left: 1px solid rgba(238, 238, 238, 1.00);
+        padding-left: 10px;
+
+        .address-doctor {
+
+            h2 {
+                color: #6C6C6Ced;
+                font-style: italic;
+                font-weight: 700;
+            }
+
+            .title-address {
+                color: black;
+                font-size: 19px;
+            }
+        }
+
+        .clinic-price {
+            display: flex;
+            gap: 10px;
+            align-items: baseline;
+            font-size: 20px;
+            border-top: 1px solid rgba(238, 238, 238, 1.00);
+            margin-top: 10px;
+            padding-top: 10px;
+
+            .title-price {
+                // font-size: 20px;
+                color: #6C6C6Ced;
+                font-style: oblique;
+                font-weight: 700;
+            }
+
+            .detail-clinic {
+                color: #50C7D5;
+            }
+        }
+
+        .underwrite {
+            display: flex;
+            gap: 10px;
+            font-size: 20px;
+            border-top: 1px solid rgba(238, 238, 238, 1.00);
+            margin-top: 10px;
+            padding-top: 10px;
+
+            .title-underwrite {
+                color: #6C6C6Ced;
+                font-style: oblique;
+                font-weight: 700;
+            }
+
+            .detail-underwrite {
+                color: #50C7D5;
+            }
+        }
+    }
+}

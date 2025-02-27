@@ -10,6 +10,10 @@ const homePageService = {
 
     getDetailDoctorById: (id) => {
         return axios.get(`/api/detail-doctor-by-id?id=${id}`)
+    },
+
+    getScheduleDoctorByID: (id) => {
+        return axios.get(`/api/get-schedule-doctor-by-id?id=${id}`)
     }
 }
 

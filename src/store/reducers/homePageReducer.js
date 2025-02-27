@@ -2,7 +2,10 @@ import actionTypes from '../actions/actionTypes';
 
 const initialState = {
     doctorTop: [],
-    detailDoctor: []
+    detailDoctor: [],
+    scheduleDoctor: [],
+    TimeDoctors: []
+
 }
 
 const homePageReducer = (state = initialState, action) => {
@@ -24,6 +27,19 @@ const homePageReducer = (state = initialState, action) => {
             }
 
         case actionTypes.GET_DETAIL_DOCTOR_BY_ID_FAILD:
+            return{
+                ...state
+            }
+            
+        case actionTypes.GET_SCHDULE_DOCTOR_BY_ID_SUCCESS:
+            
+            return{
+                ...state,
+                scheduleDoctor: action.data
+            }
+
+        case actionTypes.GET_SCHDULE_DOCTOR_BY_ID_FAILD:
+
             return{
                 ...state
             }
