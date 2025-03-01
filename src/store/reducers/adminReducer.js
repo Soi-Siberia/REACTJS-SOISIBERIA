@@ -10,7 +10,8 @@ const initialState = {
     dataCreateUser:[],
     dataAllUser: [],
     dataAllDoctor: [],
-    roleTimeDoctor: []
+    roleTimeDoctor: [],
+    doctorInfor: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -144,6 +145,17 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state
             }
+
+        case actionTypes.FETCH_DOCTOR_INFOR_SUCCESS:
+            state.doctorInfor = action.data
+            return{
+                ...state,
+            }
+        case actionTypes.FETCH_DOCTOR_INFOR_FAILD:
+            return {
+                ...state
+            }
+    
 
             default:
         return state;

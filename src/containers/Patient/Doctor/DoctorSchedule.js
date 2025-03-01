@@ -72,7 +72,7 @@ class DoctorSchedule extends Component {
         let language = this.props.language
         // console.log("Slot time: ",slotTimeDoctor)
         // let uniqueDates = [...new Set(scheduleDoctor.map(item => item.date))];
-        console.log("doctor result child", uniqueDates)
+        console.log("option uniqueDates", uniqueDates)
         return (
             <React.Fragment>
                 <div className='Doctor-Schedule-content'>
@@ -85,13 +85,12 @@ class DoctorSchedule extends Component {
                                 // value={language === languages.Vi?this.formatDate(selectDate).vietnamese:this.formatDate(selectDate).english}
                                 >    
 
-                                {
-                                    uniqueDates && uniqueDates.length > 0 && uniqueDates.map((item, index) => {
+                                {                                  
+                                    uniqueDates?.length > 0 ? uniqueDates.map((item, index) => {
                                         return(
                                             <option key={index} value={item}>{this.formatDate(item).vietnamese}</option>
                                         )
-
-                                    })
+                                    }): <option>Lịch trống</option>
                                 }
 
                             </select>
@@ -100,14 +99,13 @@ class DoctorSchedule extends Component {
                             <span><i className="fa-solid fa-calendar-days mb-3"></i> Lịch Khám</span>
                             <div className='time-appointment'>
                                 {
-                                    slotTimeDoctor && slotTimeDoctor.length > 0 && slotTimeDoctor.map ((item, index) =>{
-
+                                    slotTimeDoctor && slotTimeDoctor.length > 0 ? slotTimeDoctor.map ((item, index) =>{
                                         return (
                                             <button key={index} className='time'>
                                                 {language === languages.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn}     
                                             </button>
                                         )
-                                    })
+                                    } ) : <p >Bác sĩ không có lịch khám . Vui Lòng quây lại sau</p>
                                 }
                                 {/* <button className='time'>07:30 - 08:00</button>
                                 <button className='time'>07:30 - 08:00</button>

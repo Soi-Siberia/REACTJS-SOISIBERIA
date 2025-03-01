@@ -358,3 +358,44 @@ export const bulkCreateSheduleFaild = () => ({
     type: actionTypes.BULK_CREATE_SCHEDULE_FAILD
 })
 
+export const fetchDoctorInforStart =() => {
+
+    return async (dispatch, getState) => {
+        try {
+            let resPrice = await userService.getAllCode("PRICE")
+            let resPayment = await userService.getAllCode("PAYMENT")
+            let resProvince = await userService.getAllCode("PROVINCE")
+            if( resPrice?.errCode === 0 &&
+                resPayment?.errCode === 0 &&
+                resProvince?.errCode === 0 )
+            {
+                let doctorInfor = {
+                    resPrice: resPrice.dataResult,
+                    resPayment: resPayment.dataResult, 
+                    resProvince: resProvince.dataResult
+                }
+                // console.log("data doctor infor: ", doctorInfor)
+                dispatch(fetchDoctorInforSucess(doctorInfor))
+                
+            }else{
+                dispatch(fetchDoctorInforFaild());
+            }
+            
+        } catch (e) {
+            dispatch(fetchDoctorInforFaild());
+            // console.log("fetchGenderStart error", e)
+            
+        }   
+    }
+
+}
+
+export const fetchDoctorInforSucess = (doctorInfor) => ({
+    type: actionTypes.FETCH_DOCTOR_INFOR_SUCCESS,
+    data: doctorInfor
+})
+
+export const fetchDoctorInforFaild = () => ({
+    type: actionTypes.FETCH_DOCTOR_INFOR_FAILD
+})
+

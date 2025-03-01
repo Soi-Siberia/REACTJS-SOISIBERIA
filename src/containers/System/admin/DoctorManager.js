@@ -20,6 +20,8 @@ class DoctorManager extends Component {
    constructor (props) {
     super(props)
     this.state = {
+
+        //Save to markdown table
         contentHTML : '',
         contentMarkdown : '',
         description: '',
@@ -29,10 +31,23 @@ class DoctorManager extends Component {
         clinicId:'',
         doctors: [],
 
+
+        // save to doctor_infor Doctor
+        listPrice: [],
+        listPayment: [],
+        listProvince: [],
+        selectPrice: "",
+        selectPayment: "",
+        selectProvince: "",
+        nameClinic: "",
+        addressClinic: "",
+        note: "",
+
     }}
 
   componentDidMount() {
         this.props.getAllDoctorRedux()
+        this.props.fetchDoctorInforStart()
         
    }
 
@@ -40,9 +55,24 @@ class DoctorManager extends Component {
 
         if(prevPops.allDoctorRedux !== this.props.allDoctorRedux)
         {
-            let options = this.optionSelectDoctor(this.props.allDoctorRedux)
+            let options = this.builDataInputSelect(this.props.allDoctorRedux, 'USER')
+            // console.log("build data input select: ", options)
             this.setState({
                 doctors: options,
+            })
+        }
+
+        if(prevPops.doctorInfor !== this.props.doctorInfor)
+        {
+            let {resPrice, resPayment, resProvince} = this.props.doctorInfor
+            let optionsPrice = this.builDataInputSelect(resPrice)
+            let optionsPayment = this.builDataInputSelect(resPayment)
+            let optionsProvince = this.builDataInputSelect(resProvince)
+
+            this.setState({
+                listPrice: optionsPrice,
+                listPayment: optionsPayment,
+                listProvince: optionsProvince,
             })
         }
 
@@ -72,17 +102,17 @@ class DoctorManager extends Component {
 
   }
 
-  optionSelectDoctor = (data) =>{
+  builDataInputSelect = (data, type) =>{
+    console.log("DATA INPUT: ", data)
     return data?.map((item,index) => ({
         value: item.id,
-        label: `${item.lastName} ${item.firstName}`
+        label: type === 'USER' ? `${item.lastName} ${item.firstName}` : item.valueVi
     })) || [];
   }
 
   SaveInforDoctor = () => {
     // console.log("Data sent create markdown: ", this.state)
     this.props.createMarkDownStartRedux({
-
         contentHTML : this.state.contentHTML,
         contentMarkdown : this.state.contentMarkdown,
         description: this.state.description,
@@ -94,7 +124,8 @@ class DoctorManager extends Component {
 
     render() {
         // console.log("data ALL Doctor redux: ", this.state.doctors)
-        let {doctors} = this.state
+        let {doctors, listPrice, listPayment, listProvince} = this.state
+        console.log("doctor infor: ",listPrice , listPayment, listProvince)
 
         return (
             <div className='Manager-Doctor-Container container'>
@@ -107,6 +138,7 @@ class DoctorManager extends Component {
                     <div className='Doctor-info-left'>
                         <label className='pb-2 fw-bold fs-4'>Chọn bác sĩ: </label>
                         <Select
+                            placeholder = "Chọn bác sĩ"
                             value={this.state.selectedOption}
                             onChange={this.handleChange}
                             options={doctors}
@@ -124,6 +156,50 @@ class DoctorManager extends Component {
                     </div>
                 </div>
 
+                <div className='doctor-infor row'>
+                    <div className='doctor-infor-extra col-4 mb-3'>
+                        <label className='mb-2'>Chọn Giá</label>
+                        {/* <input className='form-control'></input> */}
+                        <Select
+                            placeholder = "Chọn giá tiền"
+                            // value={this.state.selectedOption}
+                            onChange={this.handleChangePrice}
+                            options={listPrice}
+                        />
+                    </div>
+                    <div className='doctor-infor-extra col-4 mb-3'>
+                        <label className='mb-2'>Chọn hình thức thanh toán</label>
+                        <Select
+                            // value={this.state.selectedOption}
+                            placeholder = "Chọn hình thức thanh toán"
+                            onChange={this.handleChangelistPayment}
+                            options={listPayment}
+                        />
+
+                    </div>
+                    <div className='doctor-infor-extra col-4 mb-3'>
+                        <label className='mb-2'>Chọn tỉnh thành</label>
+                        <Select
+                            // value={this.state.selectedOption}
+                            placeholder = "Chọn thành tỉnh thành"
+                            onChange={this.handleChangelistProvince}
+                            options={listProvince}
+                        />
+                    </div>
+                    <div className='doctor-infor-extra col-4 mb-4'>
+                        <label className='mb-2'>Tên phòng khám</label>
+                        <input className='form-control'></input>
+                    </div>
+                    <div className='doctor-infor-extra col-4 mb-4'>
+                        <label className='mb-2'>Đại chỉ phòng khám</label>
+                        <input className='form-control'></input>
+                    </div>
+                    <div className='doctor-infor-extra col-4 mb-4'>
+                        <label className='mb-2'>Ghi chú</label>
+                        <input className='form-control'></input>
+                    </div>
+                </div>
+
                 <div className='Manager-Doctor-Editor'>
                     <MdEditor 
                         style={{ height: '500px' }} 
@@ -131,6 +207,7 @@ class DoctorManager extends Component {
                         onChange={this.handleEditorChange} 
                     />
                 </div>
+
 
                 <div className='Manager-Doctor-btn'>
                     <button 
@@ -150,14 +227,16 @@ class DoctorManager extends Component {
 const mapStateToProps = state => {
     return {
         allDoctorRedux: state.admin.dataAllDoctor,
-        roleTimeDoctor: state.admin.roleTimeDoctor
+        roleTimeDoctor: state.admin.roleTimeDoctor,
+        doctorInfor: state.admin.doctorInfor
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         getAllDoctorRedux : () => dispatch(actions.getAllDoctorStart()),
-        createMarkDownStartRedux: (data) => dispatch(actions.createMarkDownStart(data))
+        createMarkDownStartRedux: (data) => dispatch(actions.createMarkDownStart(data)),
+        fetchDoctorInforStart: () => dispatch(actions.fetchDoctorInforStart()),
     };
 };
 
