@@ -257,12 +257,12 @@ export const createMarkDownStart = (data) => {
             console.log("data create markdown action: ", data)
             if(!data.doctorId || !data.contentHTML || !data.contentMarkdown)
             {
-                toast.error ("Có lỗi làm mới lại trang và thử lại !!!")
+                toast.error ("Dữ liệu đầu vào trống vui lòng kiểm tra lại !!!!")
                 dispatch(createMarkDownFaild())
 
             }else{
                 let result = await userService.createMarkDown(data)
-                console.log("Kết quả create markdown: ",result)
+                // console.log("Kết quả create markdown: ",result)
 
                 if(result && result.errCode === 0)
                 {
@@ -397,5 +397,30 @@ export const fetchDoctorInforSucess = (doctorInfor) => ({
 
 export const fetchDoctorInforFaild = () => ({
     type: actionTypes.FETCH_DOCTOR_INFOR_FAILD
+})
+
+export const fetchMarkDownDoctorStart = (id) =>{
+    return async (dispatch, getState) => {
+        try {
+            
+            let result = await userService.getMarkdownDoctorByID(id)
+            // console.log("MarkDown infor by ID doctor: ", result)
+            dispatch(fetchMarkDownDoctorSuccess(result.data))
+
+            
+        } catch (e) {
+            console.log("fetchMarkDownDoctorStart ERROR!!!")
+            dispatch(fetchMarkDownDoctorFaild())
+        }
+    }
+}
+
+export const fetchMarkDownDoctorSuccess = (data) => ({
+    type: actionTypes.FETCH_MARKDOWN_DOCTOR_SUCCESS,
+    data: data
+})
+
+export const fetchMarkDownDoctorFaild = () => ({
+    type: actionTypes.FETCH_MARKDOWN_DOCTOR_FAILD
 })
 

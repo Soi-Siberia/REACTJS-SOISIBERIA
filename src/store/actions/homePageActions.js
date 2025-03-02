@@ -6,7 +6,7 @@ export const getTopDoctorStart = () => {
     return async (dispatch, getSate) =>{
         try {
 
-            let result = await homePageService.getTopDoctor(5)
+            let result = await homePageService.getTopDoctor(10)
             if(result)
             {
                 // console.log("Dữ liệu Top Doctor: ", result)

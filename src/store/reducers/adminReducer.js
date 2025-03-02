@@ -11,15 +11,14 @@ const initialState = {
     dataAllUser: [],
     dataAllDoctor: [],
     roleTimeDoctor: [],
-    doctorInfor: []
+    doctorInfor: [],
+    markdownDoctor: []
 }
 
 const adminReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_GENDER_START:
             state.isLoadinggender = true;
-            // console.log("Đây là FETCH_GENDER_START",action)
-            // console.log("data state start", state)
             return {
                 ...state
             }
@@ -27,14 +26,11 @@ const adminReducer = (state = initialState, action) => {
             let coppyState = { ...state}
             coppyState.genders = action.data
             coppyState.isLoadinggender = false
-            // console.log("Đây là FETCH_GENDER_SUCCESS")
-            // console.log("data success: ", coppyState)
             return {
                 ...coppyState
             }
         
         case actionTypes.FETCH_GENDER_FAIDED:
-        // console.log("Đây là FETCH_GENDER_FAIDED")
         state.isLoadinggender = false
             return {
                 ...state
@@ -58,7 +54,6 @@ const adminReducer = (state = initialState, action) => {
 
         //ROLE
         case actionTypes.FETCH_ROLE_START:
-            // console.log(" ROLE SUCCESS")
             return{
                 ...state
             }
@@ -155,7 +150,15 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state
             }
-    
+        case actionTypes.FETCH_MARKDOWN_DOCTOR_SUCCESS:
+            state.markdownDoctor = action.data
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_MARKDOWN_DOCTOR_FAILD:
+            return {
+                ...state
+            }
 
             default:
         return state;

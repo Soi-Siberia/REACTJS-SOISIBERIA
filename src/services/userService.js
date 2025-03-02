@@ -35,11 +35,15 @@ const userService = {
     },
     
     createMarkDown: (data) => {
-        return axios.post('/api/create-markdown',data)
+        return axios.post('/api/create-update-markdown',data)
     },
 
     bulkCreateShedule: (data) => {
         return axios.post('/api/bulk-create-schedule', data)
+    },
+
+    getMarkdownDoctorByID: (id) =>{
+        return axios.get(`/api/get-markdown-doctor-by-id?id=${id}`)
     }
 
 }

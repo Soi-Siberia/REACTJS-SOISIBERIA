@@ -31,22 +31,22 @@ class TopDoctor extends Component {
 
   handleViewDetailDoctor = (doctor) => {
     this.props.history.push(`/detail-doctor/${doctor.id}`);  // 🟢 Thêm: dùng history từ props
-    console.log("Doctor view detail: ", doctor);
+    // console.log("Doctor view detail: ", doctor);
   };
 
   render() {
     let { TopDoctor } = this.state;
-
     let settings = {
       focusOnSelect: true,
       infinite: false,
-      slidesToShow: TopDoctor.length ? Math.min(TopDoctor.length, 3) : 2,
+      slidesToShow: TopDoctor.length ? Math.min(TopDoctor.length, 4) : 2,
       slidesToScroll: 1,
       speed: 500,
       nextArrow: <CustomNextArrow />,
       prevArrow: <SamplePrevArrow />,
     };
 
+    // console.log("TopDoctor",TopDoctor)
     return (
       <div className="Section Section-Top-Doctor">
         <div className="Section-Title">
