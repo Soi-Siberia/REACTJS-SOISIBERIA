@@ -37,6 +37,7 @@ class DetailDoctor extends Component {
     render() {
         let {idDoctor} = this.state
         let detailDoctor = this.state.doctorDetail?.data || {}
+        console.log("detailDoctor: ", detailDoctor)
         return (
             <React.Fragment>
                 <HomeHeader />
@@ -51,10 +52,9 @@ class DetailDoctor extends Component {
                             (detailDoctor.lastName || "") + " " + 
                             (detailDoctor.firstName || "")}
                         </h1>
-                            <div className='description'> Phó Trưởng khoa Khám bệnh - Bệnh viện K
-                                Hơn 20 năm kinh nghiệm trong lĩnh vực ung bướu
-                                Bác sĩ liên tục tham gia các khoá đào tạo chuyên sâu về ung thư vú và ung thư phụ khoa tại Pháp, Canada, Hoa Kỳ
-                                Bác sĩ nhận khám trên 3 tuổi
+                            <div className='description'>{
+                                    detailDoctor?.markDown?.description
+                                }
                             </div>
                             <div className='location-doctor mt-2'>
                                 <i className="fa-solid fa-location-dot"></i>
@@ -90,6 +90,7 @@ class DetailDoctor extends Component {
 const mapStateToProps = state => {
     return {
         detailtDoctor: state.doctor.detailDoctor
+        
     };
 };
 

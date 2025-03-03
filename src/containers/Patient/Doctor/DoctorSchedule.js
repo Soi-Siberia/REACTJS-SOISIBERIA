@@ -70,9 +70,7 @@ class DoctorSchedule extends Component {
     render() {
         let {uniqueDates,slotTimeDoctor} = this.state
         let language = this.props.language
-        // console.log("Slot time: ",slotTimeDoctor)
-        // let uniqueDates = [...new Set(scheduleDoctor.map(item => item.date))];
-        console.log("option uniqueDates", uniqueDates)
+
         return (
             <React.Fragment>
                 <div className='Doctor-Schedule-content'>

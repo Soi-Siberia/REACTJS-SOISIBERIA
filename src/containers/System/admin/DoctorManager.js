@@ -31,6 +31,7 @@ class DoctorManager extends Component {
         clinicId:'',
         doctors: [],
         hasOldData: true,
+        /******************************/
 
 
         // save to doctor_infor Doctor
@@ -63,34 +64,99 @@ class DoctorManager extends Component {
             })
         }
 
-        if(prevPops.markdownDoctor !== this.props.markdownDoctor)
-        {
-            // console.log("markdownDoctor by redux api: ", this.props.markdownDoctor)
-            if(this.props.markdownDoctor)
+        if(prevPops.detailtDoctor !== this.props.detailtDoctor)
             {
-                console.log("Doctor info có thông tin", this.props.markdownDoctor)
-                let {contentMarkdown, description, contentHTML} = this.props.markdownDoctor
-                this.setState({
-                    hasOldData: false,
-                    description: description,
-                    contentMarkdown: contentMarkdown,
-                    contentHTML:contentHTML
-                })
-            }
+                // console.log("detail doctor: ", this.props.detailtDoctor.data)
+                // let {listPrice, listPayment, listProvince} = this.state
+                // if(this.props.detailtDoctor.data.markDown)
+                // {
+                    
+                //     let selectPrice = listPrice.find((item) => item.keyMap === this.props.detailtDoctor.data.doctor_infor.priceId )
+                //     let selectPayment = listPayment.find((item) => item.keyMap === this.props.detailtDoctor.data.doctor_infor.paymentId )
+                //     let selectProvince = listProvince.find((item) => item.keyMap === this.props.detailtDoctor.data.doctor_infor.provinceId )
+
+                //     this.setState({
+                //         hasOldData: false,
+                //         description: this.props.detailtDoctor.data.markDown.description,
+                //         contentMarkdown: this.props.detailtDoctor.data.markDown.contentMarkdown,
+                //         contentHTML:this.props.detailtDoctor.data.markDown.contentHTML,
+
+                //         selectPrice: selectPrice,
+                //         selectPayment: selectPayment,
+                //         selectProvince: selectProvince,
+                //         nameClinic:this.props.detailtDoctor.data.doctor_infor.nameClinic,
+                //         addressClinic:this.props.detailtDoctor.data.doctor_infor.addressClinic,
+                //         note:this.props.detailtDoctor.data.doctor_infor.note
+                //     })
+                // }
+                // if(!this.props.detailtDoctor.data.markDown)
+                // {
+                //     console.log("Doctor info không có thông tin", )
+                //     this.setState({
+                //         hasOldData: true,
+                //         description: "",
+                //         contentMarkdown: "",
+                //         contentHTML:"",
+                //         selectPrice: "",
+                //         selectPayment: "",
+                //         selectProvince: "",
+                //         nameClinic:"",
+                //         addressClinic:"",
+                //         note:""
+
+                //     })
+                // }
+
+            const { listPrice, listPayment, listProvince } = this.state;
+            const detailData = this.props.detailtDoctor?.data;
+            const markDown = detailData?.markDown;
+            const doctorInfo = detailData?.doctor_infor;
+        
+            let newState = {
+                hasOldData: !markDown,
+                description: markDown?.description || "",
+                contentMarkdown: markDown?.contentMarkdown || "",
+                contentHTML: markDown?.contentHTML || "",
+                selectPrice: listPrice.find(item => item.keyMap === doctorInfo?.priceId) || "",
+                selectPayment: listPayment.find(item => item.keyMap === doctorInfo?.paymentId) || "",
+                selectProvince: listProvince.find(item => item.keyMap === doctorInfo?.provinceId) || "",
+                nameClinic: doctorInfo?.nameClinic || "",
+                addressClinic: doctorInfo?.addressClinic || "",
+                note: doctorInfo?.note || "",
+            };
             
-            if(!this.props.markdownDoctor)
-            {
-                console.log("Doctor info không có thông tin", )
-
-                this.setState({
-                    hasOldData: true,
-                    description: "",
-                    contentMarkdown: "",
-                    contentHTML:""
-                })
-            }
-
+            this.setState(newState);
         }
+
+
+        // if(prevPops.markdownDoctor !== this.props.markdownDoctor)
+        // {
+        //     // console.log("markdownDoctor by redux api: ", this.props.markdownDoctor)
+        //     if(this.props.markdownDoctor)
+        //     {
+        //         // console.log("Doctor info có thông tin", this.props.markdownDoctor)
+        //         let {contentMarkdown, description, contentHTML} = this.props.markdownDoctor
+        //         this.setState({
+        //             hasOldData: false,
+        //             description: description,
+        //             contentMarkdown: contentMarkdown,
+        //             contentHTML:contentHTML
+        //         })
+        //     }
+            
+        //     if(!this.props.markdownDoctor)
+        //     {
+        //         console.log("Doctor info không có thông tin", )
+
+        //         this.setState({
+        //             hasOldData: true,
+        //             description: "",
+        //             contentMarkdown: "",
+        //             contentHTML:""
+        //         })
+        //     }
+
+        // }
 
         if(prevPops.doctorInfor !== this.props.doctorInfor)
         {
@@ -99,13 +165,14 @@ class DoctorManager extends Component {
             let optionsPrice = this.builDataInputSelect(resPrice, "DoctorInforPrice")
             let optionsPayment = this.builDataInputSelect(resPayment, "DoctorInfor")
             let optionsProvince = this.builDataInputSelect(resProvince, "DoctorInfor")
-
             this.setState({
                 listPrice: optionsPrice,
                 listPayment: optionsPayment,
                 listProvince: optionsProvince,
             })
         }
+
+
 
    }
 
@@ -119,7 +186,10 @@ class DoctorManager extends Component {
   }
 
   handleChange = (selectedOption) => {
-    this.props.fetchMarkDownDoctorStart(selectedOption.value)
+    // this.props.fetchMarkDownDoctorStart(selectedOption.value)
+
+    this.props.getDetailDoctorByIdStart(selectedOption.value)
+    
     this.setState({ selectedOption })
   }
 
@@ -143,7 +213,8 @@ class DoctorManager extends Component {
     {
         return data?.map((item,index) => ({
             value: item.keyMap,
-            label: item.valueVi
+            label: item.valueVi,
+            keyMap: item.keyMap,
         })) || [];
     }
 
@@ -151,13 +222,15 @@ class DoctorManager extends Component {
     {
         return data?.map((item,index) => ({
             value: item.keyMap,
-            label: `${item.valueVi} vnđ`
+            label: `${item.valueVi} vnđ`,
+            keyMap: item.keyMap,
         })) || [];
     }
 
   }
 
   handleChangeDoctorInfor = (selectedOption, name) =>{
+    // console.log("selectedOption", selectedOption)
     let statename = name.name
     let coppyState = {...this.state}
     coppyState[statename] = selectedOption;
@@ -170,6 +243,23 @@ class DoctorManager extends Component {
     // console.log("taget input: ", name, value)
     this.setState({
         [name]:value
+    })
+  }
+
+  handeSetState = () =>{
+    
+    this.setState({
+        selectedOption: "",
+        hasOldData: true,
+        description: "",
+        contentMarkdown: "",
+        contentHTML: "",
+        selectPrice: "",
+        selectPayment: "",
+        selectProvince: "",
+        nameClinic: "",
+        addressClinic: "",
+        note:"",
     })
   }
 
@@ -190,13 +280,16 @@ class DoctorManager extends Component {
         addressClinic: addressClinic,
         note:note,
     })
+
+    this.handeSetState()
   }
 
 
     render() {
-        let {hasOldData, doctors, listPrice, listPayment, listProvince, selectPrice,selectPayment, selectProvince , contentMarkdown, description} = this.state
+        let {hasOldData, doctors, listPrice, listPayment, listProvince, selectPrice,selectPayment,
+            selectProvince , contentMarkdown, description, nameClinic, addressClinic, note} = this.state
 
-        
+        // console.log("Giá trị sate", priceId, paymentId, provinceId)
         return (
             <div className='Manager-Doctor-Container container'>
 
@@ -218,7 +311,7 @@ class DoctorManager extends Component {
                         <label className='pb-2 fw-bold fs-4'>Thông tin bác sĩ: </label>
                         <textarea
                             className='form-control'
-                            value={description}
+                            value={description ?? ""}
                             rows={4} 
                             placeholder='Mô tả bác sĩ...'
                             onChange={this.handleChangeTextarea}>
@@ -263,6 +356,7 @@ class DoctorManager extends Component {
                     <div className='doctor-infor-extra col-4 mb-4'>
                         <label className='mb-2'>Tên phòng khám</label>
                         <input 
+                            value={nameClinic ?? ""}
                             className='form-control'
                             onChange={this.handleOnChangInput}
                             name = "nameClinic"
@@ -271,6 +365,7 @@ class DoctorManager extends Component {
                     <div className='doctor-infor-extra col-4 mb-4'>
                         <label className='mb-2'>Đại chỉ phòng khám</label>
                         <input 
+                        value={addressClinic ?? ""}
                         className='form-control'
                         onChange={this.handleOnChangInput}
                         name = "addressClinic"
@@ -278,7 +373,8 @@ class DoctorManager extends Component {
                     </div>
                     <div className='doctor-infor-extra col-4 mb-4'>
                         <label className='mb-2'>Ghi chú</label>
-                        <input 
+                        <input
+                            value={note ?? ""}
                             className='form-control'
                             onChange={this.handleOnChangInput}
                             name = "note"
@@ -290,7 +386,7 @@ class DoctorManager extends Component {
                     <MdEditor 
                         style={{ height: '500px' }} 
                         renderHTML={text => mdParser.render(text)}
-                        value={contentMarkdown}
+                        value={contentMarkdown ?? ""}
                         onChange={this.handleEditorChange} 
                     />
                 </div>
@@ -317,7 +413,9 @@ const mapStateToProps = state => {
         allDoctorRedux: state.admin.dataAllDoctor,
         roleTimeDoctor: state.admin.roleTimeDoctor,
         doctorInfor: state.admin.doctorInfor,
-        markdownDoctor: state.admin.markdownDoctor
+        markdownDoctor: state.admin.markdownDoctor,
+
+        detailtDoctor: state.doctor.detailDoctor
     };
 };
 
@@ -327,6 +425,8 @@ const mapDispatchToProps = dispatch => {
         createMarkDownStartRedux: (data) => dispatch(actions.createMarkDownStart(data)),
         fetchDoctorInforStart: () => dispatch(actions.fetchDoctorInforStart()),
         fetchMarkDownDoctorStart: (id) => dispatch(actions.fetchMarkDownDoctorStart(id)),
+
+        getDetailDoctorByIdStart: (id) => dispatch(actions.getDetailDoctorByIdStart(id)),
     };
 };
 

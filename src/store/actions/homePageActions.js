@@ -80,7 +80,7 @@ export const getSchduleDoctorByIdStart = (id) =>{
             let result = await homePageService.getScheduleDoctorByID(id)
             if(result && result.errCode === 0)
             {
-                console.log("Data get schudule by ID: ", result.data)
+                // console.log("Data get schudule by ID: ", result.data)
                 dispatch(getSchduleDoctorByIdSuccess(result.data))
             }else
             {
