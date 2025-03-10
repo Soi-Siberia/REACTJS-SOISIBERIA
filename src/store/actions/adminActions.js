@@ -254,7 +254,7 @@ export const getAllDoctorFaild = () => ({
 export const createMarkDownStart = (data) => {
     return ( async (dispatch, getState) => {
         try {
-            console.log("data create markdown action: ", data)
+            // console.log("data create markdown action: ", data)
             if(!data.doctorId || !data.contentHTML || !data.contentMarkdown)
             {
                 toast.error ("Dữ liệu đầu vào trống vui lòng kiểm tra lại !!!!")

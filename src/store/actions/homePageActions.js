@@ -132,3 +132,31 @@ export const fatchTimeSucess = (data) =>({
 export const fatchTimeFaild = () =>({
     type: actionTypes.FATCH_TIME_FAILD
 })
+
+export const getExtraInforDoctorByIdStart = (id) =>{
+    return async (dispatch, getSate) =>{
+        try {
+            let result = await homePageService.getExtraInforDoctorByID(id)
+            if(result && result.errCode === 0)
+            {
+                // console.log("Extra Infor Doctor: ", result)
+                dispatch(getExtraInforDoctorByIdSuccess(result.data))
+            }else
+            {
+                // dispatch(getExtraInforDoctorByIdFaild())
+            }
+            
+        } catch (e) {
+            console.log("getExtraInforDoctorById ERROR")
+            dispatch(getExtraInforDoctorByIdFaild())
+        }
+    }
+}
+
+export const getExtraInforDoctorByIdSuccess = (data) =>({
+    type: actionTypes.GET_EXTRA_INFOR_DOCTER_SUCCESS,
+    data: data
+})
+export const getExtraInforDoctorByIdFaild = () =>({
+    type: actionTypes.GET_EXTRA_INFOR_DOCTER_FAILD
+})

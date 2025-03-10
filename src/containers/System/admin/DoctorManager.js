@@ -128,36 +128,6 @@ class DoctorManager extends Component {
             this.setState(newState);
         }
 
-
-        // if(prevPops.markdownDoctor !== this.props.markdownDoctor)
-        // {
-        //     // console.log("markdownDoctor by redux api: ", this.props.markdownDoctor)
-        //     if(this.props.markdownDoctor)
-        //     {
-        //         // console.log("Doctor info có thông tin", this.props.markdownDoctor)
-        //         let {contentMarkdown, description, contentHTML} = this.props.markdownDoctor
-        //         this.setState({
-        //             hasOldData: false,
-        //             description: description,
-        //             contentMarkdown: contentMarkdown,
-        //             contentHTML:contentHTML
-        //         })
-        //     }
-            
-        //     if(!this.props.markdownDoctor)
-        //     {
-        //         console.log("Doctor info không có thông tin", )
-
-        //         this.setState({
-        //             hasOldData: true,
-        //             description: "",
-        //             contentMarkdown: "",
-        //             contentHTML:""
-        //         })
-        //     }
-
-        // }
-
         if(prevPops.doctorInfor !== this.props.doctorInfor)
         {
             let {resPrice, resPayment, resProvince} = this.props.doctorInfor
@@ -178,7 +148,7 @@ class DoctorManager extends Component {
 
 
    handleEditorChange = ({ html, text }) => {
-    // console.log('handleEditorChange', html, text)
+    console.log('handleEditorChange', html, text)
     this.setState({
         contentHTML: html,
         contentMarkdown :text
@@ -267,6 +237,9 @@ class DoctorManager extends Component {
     let {contentHTML, contentMarkdown, description, selectedOption, hasOldData,
         selectPrice, selectPayment, selectProvince, nameClinic, addressClinic, note} = this.state
     let actions = hasOldData === true ? CRUD_ACTIONS.CREATE : CRUD_ACTIONS.EDIT
+
+    // console.log("Data save: ", contentHTML, contentMarkdown, " + actions: ", actions)
+    
     this.props.createMarkDownStartRedux({
         contentHTML :contentHTML,
         contentMarkdown :contentMarkdown,
@@ -289,7 +262,7 @@ class DoctorManager extends Component {
         let {hasOldData, doctors, listPrice, listPayment, listProvince, selectPrice,selectPayment,
             selectProvince , contentMarkdown, description, nameClinic, addressClinic, note} = this.state
 
-        // console.log("Giá trị sate", priceId, paymentId, provinceId)
+        // console.log("Giá trị contentHTML và contentMarkdown", contentHTML ,'+', contentMarkdown)
         return (
             <div className='Manager-Doctor-Container container'>
 

@@ -99,7 +99,7 @@ class DoctorSchedule extends Component {
                                 {
                                     slotTimeDoctor && slotTimeDoctor.length > 0 ? slotTimeDoctor.map ((item, index) =>{
                                         return (
-                                            <button key={index} className='time'>
+                                            <button key={index} className={language === languages.VI ? 'btn-time btn-VN' : 'btn-time btn-EN' }  >
                                                 {language === languages.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn}     
                                             </button>
                                         )
@@ -116,23 +116,6 @@ class DoctorSchedule extends Component {
                         </div>
                             <span className='mt-5'>Chọn <i className="fa-regular fa-hand-point-up"></i>  và đặt(Phí đặt 0đ)</span>
                     </div>
-
-                    <div className='local-clinic'>
-                            <div className='address-doctor'>
-                                <h2>Địa chỉ khám</h2>
-                                <div className='title-address'>Bệnh Viên Tâm Anh</div>
-                                <div className='address'>123 hoàng văn thụ</div>
-                            </div>
-                            <div className='clinic-price'>
-                                <div className='title-price'>Giá Khám: </div>
-                                <div className='price'> 350.000 đ </div>
-                                <div className='detail-clinic'> xem chi tiết </div>
-                            </div>
-                            <div className='underwrite'>
-                                <div className='title-underwrite'>Loại bảo hiểm áp dụng</div>
-                                <div className='detail-underwrite'>xem chi tiết</div>
-                            </div>
-                        </div>
                 </div>
 
             </React.Fragment>

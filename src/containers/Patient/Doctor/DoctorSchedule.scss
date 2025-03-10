@@ -5,7 +5,7 @@
 
     .Doctor-Schedule-Left {
         font-size: 25px;
-        width: 50%;
+        // width: 50%;
 
         .Doctor-Schedule {
             color: #1877F2;
@@ -35,81 +35,32 @@
                 text-align: center;
                 padding-bottom: 15px;
 
-                .time {
+
+                .btn-time {
                     padding: 10px 5px;
                     background-color: #EEEEEE;
                     color: black;
                     border: none;
                     border: 2px solid #EEEEEE;
 
-
                     &:hover {
                         border: 2px solid #50C7D5;
                     }
+                }
+
+                .btn-VN {
+                    width: 120px;
+                    height: 47px;
+                }
+
+                .btn-EN {
+                    width: 170px;
+                    height: 47px;
                 }
             }
         }
 
     }
 
-    .local-clinic {
 
-        width: 40%;
-        border-left: 1px solid rgba(238, 238, 238, 1.00);
-        padding-left: 10px;
-
-        .address-doctor {
-
-            h2 {
-                color: #6C6C6Ced;
-                font-style: italic;
-                font-weight: 700;
-            }
-
-            .title-address {
-                color: black;
-                font-size: 19px;
-            }
-        }
-
-        .clinic-price {
-            display: flex;
-            gap: 10px;
-            align-items: baseline;
-            font-size: 20px;
-            border-top: 1px solid rgba(238, 238, 238, 1.00);
-            margin-top: 10px;
-            padding-top: 10px;
-
-            .title-price {
-                // font-size: 20px;
-                color: #6C6C6Ced;
-                font-style: oblique;
-                font-weight: 700;
-            }
-
-            .detail-clinic {
-                color: #50C7D5;
-            }
-        }
-
-        .underwrite {
-            display: flex;
-            gap: 10px;
-            font-size: 20px;
-            border-top: 1px solid rgba(238, 238, 238, 1.00);
-            margin-top: 10px;
-            padding-top: 10px;
-
-            .title-underwrite {
-                color: #6C6C6Ced;
-                font-style: oblique;
-                font-weight: 700;
-            }
-
-            .detail-underwrite {
-                color: #50C7D5;
-            }
-        }
-    }
 }

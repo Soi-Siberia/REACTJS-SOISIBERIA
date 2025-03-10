@@ -1,5 +1,6 @@
 .detai-doctor-container {
     // border: 1px solid green;
+    margin-top: 78px;
     padding-top: 30px;
 
     .detai-info {
@@ -37,13 +38,30 @@
         }
     }
 
+    .doctor-contact {
+        display: flex;
+        // justify-content: space-around;
+        // border: 1px solid red;
+
+        .contact-lichkham {
+            // border: 1px solid green;
+            width: 50%;
+        }
+
+        .contact-chitiet {
+            // border: 1px solid blue;
+            width: 50%;
+            margin-left: 10px;
+        }
+    }
+
 }
 
 .description-doctor {
     background: #F9F9F9;
     padding-top: 35px;
     margin-top: 5px;
-    border-top: 1px solid black;
+    // border-top: 1px solid black;
 
     .description-content {
         font-size: 18px;

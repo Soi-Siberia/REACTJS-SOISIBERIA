@@ -5,6 +5,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./DetailDoctor.scss"
 import * as actions from "../../../store/actions";
 import DoctorSchedule from '../Doctor/DoctorSchedule'
+import DoctorExtra from '../Doctor/DoctorExtra';
 
 
 
@@ -37,7 +38,7 @@ class DetailDoctor extends Component {
     render() {
         let {idDoctor} = this.state
         let detailDoctor = this.state.doctorDetail?.data || {}
-        console.log("detailDoctor: ", detailDoctor)
+        // console.log("detailDoctor: ", detailDoctor)
         return (
             <React.Fragment>
                 <HomeHeader />
@@ -73,10 +74,24 @@ class DetailDoctor extends Component {
                             </div>
                         </div>
                     </div>
+                    
+                    <div className='doctor-contact'>
+                        <div className='contact-lichkham'>
+                            <DoctorSchedule
+                                doctorID = {idDoctor}
+                                // detailDoctor = {detailDoctor.doctor_infor}
+                            />
+                        </div>
+                        <div className='contact-chitiet'>
+                            <DoctorExtra
+                                doctorID = {idDoctor}
+                                // detailDoctor = {detailDoctor.doctor_infor}
+                            />
+                        </div>
 
-                    <DoctorSchedule
-                        doctorID = {idDoctor}
-                    />
+
+                        
+                    </div>
 
                 </div>
                 <div className='description-doctor'>

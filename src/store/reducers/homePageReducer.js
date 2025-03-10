@@ -4,7 +4,8 @@ const initialState = {
     doctorTop: [],
     detailDoctor: [],
     scheduleDoctor: [],
-    TimeDoctors: []
+    TimeDoctors: [],
+    extraInforDoctor: []
 
 }
 
@@ -40,6 +41,15 @@ const homePageReducer = (state = initialState, action) => {
 
         case actionTypes.GET_SCHDULE_DOCTOR_BY_ID_FAILD:
 
+            return{
+                ...state
+            }
+        case actionTypes.GET_EXTRA_INFOR_DOCTER_SUCCESS:
+            return{
+                ...state,
+                extraInforDoctor: action.data
+            }
+        case actionTypes.GET_EXTRA_INFOR_DOCTER_FAILD:
             return{
                 ...state
             }
