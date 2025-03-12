@@ -1,0 +1,60 @@
+.modal-booking-contaier {
+    .modal-content {
+        .modal-body {
+            .Modal-container-full {
+                .Modal-container {
+                    font-size: 16px;
+
+                    .modal-Name {
+                        position: relative;
+                        margin-bottom: 10px;
+
+                        .icon-input {
+                            position: absolute;
+                            top: 25%;
+                            left: 5%;
+                            vertical-align: top;
+                            font-size: 20px;
+                            color: rgb(136, 136, 136);
+                        }
+
+                        .custom-input {
+                            height: 43px;
+                            text-indent: 5px;
+                            padding-left: 10%;
+                        }
+
+
+                    }
+
+                    .modal-Name-radio {
+                        text-align: center;
+                        margin: auto;
+                        padding-bottom: 10px;
+                    }
+
+                    .modal-Name-area {
+                        position: relative;
+
+                        .icon-input-area {
+                            position: absolute;
+                            top: 5%;
+                            left: 2%;
+                            vertical-align: top;
+                            font-size: 20px;
+                            color: rgb(136, 136, 136);
+
+                        }
+
+                        .input-area {
+                            width: 100%;
+                            height: 60px;
+                            text-indent: 4%;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}

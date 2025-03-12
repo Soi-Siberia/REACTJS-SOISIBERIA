@@ -4,6 +4,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./DoctorSchedule.scss"
 import * as actions from "../../../store/actions";
 import {languages} from '../../../utils/constant'
+import ModalBooking from '../../System/ModalBooking'
 
 import moment from "moment";
 import "moment/locale/vi"; // Import Tiếng Việt
@@ -17,6 +18,7 @@ class DoctorSchedule extends Component {
             scheduleDoctor: [],
             uniqueDates:[],
             slotTimeDoctor: [],
+            isOpenMocal: false
         }
     }
 
@@ -66,9 +68,16 @@ class DoctorSchedule extends Component {
         })
     }
 
+    isOpenModal = ()=>{
+        this.setState({isOpenMocal: true})
+    }
+    toggleModal = ()=>{
+        // console.log("close modal")
+        this.setState({isOpenMocal: false})
+    }
 
     render() {
-        let {uniqueDates,slotTimeDoctor} = this.state
+        let {uniqueDates,slotTimeDoctor, isOpenMocal} = this.state
         let language = this.props.language
 
         return (
@@ -99,7 +108,9 @@ class DoctorSchedule extends Component {
                                 {
                                     slotTimeDoctor && slotTimeDoctor.length > 0 ? slotTimeDoctor.map ((item, index) =>{
                                         return (
-                                            <button key={index} className={language === languages.VI ? 'btn-time btn-VN' : 'btn-time btn-EN' }  >
+                                            <button 
+                                                key={index} className={language === languages.VI ? 'btn-time btn-VN' : 'btn-time btn-EN' }  
+                                                onClick={()=>{this.isOpenModal()}}>
                                                 {language === languages.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn}     
                                             </button>
                                         )
@@ -111,11 +122,16 @@ class DoctorSchedule extends Component {
                                 <button className='time'>07:30 - 08:00</button>
                                 <button className='time'>07:30 - 08:00</button>
                                 <button className='time'>07:30 - 08:00</button> */}
-
                             </div>
                         </div>
                             <span className='mt-5'>Chọn <i className="fa-regular fa-hand-point-up"></i>  và đặt(Phí đặt 0đ)</span>
                     </div>
+                </div>
+                <div className='Modal-booking'>
+                    <ModalBooking
+                        isOpenModal = {isOpenMocal}
+                        toggleModal = {()=>{this.toggleModal()}}
+                    />
                 </div>
 
             </React.Fragment>
