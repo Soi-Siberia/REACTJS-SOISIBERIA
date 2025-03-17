@@ -18,13 +18,15 @@ class DoctorSchedule extends Component {
             scheduleDoctor: [],
             uniqueDates:[],
             slotTimeDoctor: [],
-            isOpenMocal: false
+            isOpenModal: false,
+            doctorID: this.props.doctorID,
+            timeBooking: "",
         }
     }
 
     componentDidMount() {
-        let doctorID = this.props.doctorID
-        this.props.getSchduleDoctorByIdStart(doctorID)
+        // let doctorID = this.props.doctorID
+        this.props.getSchduleDoctorByIdStart(this.state.doctorID)
     }
 
     componentDidUpdate(prevProps){
@@ -68,17 +70,21 @@ class DoctorSchedule extends Component {
         })
     }
 
-    isOpenModal = ()=>{
-        this.setState({isOpenMocal: true})
+    handleOnclickTime = (time)=>{  
+        this.setState({
+            isOpenModal: true,
+            timeBooking: time})
+        
     }
     toggleModal = ()=>{
         // console.log("close modal")
-        this.setState({isOpenMocal: false})
+        this.setState({isOpenModal: false})
     }
 
     render() {
-        let {uniqueDates,slotTimeDoctor, isOpenMocal} = this.state
+        let {doctorID, uniqueDates,slotTimeDoctor, isOpenModal, timeBooking} = this.state
         let language = this.props.language
+        // console.log("slotTimeDoctor: ", slotTimeDoctor)
 
         return (
             <React.Fragment>
@@ -110,7 +116,7 @@ class DoctorSchedule extends Component {
                                         return (
                                             <button 
                                                 key={index} className={language === languages.VI ? 'btn-time btn-VN' : 'btn-time btn-EN' }  
-                                                onClick={()=>{this.isOpenModal()}}>
+                                                onClick={()=>{this.handleOnclickTime(item)}}>
                                                 {language === languages.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn}     
                                             </button>
                                         )
@@ -129,8 +135,10 @@ class DoctorSchedule extends Component {
                 </div>
                 <div className='Modal-booking'>
                     <ModalBooking
-                        isOpenModal = {isOpenMocal}
+                        isOpenModal = {isOpenModal}
                         toggleModal = {()=>{this.toggleModal()}}
+                        doctorID = {doctorID}
+                        timeBooking = {timeBooking}
                     />
                 </div>
 

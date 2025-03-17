@@ -1,13 +1,93 @@
 .modal-booking-contaier {
+
     .modal-content {
+        .modal-header {
+            height: auto !important;
+            padding: 10px 0px !important;
+            background-color: #55baec !important;
+
+            .modal-title {
+                width: 100%;
+
+                .modal-tieude {
+                    width: 100%;
+                    text-align: center;
+                    font-size: 40px;
+                }
+            }
+
+            button {
+                margin-right: 10px;
+            }
+        }
+
         .modal-body {
+            .Modal-price {
+                font-size: 20px;
+                padding: 10px;
+                // border: 1px solid yellow;
+
+                .infor-price {
+                    text-align: center;
+                    width: 200px;
+                    border: 1px solid #f89008;
+                    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .15);
+                    padding: 10px;
+                }
+            }
+
+            .dauvao-nhom {
+                padding: 10px 0px;
+                font-size: 20px;
+
+                .booking-for-me {
+                    display: inline-block;
+                }
+
+                .booking-for-relative {
+                    display: inline-block;
+                    margin-left: 40px;
+                }
+            }
+
             .Modal-container-full {
+
+                .booking-relative {
+                    .title-nhom {
+                        color: #337ab7;
+                        font-weight: bold;
+                        font-size: 18px;
+                        padding: 10px 10px
+                    }
+
+                    .relative-Nhom {
+                        position: relative;
+                        margin-bottom: 10px;
+
+                        .icon-input {
+                            position: absolute;
+                            top: 25%;
+                            left: 5%;
+                            vertical-align: top;
+                            font-size: 20px;
+                            color: rgb(136, 136, 136);
+                        }
+
+                        .custom-input {
+                            height: 43px;
+                            text-indent: 5px;
+                            padding-left: 10%;
+                        }
+
+                    }
+                }
+
                 .Modal-container {
                     font-size: 16px;
 
                     .modal-Name {
                         position: relative;
-                        margin-bottom: 10px;
+                        margin-bottom: 20px;
 
                         .icon-input {
                             position: absolute;
@@ -27,10 +107,14 @@
 
                     }
 
-                    .modal-Name-radio {
-                        text-align: center;
-                        margin: auto;
-                        padding-bottom: 10px;
+
+
+                    .modal-Name-gender {
+                        height: 43px;
+
+                        .gender-booking {
+                            height: 100%;
+                        }
                     }
 
                     .modal-Name-area {
@@ -52,6 +136,63 @@
                             text-indent: 4%;
                         }
                     }
+                }
+
+                .booking-thanhtoan {
+                    .title {
+                        color: #337ab7;
+                        font-weight: bold;
+                        font-size: 18px;
+                        padding: 10px 10px
+                    }
+
+                    .chitiet-thanhtoan {
+                        background-color: #f6f6f6;
+                        padding: 30px 20px;
+                        font-size: 18px;
+                        font-weight: bold;
+
+                        .booking-content {
+                            display: flex;
+                            justify-content: space-between;
+                            padding-bottom: 10px;
+                        }
+
+                        .chitiet-tongtien {
+                            margin-top: 10px;
+                            padding-top: 30px;
+                            border-top: 2px solid #ccc;
+
+                            .tongtien {
+                                color: red;
+                            }
+                        }
+                    }
+                }
+
+                .ghichu-dauvao {
+                    font-size: 18px;
+
+                    .ghichu-giua {
+                        text-align: center;
+                        padding: 10px 0px;
+                        color: black;
+                        font-weight: bold;
+                    }
+
+                    .ghichu-luuy {
+                        background-color: #D4EFFC;
+                        padding: 10px 20px;
+                        width: 100%;
+
+                        .luuy-tatle {
+                            font-weight: bold;
+                            font-size: 25px;
+
+                        }
+
+                    }
+
                 }
 
             }

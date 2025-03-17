@@ -18,7 +18,11 @@ const homePageService = {
 
     getExtraInforDoctorByID: (id) => {
         return axios.get(`/api/get-extra-infor-doctor-by-id?id=${id}`)
+    },
+
+    getProfileDoctorByID: (id) => {
+        return axios.get(`/api/get-profile-doctor-by-id?id=${id}`)
     }
-}
+}       
 
 export default homePageService

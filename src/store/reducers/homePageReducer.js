@@ -5,7 +5,8 @@ const initialState = {
     detailDoctor: [],
     scheduleDoctor: [],
     TimeDoctors: [],
-    extraInforDoctor: []
+    extraInforDoctor: [],
+    profileDoctor: []
 
 }
 
@@ -53,7 +54,15 @@ const homePageReducer = (state = initialState, action) => {
             return{
                 ...state
             }
-
+        case actionTypes.GET_PROFILE_DOCTOR_SUCCESS:
+            return{
+                ...state,
+                profileDoctor: action.data
+            }
+        case actionTypes.GET_PROFILE_DOCTOR_FAILD:
+            return{
+                ...state
+            }
             
         default:
             return state;

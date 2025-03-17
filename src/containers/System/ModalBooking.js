@@ -4,51 +4,129 @@ import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 // import { emitter } from '../../utils/emitter';
 import './ModalBooking.scss';
+import * as actions from '../../store/actions';
+
+import ProfileDoctor from '../Patient/Doctor/ProfileDoctor.js'
 
 class ModalBooking extends Component {
 
     constructor(props){
         super(props);
         this.state ={
+            inforDoctor: [],
+            isBookingForSelf: true,
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        let doctorID = this.props.doctorID
+        this.props.getProfileDoctorByIdStart(doctorID)
+    }
+
+    componentDidUpdate(prevProps){
+        if(prevProps.profileDoctor !== this.props.profileDoctor)
+        {
+            this.setState({
+                inforDoctor: this.props.profileDoctor
+            })
+        }
     }
 
     toggleModal = () => {
         this.props.toggleModal()
     }
 
+    handleOnchangBooker = (value) => {
+        console.log("Giá trị event: ", value)
+        this.setState({
+            isBookingForSelf : value
+        })
+    }
+
 
 
     render() {
+        let {inforDoctor,isBookingForSelf } = this.state
+        let {timeBooking} = this.props
+        // console.log("isBookingForSelf state", isBookingForSelf)
         return (
             <Modal
-              size='lg'
+              size='xl'
               isOpen={this.props.isOpenModal}
               toggle={()=> this.toggleModal()} 
               className="modal-booking-contaier">
             <ModalHeader toggle={()=> this.toggleModal()}>
-              Đặt Lịch Khám
+                <div className='modal-tieude'>
+                Đặt Lịch Khám
+                </div>
             </ModalHeader>
+            
             <ModalBody>
+                <>
+                <ProfileDoctor 
+                    inforDoctor = {inforDoctor}
+                    timeBooking = {timeBooking}
+                />
+                <div className='Modal-price row'>
+                    <div className='infor-price col-2'>
+                        <div className='price-title'>Giá khám</div>
+                        <div className='price-value'>
+                            {
+                                `${inforDoctor?.doctor_infor?.priceData?.valueVi ?? "Chưa cập nhật"}`
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div className='dauvao-nhom'>
+                    <div className="form-check booking-for-me">
+                        <input className="form-check-input check-booking-input" type="radio" 
+                                name="inlineRadioOptions" id="inlineRadio1" value="ChoToi"
+                                checked = {isBookingForSelf}
+                                onChange={() => this.handleOnchangBooker(true)}></input>
+                        <label className="form-check-label check-booking-label" htmlFor="inlineRadio1">Đặt cho bản thân tôi</label>
+                    </div>
+                    <div className="form-check booking-for-relative">
+                        <input className="form-check-input check-booking-input" type="radio" 
+                                name="inlineRadioOptions" id="inlineRadio2" value="ChoNguoiThan"
+                                checked = {!isBookingForSelf}
+                                onChange={() =>this.handleOnchangBooker(false)}></input>
+                        <label className="form-check-label check-booking-label" htmlFor="inlineRadio2">Đặt cho người thân</label>
+                    </div>
+                </div>
                 <div className='Modal-container-full'>
+                        {
+                            isBookingForSelf === false && (
+                                <div className='booking-relative row'>
+                                    <div className='title-nhom'>Thông tin người đặt lịch</div>
+                                    <div className='relative-Nhom relative-name col-6'>
+                                        <i className="fa fa-user icon-input" aria-hidden="true"></i>
+                                        <input className='form-control custom-input' placeholder='Họ và tên người đặt lịch (bắt buộc)'></input>
+                                    </div>
+                                
+
+                                    <div className='relative-Nhom relative-phone col-6'>
+                                        <i className="fa fa-phone icon-input" aria-hidden="true"></i>
+                                        <input className='form-control custom-input' placeholder='Số điện liên hệ (bắt buộc)'></input>
+                                    </div>
+
+                                    <div className='title-nhom'>Thông tin bệnh nhân</div>
+
+                                </div>
+                            )
+                        }
                     <div className='Modal-container row'>
                         <div className='modal-Name col-6'>
                             <i className="fa fa-user icon-input" aria-hidden="true"></i>
                             <input className='form-control custom-input' placeholder='Họ và tên bênh nhân (bắt buộc)'></input>
                         </div>
 
-                        <div className='modal-Name-radio col-6'>
-                            <div className="form-check form-check-inline">
-                                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Nam"></input>
-                                <label className="form-check-label" for="inlineRadio1">Nam</label>
-                            </div>
-                            <div className="form-check form-check-inline">
-                                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Nu"></input>
-                                <label className="form-check-label" for="inlineRadio2">Nữ</label>
-                            </div>
+                        <div className='modal-Name-gender col-6'>
+                            <select class="form-select gender-booking" aria-label="Default select example">
+                                <option selected>Giới tính</option>
+                                <option value="1">Nam</option>
+                                <option value="2">Nữ</option>
+                                <option value="3">Khác</option>
+                            </select>
                         </div>
 
                         <div className='modal-Name col-6'>
@@ -58,7 +136,7 @@ class ModalBooking extends Component {
 
                         <div className='modal-Name col-6'>
                             <i className="fa fa-calendar icon-input" aria-hidden="true"></i>
-                            <input className='form-control custom-input' placeholder='Năm sinh'></input>
+                            <input type='date' className='form-control custom-input' placeholder='Ngày sinh'></input>
                         </div>
 
                         <div className='modal-Name col-6'>
@@ -77,14 +155,46 @@ class ModalBooking extends Component {
                         </div>
 
                     </div>
+                    {/* ----------thanh toán-------------- */}
+                    <div className='booking-thanhtoan'>
+                        <div className='title'>Thanh toán sau tại cơ sở y tế</div>
+                        <div className='chitiet-thanhtoan'>
+                            <div className='booking-content booking-price'>
+                                <div className='chitiet-title'>Giá Khám:</div>
+                                <div className='thanhtoan-giakham'>300000 vnđ</div>
+                            </div>
+                            <div className='booking-content booking-datlich'>
+                                <div className='chitiet-title'>Phí đặt lịch:</div>
+                                <div className='thanhtoan-datlich'>Miễn Phí</div>
+                            </div>
+                            <div className='booking-content chitiet-tongtien'>
+                                <div className='chitiet-title'>Tổng tiền:</div>
+                                <div className='tongtien'>300000 vnđ</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div className='ghichu-dauvao'>
+                            <div className='ghichu-giua'>Quý khách vui lòng điền đầy đủ thông tin để tiết kiệm thời gian làm thủ tục</div>
+                            <div className='ghichu-luuy'>
+                                <p className='luuy-tatle'>Lưu ý</p>
+                                <p className='luuy-content'>Thông tin anh/chị cung cấp sẽ được sử dụng làm hồ sơ khám bệnh, khi điền thông tin anh/chị vui lòng:</p>
+                                <ul>
+                                    <li>Ghi rõ họ và tên, viết hoa những chữ cái đầu tiên, ví dụ: <b>Trần Văn A</b> </li>
+                                    <li>Điền đầy đủ, đúng và vui lòng kiểm tra lại thông tin trước khi ấn "Xác nhận"</li>
+                                </ul>
+                            </div>
+                    </div>
                 </div>
+                </>
             </ModalBody>
+
             <ModalFooter>
               <Button className='px-3' color="primary">
-                Save
+                Đặt Lịch
               </Button>
               <Button className='px-3' color="secondary" onClick={()=> this.toggleModal()}>
-                Cancel
+                Thoát
               </Button>
             </ModalFooter>
           </Modal>
@@ -95,11 +205,13 @@ class ModalBooking extends Component {
 
 const mapStateToProps = state => {
     return {
+        profileDoctor: state.doctor.profileDoctor,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        getProfileDoctorByIdStart: (id) => dispatch(actions.getProfileDoctorByIdStart(id)),
     };
 };
 

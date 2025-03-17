@@ -1,0 +1,69 @@
+.container-full {
+    background-color: #D4EFFC;
+    margin: 10px 0px;
+    padding: 10px 0px;
+
+    .container {
+        .row {
+            .profile-left {
+
+                .profile-avatar {
+                    width: 100px;
+                    height: 100px;
+                    background-size: cover;
+                    border-radius: 50%;
+                    margin: 10px;
+                }
+            }
+
+            .profile-right {
+                font-size: 20px;
+
+                .profile-name {
+                    text-align: center;
+                    font-weight: bold;
+                    color: #337AB7;
+                }
+
+                .profile-time-booking {
+                    .profile-icon {
+                        display: inline-block;
+                        vertical-align: middle;
+                        color: #909092;
+                        width: 5%;
+                        text-align: center;
+                    }
+
+                    .time-booking {
+                        display: inline-block;
+                        vertical-align: middle;
+                        margin-left: 10px;
+                        color: #FEC206;
+                    }
+                }
+
+                .profole-address {
+                    .profile-icon-address {
+                        display: inline-block;
+                        vertical-align: middle;
+                        color: #909092;
+                        width: 5%;
+                        text-align: center;
+                    }
+
+                    .name-clinic {
+                        display: inline-block;
+                        vertical-align: middle;
+                        margin-left: 10px;
+                        color: #555874;
+                    }
+
+                    .addres-clinic {
+                        font-size: 18px;
+                        padding-left: 8%;
+                    }
+                }
+            }
+        }
+    }
+}

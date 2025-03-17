@@ -160,3 +160,31 @@ export const getExtraInforDoctorByIdSuccess = (data) =>({
 export const getExtraInforDoctorByIdFaild = () =>({
     type: actionTypes.GET_EXTRA_INFOR_DOCTER_FAILD
 })
+
+export const getProfileDoctorByIdStart = (id) =>{
+    // console.log("ID get profile doctor: ", id)
+    return async (dispatch, getSate) =>{
+        try {
+            let result = await homePageService.getProfileDoctorByID(id)
+            if(result && result.errCode === 0)
+            {
+                // console.log("Profile Doctor: ", result)
+                dispatch(getProfileDoctorByIdSuccess(result.data))
+            }else
+            {
+                dispatch(getProfileDoctorByIdFaild())
+            }
+            
+        } catch (e) {
+            console.log("getProfileDoctorById ERROR")
+            // dispatch(getProfileDoctorByIdFaild())
+        }
+    }
+}
+export const getProfileDoctorByIdSuccess = (data) =>({
+    type: actionTypes.GET_PROFILE_DOCTOR_SUCCESS,
+    data: data
+})
+export const getProfileDoctorByIdFaild = () =>({
+    type: actionTypes.GET_PROFILE_DOCTOR_FAILD
+})
