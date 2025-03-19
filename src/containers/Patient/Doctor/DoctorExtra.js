@@ -8,6 +8,8 @@ import * as actions from "../../../store/actions";
 // import moment from "moment";
 import "moment/locale/vi"; // Import Tiếng Việt
 
+import { FormattedPrice } from '../../../components/Formating';
+
 
 class DoctorExtra extends Component {
 
@@ -52,7 +54,7 @@ class DoctorExtra extends Component {
                             <div className='clinic-price'>
                                 <div className='title-clinic' style={{display: isHideDetail? 'none': 'flex', }}>
                                     <div className='title-price'>Giá Khám: </div>
-                                    <div className='price'> {detailDoctor?.priceData?.valueVi ? `${detailDoctor.priceData.valueVi} Vnđ` : "Vui Lòng Liên hệ"}  </div>
+                                    <div className='price'> { <FormattedPrice value = {detailDoctor?.priceData?.valueVi} /> || "Vui Lòng Liên hệ"}  </div>
                                 </div>
                                 {
                                     isHideDetail && (

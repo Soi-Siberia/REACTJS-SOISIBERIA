@@ -8,6 +8,8 @@ import * as actions from '../../store/actions';
 
 import ProfileDoctor from '../Patient/Doctor/ProfileDoctor.js'
 
+import {FormattedPrice} from '../../components/Formating'
+
 class ModalBooking extends Component {
 
     constructor(props){
@@ -15,20 +17,45 @@ class ModalBooking extends Component {
         this.state ={
             inforDoctor: [],
             isBookingForSelf: true,
+
+            // sate sent save booking
+            statusID: "",
+            doctorID: "",
+            patienID: "",
+            paymentId: "",
+            bookerName: "",
+            bookerPhone:"",
+            date: "",
+            timeType: "",
+            reason:"",
+            // state sent save pattient
+            fullName: "",
+            PhoneNumber: "",
+            email: "",
+            birthday: "",
+            gender: "",
+            address: ""
         }
     }
 
     async componentDidMount() {
         let doctorID = this.props.doctorID
         this.props.getProfileDoctorByIdStart(doctorID)
+        this.props.fetchGenderStart()
     }
 
     componentDidUpdate(prevProps){
         if(prevProps.profileDoctor !== this.props.profileDoctor)
         {
-            this.setState({
-                inforDoctor: this.props.profileDoctor
-            })
+            let profileDoctor = this.props.profileDoctor
+            if(Object.keys(this.props.profileDoctor).length > 0)
+            {
+                console.log("this.props.profileDoctor: ", this.props.profileDoctor)
+                this.setState({
+                    inforDoctor: profileDoctor,
+                })
+            }
+            
         }
     }
 
@@ -37,17 +64,24 @@ class ModalBooking extends Component {
     }
 
     handleOnchangBooker = (value) => {
-        console.log("Giá trị event: ", value)
+        // console.log("Giá trị event: ", value)
         this.setState({
             isBookingForSelf : value
+
         })
+    }
+    handleOnchangBooking = (e, name) =>{
+        // console.log("value: ",e.target.value," name: ", name)
     }
 
 
 
     render() {
-        let {inforDoctor,isBookingForSelf } = this.state
-        let {timeBooking} = this.props
+        let {inforDoctor,isBookingForSelf} = this.state
+        let {timeBooking, genders} = this.props
+        // console.log("***********************")
+        // console.log("timeBooking: ", timeBooking)
+
         // console.log("isBookingForSelf state", isBookingForSelf)
         return (
             <Modal
@@ -72,7 +106,7 @@ class ModalBooking extends Component {
                         <div className='price-title'>Giá khám</div>
                         <div className='price-value'>
                             {
-                                `${inforDoctor?.doctor_infor?.priceData?.valueVi ?? "Chưa cập nhật"}`
+                                <FormattedPrice value = {inforDoctor?.doctor_infor?.priceData?.valueVi} /> || "Đang cập nhật"
                             }
                         </div>
                     </div>
@@ -100,13 +134,15 @@ class ModalBooking extends Component {
                                     <div className='title-nhom'>Thông tin người đặt lịch</div>
                                     <div className='relative-Nhom relative-name col-6'>
                                         <i className="fa fa-user icon-input" aria-hidden="true"></i>
-                                        <input className='form-control custom-input' placeholder='Họ và tên người đặt lịch (bắt buộc)'></input>
+                                        <input className='form-control custom-input' placeholder='Họ và tên người đặt lịch (bắt buộc)'
+                                            onChange={(e) => this.handleOnchangBooking(e,'bookerName')}></input>
                                     </div>
                                 
 
                                     <div className='relative-Nhom relative-phone col-6'>
                                         <i className="fa fa-phone icon-input" aria-hidden="true"></i>
-                                        <input className='form-control custom-input' placeholder='Số điện liên hệ (bắt buộc)'></input>
+                                        <input className='form-control custom-input' placeholder='Số điện liên hệ (bắt buộc)'
+                                                onChange={(e) => this.handleOnchangBooking(e,'bookerPhone')}></input>
                                     </div>
 
                                     <div className='title-nhom'>Thông tin bệnh nhân</div>
@@ -117,41 +153,62 @@ class ModalBooking extends Component {
                     <div className='Modal-container row'>
                         <div className='modal-Name col-6'>
                             <i className="fa fa-user icon-input" aria-hidden="true"></i>
-                            <input className='form-control custom-input' placeholder='Họ và tên bênh nhân (bắt buộc)'></input>
+                            <input 
+                                className='form-control custom-input' placeholder='Họ và tên bênh nhân (bắt buộc)'
+                                onChange={(e) => this.handleOnchangBooking(e,'fullName')}>
+                            </input>
                         </div>
 
                         <div className='modal-Name-gender col-6'>
-                            <select class="form-select gender-booking" aria-label="Default select example">
-                                <option selected>Giới tính</option>
-                                <option value="1">Nam</option>
-                                <option value="2">Nữ</option>
-                                <option value="3">Khác</option>
+                            <select class="form-select gender-booking" 
+                                    aria-label="Default select example"
+                                    onChange={(e) => this.handleOnchangBooking(e,'gender')}>
+                                <option selected value="">Giới tính</option>
+
+                                {
+                                    genders && genders.length > 0 && genders.map((item, index) => {
+                                        return(
+                                            <option key={index} value={item.keyMap}>{item.valueVi}</option>
+                                        )
+                                    })
+                                }
+
                             </select>
                         </div>
 
                         <div className='modal-Name col-6'>
                             <i className="fa fa-phone icon-input" aria-hidden="true"></i>
-                            <input className='form-control custom-input' placeholder='Số điện bênh nhân (bắt buộc)'></input>
+                            <input 
+                                className='form-control custom-input' placeholder='Số điện bênh nhân (bắt buộc)'
+                                onChange={(e) => this.handleOnchangBooking(e,'PhoneNumber')}>
+
+                            </input>
                         </div>
 
                         <div className='modal-Name col-6'>
                             <i className="fa fa-calendar icon-input" aria-hidden="true"></i>
-                            <input type='date' className='form-control custom-input' placeholder='Ngày sinh'></input>
+                            <input 
+                                type='date' className='form-control custom-input' placeholder='Ngày sinh'
+                                onChange={(e) => this.handleOnchangBooking(e,'birthday')}>
+                            </input>
                         </div>
 
                         <div className='modal-Name col-6'>
                             <i className="fa fa-map-marker  icon-input" aria-hidden="true"></i>
-                            <input className='form-control custom-input' placeholder='Địa chỉ'></input>
+                            <input className='form-control custom-input' placeholder='Địa chỉ'
+                             onChange={(e) => this.handleOnchangBooking(e,'address')}></input>
                         </div>
 
                         <div className='modal-Name col-6'>
                             <i className="fa fa-envelope icon-input" aria-hidden="true"></i>
-                            <input className='form-control custom-input' placeholder='Địa chỉ email'></input>
+                            <input className='form-control custom-input' placeholder='Địa chỉ email'
+                            onChange={(e) => this.handleOnchangBooking(e,'email')}></input>
                         </div>
 
                         <div className='modal-Name-area col-12'>
                             <i className="fa fa-plus-circle icon-input-area" aria-hidden="true"></i>
-                            <textarea className='input-area custom-input-area' placeholder='Lý do khám'></textarea>
+                            <textarea className='input-area custom-input-area' placeholder='Lý do khám'
+                            onChange={(e) => this.handleOnchangBooking(e,'reason')}></textarea>
                         </div>
 
                     </div>
@@ -161,7 +218,11 @@ class ModalBooking extends Component {
                         <div className='chitiet-thanhtoan'>
                             <div className='booking-content booking-price'>
                                 <div className='chitiet-title'>Giá Khám:</div>
-                                <div className='thanhtoan-giakham'>300000 vnđ</div>
+                                <div className='thanhtoan-giakham'>
+                                    {
+                                        <FormattedPrice value = {inforDoctor?.doctor_infor?.priceData?.valueVi} /> || "Vui Lòng Liên Hệ"
+                                    }
+                                </div>
                             </div>
                             <div className='booking-content booking-datlich'>
                                 <div className='chitiet-title'>Phí đặt lịch:</div>
@@ -169,7 +230,12 @@ class ModalBooking extends Component {
                             </div>
                             <div className='booking-content chitiet-tongtien'>
                                 <div className='chitiet-title'>Tổng tiền:</div>
-                                <div className='tongtien'>300000 vnđ</div>
+                                <div className='tongtien'>
+                                    {
+                                        <FormattedPrice value = {inforDoctor?.doctor_infor?.priceData?.valueVi} /> || "Vui Lòng Liên Hệ"
+
+                                    }
+                                </div>
                             </div>
                         </div>
                         
@@ -206,12 +272,14 @@ class ModalBooking extends Component {
 const mapStateToProps = state => {
     return {
         profileDoctor: state.doctor.profileDoctor,
+        genders: state.admin.genders,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         getProfileDoctorByIdStart: (id) => dispatch(actions.getProfileDoctorByIdStart(id)),
+        fetchGenderStart: () => dispatch(actions.fetchGenderStart())
     };
 };
 
