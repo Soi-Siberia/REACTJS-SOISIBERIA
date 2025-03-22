@@ -1,3 +1,4 @@
+// import { da } from 'date-fns/locale';
 import axios from '../axios';
 
 
@@ -44,6 +45,13 @@ const userService = {
 
     getMarkdownDoctorByID: (id) =>{
         return axios.get(`/api/get-markdown-doctor-by-id?id=${id}`)
+    },
+
+    createBookingPattient: (data) => {
+        return axios.post('/api/create-booking', data)
+    },
+    verifyEmailBooking: (data) => {
+        return axios.post('/api/verify-email-booking', data)
     }
 
 }

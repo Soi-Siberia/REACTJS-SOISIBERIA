@@ -1,0 +1,17 @@
+.container-full {
+    padding: 0px;
+    margin: 0px;
+
+    .container {
+        padding-top: 79px;
+
+        .Content {
+            .verify-check {
+                text-align: center;
+                font-size: 30px;
+                font-weight: bold;
+                color: red;
+            }
+        }
+    }
+}

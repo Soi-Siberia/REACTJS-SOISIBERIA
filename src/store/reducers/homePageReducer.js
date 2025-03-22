@@ -63,6 +63,14 @@ const homePageReducer = (state = initialState, action) => {
             return{
                 ...state
             }
+        case actionTypes.CREATE_BOOKING_PATTIENT_SUCCESS:
+            return{
+                ...state
+            }
+        case actionTypes.CREATE_BOOKING_PATTIENT_FAILD:
+            return{
+                ...state
+            }
             
         default:
             return state;

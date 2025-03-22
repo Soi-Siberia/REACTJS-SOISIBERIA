@@ -7,7 +7,6 @@ import './ModalBooking.scss';
 import * as actions from '../../store/actions';
 
 import ProfileDoctor from '../Patient/Doctor/ProfileDoctor.js'
-
 import {FormattedPrice} from '../../components/Formating'
 
 class ModalBooking extends Component {
@@ -17,11 +16,12 @@ class ModalBooking extends Component {
         this.state ={
             inforDoctor: [],
             isBookingForSelf: true,
-
+            timeString: "",
+            fullNameDoctor: "",
             // sate sent save booking
             statusID: "",
-            doctorID: "",
-            patienID: "",
+            doctorID: this.props.doctorID || "",
+            // patienID: "",
             paymentId: "",
             bookerName: "",
             bookerPhone:"",
@@ -39,23 +39,49 @@ class ModalBooking extends Component {
     }
 
     async componentDidMount() {
-        let doctorID = this.props.doctorID
-        this.props.getProfileDoctorByIdStart(doctorID)
-        this.props.fetchGenderStart()
+        const { doctorID, getProfileDoctorByIdStart, fetchGenderStart } = this.props;
+        if(!doctorID)
+        {
+            console.warn("doctorID is missing!!!")
+            return
+        }
+        getProfileDoctorByIdStart(doctorID)
+        fetchGenderStart()
     }
 
     componentDidUpdate(prevProps){
         if(prevProps.profileDoctor !== this.props.profileDoctor)
         {
             let profileDoctor = this.props.profileDoctor
+            // console.log("profile DOctor: ", profileDoctor)
             if(Object.keys(this.props.profileDoctor).length > 0)
             {
-                console.log("this.props.profileDoctor: ", this.props.profileDoctor)
+                // console.log("this.props.profileDoctor: ", this.props.profileDoctor)
+                let doctorName = `${profileDoctor?.lastName} ${profileDoctor?.firstName}` || ""
                 this.setState({
                     inforDoctor: profileDoctor,
+                    paymentId:profileDoctor?.doctor_infor?.paymentId || "",
+                    fullNameDoctor: doctorName
                 })
             }
             
+        }
+        if(prevProps.timeBooking !== this.props.timeBooking)
+        {
+            let timeBooking = this.props.timeBooking
+            console.log("timeBooking: ", timeBooking.timeType)
+
+            this.setState({
+                date: timeBooking?.date || "",
+                timeType: timeBooking?.timeType || ""
+            })
+        }
+
+        if(prevProps.genders !== this.props.genders)
+        {
+            this.setState({
+                gender: this.props.genders[0].keyMap
+            })
         }
     }
 
@@ -70,8 +96,59 @@ class ModalBooking extends Component {
 
         })
     }
+
     handleOnchangBooking = (e, name) =>{
         // console.log("value: ",e.target.value," name: ", name)
+        this.setState({
+            [name]: e.target.value
+        })
+    }
+
+    handleGetDataChild = (data) => {
+        this.setState({
+            timeString: data
+        })
+    }
+    handleSaveBooking = async () =>{
+        // cách 1
+        // let {
+        // isBookingForSelf,
+        // statusID,
+        // doctorID,
+        // paymentId,
+        // bookerName,
+        // bookerPhone,
+        // date,
+        // timeType,
+        // reason,
+        // fullName,
+        // PhoneNumber,
+        // email,
+        // birthday,
+        // gender,
+        // address} = this.state
+        // this.props.createBookingPattientStart({isBookingForSelf,
+        //     statusID,
+        //     doctorID,
+        //     paymentId,
+        //     bookerName,
+        //     bookerPhone,
+        //     date,
+        //     timeType,
+        //     reason,
+        //     fullName,
+        //     PhoneNumber,
+        //     email,
+        //     birthday,
+        //     gender,
+        //     address})
+
+        // console.log("Giá trí state modalBooking: ", this.state)
+        let fiedldToSent = ["statusID", "doctorID", "paymentId", "bookerName", "bookerPhone", "date", "timeType", "reason", "fullName", "PhoneNumber", "email", "birthday", "gender", "address", "timeString", "fullNameDoctor"]
+        let dataToSent = Object.fromEntries(fiedldToSent.map((key) => [key, this.state[key]]))
+
+        await this.props.createBookingPattientStart(dataToSent)
+        this.toggleModal()
     }
 
 
@@ -79,10 +156,7 @@ class ModalBooking extends Component {
     render() {
         let {inforDoctor,isBookingForSelf} = this.state
         let {timeBooking, genders} = this.props
-        // console.log("***********************")
-        // console.log("timeBooking: ", timeBooking)
-
-        // console.log("isBookingForSelf state", isBookingForSelf)
+        // console.log("timeString 123123: ", timeString)
         return (
             <Modal
               size='xl'
@@ -100,6 +174,7 @@ class ModalBooking extends Component {
                 <ProfileDoctor 
                     inforDoctor = {inforDoctor}
                     timeBooking = {timeBooking}
+                    handleGetDataChild = {this.handleGetDataChild} // lấy state từ child send to parent
                 />
                 <div className='Modal-price row'>
                     <div className='infor-price col-2'>
@@ -160,11 +235,10 @@ class ModalBooking extends Component {
                         </div>
 
                         <div className='modal-Name-gender col-6'>
-                            <select class="form-select gender-booking" 
+                            <select className="form-select gender-booking" 
                                     aria-label="Default select example"
-                                    onChange={(e) => this.handleOnchangBooking(e,'gender')}>
-                                <option selected value="">Giới tính</option>
-
+                                    onChange={(e) => this.handleOnchangBooking(e,'gender')}
+                                    defaultValue="">
                                 {
                                     genders && genders.length > 0 && genders.map((item, index) => {
                                         return(
@@ -256,7 +330,8 @@ class ModalBooking extends Component {
             </ModalBody>
 
             <ModalFooter>
-              <Button className='px-3' color="primary">
+              <Button className='px-3' color="primary"
+              onClick={() => {this.handleSaveBooking()}}>
                 Đặt Lịch
               </Button>
               <Button className='px-3' color="secondary" onClick={()=> this.toggleModal()}>
@@ -279,7 +354,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getProfileDoctorByIdStart: (id) => dispatch(actions.getProfileDoctorByIdStart(id)),
-        fetchGenderStart: () => dispatch(actions.fetchGenderStart())
+        fetchGenderStart: () => dispatch(actions.fetchGenderStart()),
+        createBookingPattientStart: (data) => dispatch(actions.createBookingPattientStart(data))
     };
 };
 

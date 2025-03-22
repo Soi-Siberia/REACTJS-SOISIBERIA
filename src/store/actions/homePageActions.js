@@ -1,5 +1,6 @@
 import actionTypes from "./actionTypes";
 import { homePageService, userService } from "../../services";
+import { toast } from "react-toastify";
 // import { toast } from "react-toastify";
 
 export const getTopDoctorStart = () => {
@@ -187,4 +188,35 @@ export const getProfileDoctorByIdSuccess = (data) =>({
 })
 export const getProfileDoctorByIdFaild = () =>({
     type: actionTypes.GET_PROFILE_DOCTOR_FAILD
+})
+
+export const createBookingPattientStart = (data)=>{
+    return async(dispatch, getSate) => {
+        try {
+            let result = await userService.createBookingPattient(data)
+            if(result && result.errCode === 0)
+            {
+                // console.log("Đã lên lịch khám thành công !!!")
+                dispatch(createBookingPattientSuccess())
+                toast.success(result.message)
+            }else
+            {
+                dispatch(createBookingPattientFaild())
+                toast.success(result.message)
+
+            }
+
+            
+        } catch (e) {
+            dispatch(createBookingPattientFaild())
+        }
+    }
+}
+
+export const createBookingPattientSuccess = () =>({
+    type: actionTypes.CREATE_BOOKING_PATTIENT_SUCCESS,
+})
+
+export const createBookingPattientFaild = () =>({
+    type: actionTypes.CREATE_BOOKING_PATTIENT_FAILD,
 })

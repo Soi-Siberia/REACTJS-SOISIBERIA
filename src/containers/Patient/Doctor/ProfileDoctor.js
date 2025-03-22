@@ -10,20 +10,22 @@ class ProfileDoctor extends Component {
     constructor(props){
         super(props);
         this.state = {
-
+            timeString : "",
         }
     }
 
     componentDidMount() {
-
+        this.TimeStringFormat()
     }
 
     componentDidUpdate(prevProps){
+        if(prevProps.timeBooking !== this.props.timeBooking)
+        {
+            this.TimeStringFormat()
+        }
     }
 
     DateFormater = (date) => {
-        console.log("Date", date)
-
         let validDate = new Date(date)
         let formatter = new Intl.DateTimeFormat('vi-VN', { 
             weekday: 'long', 
@@ -33,9 +35,22 @@ class ProfileDoctor extends Component {
         });
         return formatter.format(validDate).replace(",", " -")
     }
+
+    TimeStringFormat = () =>{
+        let timeBooking = this.props.timeBooking
+        let stringtimeformatter = `${timeBooking.timeTypeData.valueVi} - ${this.DateFormater(timeBooking.date)}`
+        this.setState({
+            timeString: stringtimeformatter
+        })
+        this.props.handleGetDataChild(stringtimeformatter)
+        return stringtimeformatter
+    }
+
+
     render() {
-        let{inforDoctor, timeBooking} = this.props
-        console.log("Pops profile doctor", this.props)
+        let timeString = this.state.timeString
+        let{inforDoctor} = this.props
+        // console.log("timeBooking 123123", timeBooking)
         return (
             <>
                 <div className='container-full'>
@@ -57,12 +72,7 @@ class ProfileDoctor extends Component {
                                 
                                 <div className='profile-time-booking'>
                                     <i className="fa fa-calendar profile-icon" aria-hidden="true"></i>
-                                    <div className='time-booking'>
-                                        {
-                                            // console.log("Time booking", timeBooking.date)
-                                            `${timeBooking.timeTypeData.valueVi} - ${this.DateFormater(timeBooking.date)}`
-                                        }
-                                    </div>
+                                    <div className='time-booking'>{timeString}</div>
                                 </div>
                                 <div className='profole-address'>
                                     <i className="fa fa-home profile-icon-address" aria-hidden="true"></i>

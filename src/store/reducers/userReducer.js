@@ -2,7 +2,8 @@ import actionTypes from '../actions/actionTypes';
 
 const initialState = {
     isLoggedIn: false,
-    userInfo: null
+    userInfo: null,
+    dataVerify: "",
 }
 
 const appReducer = (state = initialState, action) => {
@@ -25,6 +26,15 @@ const appReducer = (state = initialState, action) => {
                 ...state,
                 isLoggedIn: false,
                 userInfo: null
+            }
+        case actionTypes.VERIFY_EMAIL_SUCCESS:
+            state.dataVerify = action.data 
+            return {
+            ...state,
+            }
+        case actionTypes.VERIFY_EMAIL_FAILD:
+            return {
+                ...state,
             }
         default:
             return state;
