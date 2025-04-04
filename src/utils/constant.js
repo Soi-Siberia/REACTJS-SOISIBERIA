@@ -8,7 +8,9 @@ export const path = {
     VERIFY_EMAIL_BOOKING: '/verify-booking',
     
     //path router Doctor
-    DOCTOR: '/doctor/' 
+    DOCTOR: '/doctor/',
+    // //path router specialty
+    MANAGE_SPECIALTY: '/specialty/',
 };
 
 export const languages = {

@@ -1,0 +1,32 @@
+.specialty-manager-container-full{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .container{
+
+        .btn-save{
+
+            .btn-themmoi{
+                background-color: #11e22f; /* Green */
+                border: none;
+                border-radius: 5px;
+                color: white;
+                padding: 6px 10px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+
+                &:hover{
+                    border: 2px solid #05fd1944; /* Darker Green */
+                    background-color: #ff0000; /* Darker Green */
+                }
+            }
+        }
+    }
+}

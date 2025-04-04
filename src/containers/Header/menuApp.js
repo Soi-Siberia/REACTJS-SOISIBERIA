@@ -29,7 +29,7 @@ export const adminMenu = [
     { //QUản Lý Chuyên Khoa
         name: 'menu.system.specialty', menus: [
 
-            { name: 'menu.system.manage-specialty', link: '/system/manage-specialty' }
+            { name: 'menu.system.manage-specialty', link: '/Specialty/manage-specialty' }
         ]
     },
 

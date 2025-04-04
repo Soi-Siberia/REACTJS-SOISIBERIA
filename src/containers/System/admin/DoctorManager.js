@@ -12,6 +12,7 @@ import 'react-markdown-editor-lite/lib/index.css';
 
 import Select from 'react-select';
 import { CRUD_ACTIONS }from "../../../utils/constant"
+import { isUndefined } from 'lodash';
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 /**--------------------------------------------------------- */
 
@@ -66,7 +67,7 @@ class DoctorManager extends Component {
 
         if(prevPops.detailtDoctor !== this.props.detailtDoctor)
             {
-                // console.log("detail doctor: ", this.props.detailtDoctor.data)
+                console.log("detail doctor: ", this.props.detailtDoctor.data)
                 // let {listPrice, listPayment, listProvince} = this.state
                 // if(this.props.detailtDoctor.data.markDown)
                 // {
@@ -107,16 +108,17 @@ class DoctorManager extends Component {
                 //     })
                 // }
 
-            const { listPrice, listPayment, listProvince } = this.state;
-            const detailData = this.props.detailtDoctor?.data;
-            const markDown = detailData?.markDown;
-            const doctorInfo = detailData?.doctor_infor;
-        
+            let { listPrice, listPayment, listProvince } = this.state;
+            let detailData = this.props.detailtDoctor?.data;
+            let markDown = Object.values(detailData.markDown).some(value => value !== null && value !== isUndefined)
+            let doctorInfo = detailData?.doctor_infor;
+            console.log("Giá trị markdown: ", detailData.markDown)
+            console.log("markDown: ", markDown)
             let newState = {
                 hasOldData: !markDown,
-                description: markDown?.description || "",
-                contentMarkdown: markDown?.contentMarkdown || "",
-                contentHTML: markDown?.contentHTML || "",
+                description: detailData?.markDown?.description || "",
+                contentMarkdown: detailData?.markDown?.contentMarkdown || "",
+                contentHTML: detailData?.markDown?.contentHTML || "",
                 selectPrice: listPrice.find(item => item.keyMap === doctorInfo?.priceId) || "",
                 selectPayment: listPayment.find(item => item.keyMap === doctorInfo?.paymentId) || "",
                 selectProvince: listProvince.find(item => item.keyMap === doctorInfo?.provinceId) || "",
@@ -148,7 +150,7 @@ class DoctorManager extends Component {
 
 
    handleEditorChange = ({ html, text }) => {
-    console.log('handleEditorChange', html, text)
+    // console.log('handleEditorChange', html, text)
     this.setState({
         contentHTML: html,
         contentMarkdown :text
@@ -157,7 +159,7 @@ class DoctorManager extends Component {
 
   handleChange = (selectedOption) => {
     // this.props.fetchMarkDownDoctorStart(selectedOption.value)
-
+    
     this.props.getDetailDoctorByIdStart(selectedOption.value)
     
     this.setState({ selectedOption })
@@ -262,7 +264,7 @@ class DoctorManager extends Component {
         let {hasOldData, doctors, listPrice, listPayment, listProvince, selectPrice,selectPayment,
             selectProvince , contentMarkdown, description, nameClinic, addressClinic, note} = this.state
 
-        // console.log("Giá trị contentHTML và contentMarkdown", contentHTML ,'+', contentMarkdown)
+        // console.log("Giá trị hasOldData", hasOldData)
         return (
             <div className='Manager-Doctor-Container container'>
 
@@ -387,7 +389,6 @@ const mapStateToProps = state => {
         roleTimeDoctor: state.admin.roleTimeDoctor,
         doctorInfor: state.admin.doctorInfor,
         markdownDoctor: state.admin.markdownDoctor,
-
         detailtDoctor: state.doctor.detailDoctor
     };
 };
