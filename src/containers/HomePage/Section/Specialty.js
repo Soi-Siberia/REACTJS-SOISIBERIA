@@ -8,12 +8,36 @@ import "./Section.scss";
 // Import css files
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import * as actions from "../../../store/actions";
 
 class Specialty extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      // state here
+      allSpecialty:[]
+    };
+  }
+
+  componentDidMount() {
+    this.props.getAllSpecialtyStart();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.allSpecialty !== this.props.allSpecialty) {
+      // Handle any changes to allSpecialty here if needed
+      this.setState({
+        allSpecialty: this.props.allSpecialty
+      })
+    }
+  }
 
   render() {
-    const settings = {
+
+    let { allSpecialty } = this.state;
+    console.log("allSpecialty", allSpecialty)
+    let settings = {
       focusOnSelect: true,
       infinite: true,
       slidesToShow: 3,
@@ -32,13 +56,23 @@ class Specialty extends Component {
         
         <div className="Specialty-Slider">
           <Slider {...settings}>
-            <div className="Spl-Slider-item">
-                <div className="spl-Slier-conten">
-                  <img src={specialtyImg} alt=""></img>
-                  <h3>Tim mạch 1</h3>
-                </div>
-            </div>
-            <div className="Spl-Slider-item">
+            {allSpecialty && allSpecialty.length > 0 &&
+              allSpecialty.map((item, index) => {
+                let imagebase64 = item.image
+                  ? new Buffer(item.image, "base64").toString("binary")
+                  : specialtyImg;
+
+                return (
+                  <div className="Spl-Slider-item" key={index}>
+                    <div className="spl-Slier-conten">
+                      <img src={imagebase64} alt=""></img>
+                      <h3>{item.name}</h3>
+                    </div>
+                  </div>
+                )
+              })
+            }
+            {/* <div className="Spl-Slider-item">
                 <div className="spl-Slier-conten">
                   <img src={specialtyImg} alt=""></img>
                   <h3>Tim mạch 2</h3>
@@ -67,7 +101,7 @@ class Specialty extends Component {
                   <img src={specialtyImg} alt=""></img>
                   <h3>Tim mạch 6</h3>
                 </div>
-            </div>
+            </div> */}
           </Slider>
         </div>
 
@@ -109,12 +143,15 @@ const SamplePrevArrow = (props) => {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
-    language: state.app.language
+    language: state.app.language,
+    allSpecialty: state.doctor.allSpecialty,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    getAllSpecialtyStart: () => dispatch(actions.getAllSpecialtyStart()),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Specialty);

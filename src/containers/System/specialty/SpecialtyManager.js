@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./SpecialtyManager.scss";
 
-// import * as actions from "../../../store/actions";
+import * as actions from "../../../store/actions";
 import {CommonUtils} from '../../../utils'
 
 
@@ -20,7 +20,7 @@ class SpecialtyManager extends Component {
     constructor(props){
         super(props);
         this.state = {
-            HTML:"",
+            contentHTML:"",
             markdown:"",
             name: "",
             mota: "",
@@ -38,7 +38,7 @@ class SpecialtyManager extends Component {
     handleEditorChange = ({ html, text }) => {
         console.log('handleEditorChange', html, text)
         this.setState({
-            HTML: html,
+            contentHTML: html,
             markdown :text
         })
     }
@@ -63,7 +63,14 @@ class SpecialtyManager extends Component {
     }
 
     handleSaveNewSpecialty = () => {
-        console.log("Check state: ", this.state)
+        // console.log("Check state: ", this.state)
+        this.props.createSpecialtyStart({
+            name: this.state.name,
+            mota: this.state.mota,
+            avatar: this.state.avatar,
+            markdown: this.state.markdown,
+            contentHTML: this.state.contentHTML
+        })
     }
 
     render() {
@@ -136,7 +143,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        createSpecialtyStart: (data) => dispatch(actions.createSpecialtyStart(data)),
     };
 };
 

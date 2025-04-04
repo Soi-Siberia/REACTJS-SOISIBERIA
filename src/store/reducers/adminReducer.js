@@ -159,6 +159,14 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state
             }
+        case actionTypes.CREATE_SPECIALTY_SUCCESS:
+            return {
+                ...state
+            }
+        case actionTypes.CREATE_SPECIALTY_FAILD:
+            return {
+                ...state
+            }
 
             default:
         return state;

@@ -52,7 +52,11 @@ const userService = {
     },
     verifyEmailBooking: (data) => {
         return axios.post('/api/verify-email-booking', data)
-    }
+    },
+
+    createSpecialty:(data) => {
+        return axios.post('/api/create-specialty',data)
+    },
 
 }
 

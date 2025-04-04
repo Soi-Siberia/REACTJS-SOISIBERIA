@@ -6,7 +6,8 @@ const initialState = {
     scheduleDoctor: [],
     TimeDoctors: [],
     extraInforDoctor: [],
-    profileDoctor: []
+    profileDoctor: [],
+    allSpecialty: [],
 
 }
 
@@ -68,6 +69,15 @@ const homePageReducer = (state = initialState, action) => {
                 ...state
             }
         case actionTypes.CREATE_BOOKING_PATTIENT_FAILD:
+            return{
+                ...state
+            }
+        case actionTypes.GET_ALL_SPECIALTY_SUCCESS:
+            return{
+                ...state,
+                allSpecialty: action.data
+            }
+        case actionTypes.GET_ALL_SPECIALTY_FAILD:
             return{
                 ...state
             }

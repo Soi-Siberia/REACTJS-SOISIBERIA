@@ -22,7 +22,11 @@ const homePageService = {
 
     getProfileDoctorByID: (id) => {
         return axios.get(`/api/get-profile-doctor-by-id?id=${id}`)
-    }
+    },
+
+    getAllSpecialty: () => {
+        return axios.get(`/api/get-all-specialty`)
+    },
 }       
 
 export default homePageService

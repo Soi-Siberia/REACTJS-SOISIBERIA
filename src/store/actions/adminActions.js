@@ -424,3 +424,36 @@ export const fetchMarkDownDoctorFaild = () => ({
     type: actionTypes.FETCH_MARKDOWN_DOCTOR_FAILD
 })
 
+//create specialty
+
+export const createSpecialtyStart = (data) =>{
+    return  async (dispatch, getState) =>{
+
+        try {
+
+            let res = await userService.createSpecialty(data)
+            if(res && res.errCode === 0)
+            {
+                // console.log("data succes position action creator: ", res.dataResult)
+                dispatch(createSpecialtySuccess())
+                toast.success(res.message)
+            }else{
+                dispatch(fetchPositionFaided())
+                toast.success(res.message)
+            }
+        } catch (e) {
+            dispatch(fetchPositionFaided())
+            console.log("fetchPositionFaided erro ",e)
+            toast.success("Đã có lỗi vui lòng liên hệ quản trị viên")
+        }
+
+    }
+}
+export const createSpecialtySuccess = () => ({
+    type: actionTypes.CREATE_SPECIALTY_SUCCESS,
+})
+
+export const createSpecialtyFaild = () => ({
+    type: actionTypes.CREATE_SPECIALTY_FAILD,
+})
+

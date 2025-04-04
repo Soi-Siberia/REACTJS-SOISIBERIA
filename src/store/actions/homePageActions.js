@@ -220,3 +220,30 @@ export const createBookingPattientSuccess = () =>({
 export const createBookingPattientFaild = () =>({
     type: actionTypes.CREATE_BOOKING_PATTIENT_FAILD,
 })
+
+
+export const getAllSpecialtyStart = () => {
+    return async (dispatch, getSate) =>{
+        try {
+            let result = await homePageService.getAllSpecialty()
+            if(result && result.errCode === 0)
+            {
+                // console.log("Data get all specialty: ", result)
+                dispatch(getAllSpecialtySuccess(result.data))
+            }else
+            {
+                dispatch(getAllSpecialtyFaild())
+            }
+            
+        } catch (e) {
+            console.log("getAllSpecialtyStart ERROR")
+        }
+    }
+}
+export const getAllSpecialtySuccess = (data) =>({
+    type: actionTypes.GET_ALL_SPECIALTY_SUCCESS,
+    data: data
+})
+export const getAllSpecialtyFaild = () =>({
+    type: actionTypes.GET_ALL_SPECIALTY_FAILD,
+})
