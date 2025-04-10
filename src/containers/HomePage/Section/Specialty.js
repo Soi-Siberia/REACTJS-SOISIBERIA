@@ -10,6 +10,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import * as actions from "../../../store/actions";
 
+import { withRouter } from "react-router-dom";  // 🟢 Thêm
+
 class Specialty extends Component {
 
   constructor(props) {
@@ -33,10 +35,15 @@ class Specialty extends Component {
     }
   }
 
+  clickDetailSpecialty = (item) => {
+    console.log("clickDetailSpecialty", item)
+    this.props.history.push(`/detail-specialty/${item.id}`); // 🟢 Thêm: dùng history từ props
+  }
+
   render() {
 
     let { allSpecialty } = this.state;
-    console.log("allSpecialty", allSpecialty)
+    // console.log("allSpecialty", allSpecialty)
     let settings = {
       focusOnSelect: true,
       infinite: true,
@@ -66,42 +73,12 @@ class Specialty extends Component {
                   <div className="Spl-Slider-item" key={index}>
                     <div className="spl-Slier-conten">
                       <img src={imagebase64} alt=""></img>
-                      <h3>{item.name}</h3>
+                      <h3 onClick={()=> this.clickDetailSpecialty(item)}>{item.name}</h3>
                     </div>
                   </div>
                 )
               })
             }
-            {/* <div className="Spl-Slider-item">
-                <div className="spl-Slier-conten">
-                  <img src={specialtyImg} alt=""></img>
-                  <h3>Tim mạch 2</h3>
-                </div>
-            </div>
-            <div className="Spl-Slider-item">
-                <div className="spl-Slier-conten">
-                  <img src={specialtyImg} alt=""></img>
-                  <h3>Tim mạch 3</h3>
-                </div>
-            </div>
-            <div className="Spl-Slider-item">
-                <div className="spl-Slier-conten">
-                  <img src={specialtyImg} alt=""></img>
-                  <h3>Tim mạch 4</h3>
-                </div>
-            </div>
-            <div className="Spl-Slider-item">
-                <div className="spl-Slier-conten">
-                  <img src={specialtyImg} alt=""></img>
-                  <h3>Tim mạch 5</h3>
-                </div>
-            </div>
-            <div className="Spl-Slider-item">
-                <div className="spl-Slier-conten">
-                  <img src={specialtyImg} alt=""></img>
-                  <h3>Tim mạch 6</h3>
-                </div>
-            </div> */}
           </Slider>
         </div>
 
@@ -154,4 +131,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Specialty)); // 🟢 Thêm

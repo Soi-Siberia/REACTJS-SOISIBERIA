@@ -8,6 +8,7 @@ const initialState = {
     extraInforDoctor: [],
     profileDoctor: [],
     allSpecialty: [],
+    specialty:"",
 
 }
 
@@ -78,6 +79,15 @@ const homePageReducer = (state = initialState, action) => {
                 allSpecialty: action.data
             }
         case actionTypes.GET_ALL_SPECIALTY_FAILD:
+            return{
+                ...state
+            }
+        case actionTypes.GET_SPECIALTY_BY_ID_SUCCESS:
+            return{
+                ...state,
+                specialty: action.data
+            }
+        case actionTypes.GET_SPECIALTY_BY_ID_FAILD:
             return{
                 ...state
             }

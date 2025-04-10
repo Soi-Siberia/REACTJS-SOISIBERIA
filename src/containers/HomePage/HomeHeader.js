@@ -25,7 +25,7 @@ class HomeHeader extends Component {
       // console.log("this props: ", this.props.language),
       <React.Fragment>
         <div className="Home-Header-Container">
-          <div className="Home-Header-Content">
+          <div className="Home-Header-Content container">
             <div className="Header-Content-Left">
               <i className="fa fa-bars fa-3x" aria-hidden="true"></i>
               <div className="Header-logo"></div>

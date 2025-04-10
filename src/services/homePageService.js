@@ -1,3 +1,4 @@
+
 import axios from '../axios';
 
 
@@ -27,6 +28,9 @@ const homePageService = {
     getAllSpecialty: () => {
         return axios.get(`/api/get-all-specialty`)
     },
+    getSpecialtyByID: (id) => {
+        return axios.get(`/api/get-specialty-by-id?id=${id}`)
+    }
 }       
 
 export default homePageService

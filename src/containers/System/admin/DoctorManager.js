@@ -13,9 +13,11 @@ import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
 import { CRUD_ACTIONS }from "../../../utils/constant"
 import { isUndefined } from 'lodash';
+
+import MutiSelect from '../../../components/Input/MutiSelect.js'
+
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 /**--------------------------------------------------------- */
-
 class DoctorManager extends Component {
 
    constructor (props) {
@@ -32,6 +34,7 @@ class DoctorManager extends Component {
         clinicId:'',
         doctors: [],
         hasOldData: true,
+        opSpecialty: "",
         /******************************/
 
 
@@ -45,12 +48,14 @@ class DoctorManager extends Component {
         nameClinic: "",
         addressClinic: "",
         note: "",
+        specialtySeclected: "",
 
     }}
 
   componentDidMount() {
         this.props.getAllDoctorRedux()
         this.props.fetchDoctorInforStart()
+        this.props.getAllSpecialtyStart()
         
    }
 
@@ -67,53 +72,13 @@ class DoctorManager extends Component {
 
         if(prevPops.detailtDoctor !== this.props.detailtDoctor)
             {
-                console.log("detail doctor: ", this.props.detailtDoctor.data)
-                // let {listPrice, listPayment, listProvince} = this.state
-                // if(this.props.detailtDoctor.data.markDown)
-                // {
-                    
-                //     let selectPrice = listPrice.find((item) => item.keyMap === this.props.detailtDoctor.data.doctor_infor.priceId )
-                //     let selectPayment = listPayment.find((item) => item.keyMap === this.props.detailtDoctor.data.doctor_infor.paymentId )
-                //     let selectProvince = listProvince.find((item) => item.keyMap === this.props.detailtDoctor.data.doctor_infor.provinceId )
-
-                //     this.setState({
-                //         hasOldData: false,
-                //         description: this.props.detailtDoctor.data.markDown.description,
-                //         contentMarkdown: this.props.detailtDoctor.data.markDown.contentMarkdown,
-                //         contentHTML:this.props.detailtDoctor.data.markDown.contentHTML,
-
-                //         selectPrice: selectPrice,
-                //         selectPayment: selectPayment,
-                //         selectProvince: selectProvince,
-                //         nameClinic:this.props.detailtDoctor.data.doctor_infor.nameClinic,
-                //         addressClinic:this.props.detailtDoctor.data.doctor_infor.addressClinic,
-                //         note:this.props.detailtDoctor.data.doctor_infor.note
-                //     })
-                // }
-                // if(!this.props.detailtDoctor.data.markDown)
-                // {
-                //     console.log("Doctor info không có thông tin", )
-                //     this.setState({
-                //         hasOldData: true,
-                //         description: "",
-                //         contentMarkdown: "",
-                //         contentHTML:"",
-                //         selectPrice: "",
-                //         selectPayment: "",
-                //         selectProvince: "",
-                //         nameClinic:"",
-                //         addressClinic:"",
-                //         note:""
-
-                //     })
-                // }
-
+                // console.log("detail doctor: ", this.props.detailtDoctor.data)
             let { listPrice, listPayment, listProvince } = this.state;
             let detailData = this.props.detailtDoctor?.data;
             let markDown = Object.values(detailData.markDown).some(value => value !== null && value !== isUndefined)
             let doctorInfo = detailData?.doctor_infor;
-            console.log("Giá trị markdown: ", detailData.markDown)
-            console.log("markDown: ", markDown)
+            // console.log("Giá trị markdown: ", detailData.markDown)
+            // console.log("markDown: ", markDown)
             let newState = {
                 hasOldData: !markDown,
                 description: detailData?.markDown?.description || "",
@@ -144,8 +109,15 @@ class DoctorManager extends Component {
             })
         }
 
-
-
+        if(prevPops.allSpecialty !== this.props.allSpecialty)
+        {
+            // console.log("all specialty: ", this.props.allSpecialty)
+            let options = this.builDataInputSelect(this.props.allSpecialty, 'Specialty')
+            // console.log("build data input select: ", options)
+            this.setState({
+                opSpecialty: options,
+            })
+        }
    }
 
 
@@ -158,7 +130,6 @@ class DoctorManager extends Component {
   }
 
   handleChange = (selectedOption) => {
-    // this.props.fetchMarkDownDoctorStart(selectedOption.value)
     
     this.props.getDetailDoctorByIdStart(selectedOption.value)
     
@@ -198,6 +169,13 @@ class DoctorManager extends Component {
             keyMap: item.keyMap,
         })) || [];
     }
+    if(type === 'Specialty')
+    {
+        return data?.map((item,index) => ({
+            id: item.id,
+            label: item.name,
+        })) || [];
+    }
 
   }
 
@@ -232,17 +210,27 @@ class DoctorManager extends Component {
         nameClinic: "",
         addressClinic: "",
         note:"",
+        specialtyDotor:""
     })
   }
 
-  SaveInforDoctor = () => {
+  handleSpecialtySelected = (selelectDataChillSentParent) => {
+    // console.log("Giá trị selelectDataChillSentParent: ", selelectDataChillSentParent)
+    let specialtySeclected = selelectDataChillSentParent.map(item => item.id)
+    // console.log("Giá trị specialtySeclected: ", specialtySeclected)
+    this.setState({
+        specialtySeclected: specialtySeclected
+    })
+  }
+
+  SaveInforDoctor = async() => {
     let {contentHTML, contentMarkdown, description, selectedOption, hasOldData,
-        selectPrice, selectPayment, selectProvince, nameClinic, addressClinic, note} = this.state
+        selectPrice, selectPayment, selectProvince, nameClinic, addressClinic, note, specialtySeclected } = this.state
     let actions = hasOldData === true ? CRUD_ACTIONS.CREATE : CRUD_ACTIONS.EDIT
 
     // console.log("Data save: ", contentHTML, contentMarkdown, " + actions: ", actions)
     
-    this.props.createMarkDownStartRedux({
+    await this.props.createMarkDownStartRedux({
         contentHTML :contentHTML,
         contentMarkdown :contentMarkdown,
         description:description,
@@ -254,6 +242,8 @@ class DoctorManager extends Component {
         nameClinic: nameClinic,
         addressClinic: addressClinic,
         note:note,
+        specialtyDotor: specialtySeclected,
+
     })
 
     this.handeSetState()
@@ -262,9 +252,9 @@ class DoctorManager extends Component {
 
     render() {
         let {hasOldData, doctors, listPrice, listPayment, listProvince, selectPrice,selectPayment,
-            selectProvince , contentMarkdown, description, nameClinic, addressClinic, note} = this.state
+            selectProvince , contentMarkdown, description, nameClinic, addressClinic, note, opSpecialty, specialtySeclected} = this.state
 
-        // console.log("Giá trị hasOldData", hasOldData)
+        console.log("Giá trị specialtySeclected", specialtySeclected)
         return (
             <div className='Manager-Doctor-Container container'>
 
@@ -281,13 +271,22 @@ class DoctorManager extends Component {
                             onChange={this.handleChange}
                             options={doctors}
                         />
+
+                        <label className='pb-2 fw-bold fs-4'>Chuyên khoa: </label>
+                        <MutiSelect
+                            placeholder = "Chọn chuyên khoa"
+                            options={opSpecialty}
+                            senData = {this.handleSpecialtySelected}
+                            // name = "specialtyId" 
+                            />
+
                     </div>
                     <div className='Doctor-info-right'>
                         <label className='pb-2 fw-bold fs-4'>Thông tin bác sĩ: </label>
                         <textarea
                             className='form-control'
                             value={description ?? ""}
-                            rows={4} 
+                            rows={5} 
                             placeholder='Mô tả bác sĩ...'
                             onChange={this.handleChangeTextarea}>
                             
@@ -389,7 +388,8 @@ const mapStateToProps = state => {
         roleTimeDoctor: state.admin.roleTimeDoctor,
         doctorInfor: state.admin.doctorInfor,
         markdownDoctor: state.admin.markdownDoctor,
-        detailtDoctor: state.doctor.detailDoctor
+        detailtDoctor: state.doctor.detailDoctor,
+        allSpecialty: state.doctor.allSpecialty,
     };
 };
 
@@ -398,9 +398,8 @@ const mapDispatchToProps = dispatch => {
         getAllDoctorRedux : () => dispatch(actions.getAllDoctorStart()),
         createMarkDownStartRedux: (data) => dispatch(actions.createMarkDownStart(data)),
         fetchDoctorInforStart: () => dispatch(actions.fetchDoctorInforStart()),
-        fetchMarkDownDoctorStart: (id) => dispatch(actions.fetchMarkDownDoctorStart(id)),
-
         getDetailDoctorByIdStart: (id) => dispatch(actions.getDetailDoctorByIdStart(id)),
+        getAllSpecialtyStart: () => dispatch(actions.getAllSpecialtyStart()),
     };
 };
 

@@ -11,6 +11,8 @@ export const path = {
     DOCTOR: '/doctor/',
     // //path router specialty
     MANAGE_SPECIALTY: '/specialty/',
+
+    Detail_Specialty: '/detail-specialty/:id',
 };
 
 export const languages = {

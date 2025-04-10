@@ -247,3 +247,34 @@ export const getAllSpecialtySuccess = (data) =>({
 export const getAllSpecialtyFaild = () =>({
     type: actionTypes.GET_ALL_SPECIALTY_FAILD,
 })
+
+export const createSpecialtyByIdStart = (id) =>{
+    return async (dispatch, getSate) =>{
+        try {
+            let result = await homePageService.getSpecialtyByID(id)
+            if(result && result.errCode === 0)
+            {
+                // console.log("Data create specialty: ", result)
+                dispatch(createSpecialtyByIdSuccess(result.data))
+                // toast.success(result.message)
+            }else
+            {
+                dispatch(createSpecialtyByIdFaild())
+                toast.error(result.message)
+            }
+            
+        } catch (e) {
+            console.log("createSpecialtyStart ERROR")
+            dispatch(createSpecialtyByIdFaild())
+        }
+    }
+}
+
+export const createSpecialtyByIdSuccess = (data) =>({
+    type: actionTypes.GET_SPECIALTY_BY_ID_SUCCESS,
+    data: data
+})
+
+export const createSpecialtyByIdFaild = () =>({
+    type: actionTypes.GET_SPECIALTY_BY_ID_FAILD,
+})
